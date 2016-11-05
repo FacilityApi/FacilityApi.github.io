@@ -17,12 +17,14 @@
       .right-container { flex: 3; height: 100%; overflow: hidden }
       .middle-container { flex: 1; height: 100%; display: flex; flex-direction: column; padding-left: 8px }
       .middle-space-above { margin-top: 8px }
-      .generator-picker { height: 30px; background: #444; color: #eee; margin-right: 8px }
+      .generator-picker { height: 30px; background-color: #222; color: #eee; margin-right: 8px }
+      .generator-picker:focus { outline: 0 }
       .file-list { overflow-y: auto; height: 100%; background-color: #222 }
       .file-button { width: 100%; background-color: #222; margin: 0; padding: 2px; border: none; text-align: left }
       .file-button:hover { background-color: #444 }
       .file-button:focus { outline: 0; padding: 1px; border: 1px solid #666 }
       .file-button-selected { background-color: #555 }
+      .file-button-selected:hover { background-color: #555 }
       ::-webkit-scrollbar { width: 14px }
       ::-webkit-scrollbar-track { background-color: #222 }
       ::-webkit-scrollbar-thumb { background-color: #444 }
@@ -41,60 +43,11 @@
         <div class="middle-container">
           <div>Generator:</div>
           <select class="generator-picker">
-            <option>C#</option>
-            <option>Markdown</option>
+            <option value="reflect">Reflect</option>
+            <option value="test">Test</option>
           </select>
           <div class="middle-space-above">Output:</div>
-          <div class="file-list">
-            <button class="file-button">File.md</button>
-            <button class="file-button file-button-selected">File.md</button>
-            <button class="file-button">File.md</button>
-            <button class="file-button">File.md</button>
-            <button class="file-button">File.md</button>
-            <button class="file-button">File.md</button>
-            <button class="file-button">File.md</button>
-            <button class="file-button">File.md</button>
-            <button class="file-button">File.md</button>
-            <button class="file-button">File.md</button>
-            <button class="file-button">File.md</button>
-            <button class="file-button">File.md</button>
-            <button class="file-button">File.md</button>
-            <button class="file-button">File.md</button>
-            <button class="file-button">File.md</button>
-            <button class="file-button">File.md</button>
-            <button class="file-button">File.md</button>
-            <button class="file-button">File.md</button>
-            <button class="file-button">File.md</button>
-            <button class="file-button">File.md</button>
-            <button class="file-button">File.md</button>
-            <button class="file-button">File.md</button>
-            <button class="file-button">File.md</button>
-            <button class="file-button">File.md</button>
-            <button class="file-button">File.md</button>
-            <button class="file-button">File.md</button>
-            <button class="file-button">File.md</button>
-            <button class="file-button">File.md</button>
-            <button class="file-button">File.md</button>
-            <button class="file-button">File.md</button>
-            <button class="file-button">File.md</button>
-            <button class="file-button">File.md</button>
-            <button class="file-button">File.md</button>
-            <button class="file-button">File.md</button>
-            <button class="file-button">File.md</button>
-            <button class="file-button">File.md</button>
-            <button class="file-button">File.md</button>
-            <button class="file-button">File.md</button>
-            <button class="file-button">File.md</button>
-            <button class="file-button">File.md</button>
-            <button class="file-button">File.md</button>
-            <button class="file-button">File.md</button>
-            <button class="file-button">File.md</button>
-            <button class="file-button">File.md</button>
-            <button class="file-button">File.md</button>
-            <button class="file-button">File.md</button>
-            <button class="file-button">File.md</button>
-            <button class="file-button">File.md</button>
-          </div>
+          <div class="file-list"></div>
         </div>
         <div class="right-container"></div>
       </div>
@@ -104,27 +57,123 @@
   <script>
     require.config({ paths: { 'vs': '../node_modules/monaco-editor/min/vs' }});
     require(['vs/editor/editor.main'], function() {
+      // get various HTML elements
+      var fileList = document.getElementsByClassName('file-list')[0];
+      var generatorPicker = document.getElementsByClassName('generator-picker')[0];
+
+      // create Monaco editors
       var leftMonaco = monaco.editor.create(document.getElementsByClassName('left-container')[0], {
-        value: [
-          'service ExampleApi',
-          '{',
-          '}',
-          ''
-          ].join('\n'),
+        value: 'service ExampleApi\n{\n\t\n}\n',
         theme: 'vs-dark'
       });
-      var rightMonaco = monaco.editor.create(document.getElementsByClassName('right-container')[0], {
+      var rightMonacoOptions = {
         readOnly: true,
-        theme: 'vs-dark'
-      });
-      var generate = function() {
-        rightMonaco.model.setValue('TODO: generate\n\n' + leftMonaco.model.getValue());
+        theme: 'vs-dark',
+        wrappingColumn: -1
+      };
+      var rightMonaco = monaco.editor.create(document.getElementsByClassName('right-container')[0], rightMonacoOptions);
+
+      // create function for setting output
+      var selectedButton;
+      var setSelectedButton = function(button) {
+        // update buttons
+        if (selectedButton) {
+          selectedButton.className = 'file-button';
+        }
+        selectedButton = button;
+        button.className = 'file-button file-button-selected';
+
+        // find language by extension
+        var file = button['data-file'];
+        var language = monaco.languages.getLanguages().find(function (lang) {
+          return lang.extensions.find(function (ext) {
+            return file.name.endsWith(ext);
+          });
+        });
+        var languageId = language && language.id;
+
+        // word wrap some languages
+        var wrappingColumn = languageId === 'markdown' ? 0 : -1;
+
+        // update output editor
+        rightMonaco.model.setValue('');
+        monaco.editor.setModelLanguage(rightMonaco.model, language && language.id);
+        rightMonacoOptions.wrappingColumn = wrappingColumn;
+        rightMonaco.updateOptions(rightMonacoOptions);
+        rightMonaco.model.setValue(file.text);
       }
+
+      // create function that generates output
+      var generating = false;
+      var generate = function() {
+        if (generating) {
+          generateSoon();
+        } else {
+          generating = true;
+          var request = {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              generator: {
+                name: generatorPicker.value
+              },
+              definition: {
+                name: 'api.fsd',
+                text: leftMonaco.model.getValue()
+              }
+            }),
+            cache: 'no-cache'
+          };
+          fetch('http://local.fsdgenapi.facility.io:45054/generate', request)
+            .then(function(response) {
+              if (response.status === 200) {
+                return response.json();
+              } else {
+                throw TypeError(response.status + ' ' + response.statusText);
+              }
+            })
+            .then(function(json) {
+              fileList.innerHTML = '';
+              if (json.output.length) {
+                var firstButton;
+                json.output.forEach(function(file) {
+                  var button = document.createElement("button");
+                  button.className = 'file-button';
+                  button.appendChild(document.createTextNode(file.name));
+                  button.onclick = function() {
+                    setSelectedButton(button);
+                  };
+                  button['data-file'] = file;
+                  fileList.appendChild(button);
+                  firstButton = firstButton || button;
+                });
+                if (firstButton) {
+                  setSelectedButton(firstButton);
+                }
+              }
+              generating = false;
+            })
+            .catch(function(error) {
+              rightMonaco.model.setValue('Error: ' + error.message);
+              generating = false;
+            });
+        }
+      }
+      var generateTimeout = undefined;
+      var generateSoon = function() {
+        window.clearTimeout(generateTimeout);
+        generateTimeout = window.setTimeout(generate, 500);
+      }
+      generatorPicker.onchange = generate;
       window.onresize = function() {
         leftMonaco.layout();
         rightMonaco.layout();
       }
-      leftMonaco.model.onDidChangeContent(generate);
+      leftMonaco.model.onDidChangeContent(generateSoon);
+      leftMonaco.setSelection(new monaco.Range(3, 2, 3, 2));
+      leftMonaco.focus();
       generate();
     });
   </script>
