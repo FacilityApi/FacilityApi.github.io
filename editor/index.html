@@ -13,8 +13,8 @@
       .top-container { display: flex }
       .title { padding: 4px; font-size: 12pt }
       .bottom-container { height: 100%; display: flex }
-      .left-container { flex: 3; height: 100% }
-      .right-container { flex: 3; height: 100% }
+      .left-container { flex: 3; height: 100%; overflow: hidden }
+      .right-container { flex: 3; height: 100%; overflow: hidden }
       .middle-container { flex: 1; height: 100%; display: flex; flex-direction: column; padding-left: 8px }
       .middle-space-above { margin-top: 8px }
       .generator-picker { height: 30px; background: #444; color: #eee; margin-right: 8px }
@@ -111,16 +111,20 @@
           '}',
           ''
           ].join('\n'),
-          theme: 'vs-dark'
-      }).model;
+        theme: 'vs-dark'
+      });
       var rightMonaco = monaco.editor.create(document.getElementsByClassName('right-container')[0], {
         readOnly: true,
         theme: 'vs-dark'
-      }).model;
+      });
       var generate = function() {
-        rightMonaco.setValue('TODO: generate\n\n' + leftMonaco.getValue());
+        rightMonaco.model.setValue('TODO: generate\n\n' + leftMonaco.model.getValue());
       }
-      leftMonaco.onDidChangeContent(generate);
+      window.onresize = function() {
+        leftMonaco.layout();
+        rightMonaco.layout();
+      }
+      leftMonaco.model.onDidChangeContent(generate);
       generate();
     });
   </script>
