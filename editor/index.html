@@ -43,8 +43,7 @@
         <div class="middle-container">
           <div>Generator:</div>
           <select class="generator-picker">
-            <option value="reflect">Reflect</option>
-            <option value="test">Test</option>
+            <option value="fsd">FSD</option>
           </select>
           <div class="middle-space-above">Output:</div>
           <div class="file-list"></div>
@@ -74,18 +73,8 @@
       var rightMonaco = monaco.editor.create(document.getElementsByClassName('right-container')[0], rightMonacoOptions);
 
       // create function for setting output
-      var selectedButton;
-      var setSelectedButton = function(button) {
-        // update buttons
-        if (selectedButton) {
-          selectedButton.className = 'file-button';
-        }
-        selectedButton = button;
-        button.className = 'file-button file-button-selected';
-
-        // find language by extension
-        var file = button['data-file'];
-        var language = monaco.languages.getLanguages().find(function (lang) {
+      var setOutputFile = function(file) {
+        var language = file.name && monaco.languages.getLanguages().find(function (lang) {
           return lang.extensions.find(function (ext) {
             return file.name.endsWith(ext);
           });
@@ -101,6 +90,20 @@
         rightMonacoOptions.wrappingColumn = wrappingColumn;
         rightMonaco.updateOptions(rightMonacoOptions);
         rightMonaco.model.setValue(file.text);
+      }
+
+      // create function for selecting button
+      var selectedButton;
+      var setSelectedButton = function(button) {
+        // update buttons
+        if (selectedButton) {
+          selectedButton.className = 'file-button';
+        }
+        selectedButton = button;
+        button.className = 'file-button file-button-selected';
+
+        // find language by extension
+        setOutputFile(button['data-file']);
       }
 
       // create function that generates output
@@ -136,7 +139,7 @@
             })
             .then(function(json) {
               fileList.innerHTML = '';
-              if (json.output.length) {
+              if (json.output && json.output.length) {
                 var firstButton;
                 json.output.forEach(function(file) {
                   var button = document.createElement("button");
@@ -152,10 +155,19 @@
                 if (firstButton) {
                   setSelectedButton(firstButton);
                 }
+              } else if (json.parseError) {
+                setOutputFile({
+                  text: '(' + json.parseError.line + ',' + json.parseError.column + '): ' + json.parseError.message,
+                  name: 'error.md'
+                });
               }
               generating = false;
             })
             .catch(function(error) {
+              setOutputFile({
+                text: 'Error: ' + error.message,
+                name: 'error.md'
+              });
               rightMonaco.model.setValue('Error: ' + error.message);
               generating = false;
             });
