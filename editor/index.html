@@ -11,10 +11,13 @@
       body { overflow: hidden; font-family: 'Roboto', sans-serif; background-color: #444; color: #eee }
       .main-container { display: flex; position: absolute; top: 0; right: 0; bottom: 0; left: 0; flex-direction: column }
       .top-container { display: flex }
-      .title { padding: 4px; font-size: 12pt }
       .bottom-container { height: 100%; display: flex }
-      .left-container { flex: 3; height: 100%; overflow: hidden }
-      .right-container { flex: 3; height: 100%; overflow: hidden }
+      .left-container { flex: 3; height: 100%; flex-direction: column }
+      .left-top-container { display: flex }
+      .left-bottom-container { height: 100%; display: flex; overflow: hidden }
+      .right-container { flex: 3; height: 100%; flex-direction: column }
+      .right-top-container { display: flex }
+      .right-bottom-container { height: 100%; display: flex; overflow: hidden }
       .middle-container { flex: 1; height: 100%; display: flex; flex-direction: column; padding-left: 8px }
       .middle-space-above { margin-top: 8px }
       .generator-picker { height: 30px; background-color: #222; color: #eee; margin-right: 8px }
@@ -33,11 +36,12 @@
   </head>
   <body>
     <div class="main-container">
-      <div class="top-container">
-        <div class="title">Facility Editor</div>
-      </div>
+      <div class="top-container"></div>
       <div class="bottom-container">
-        <div class="left-container"></div>
+        <div class="right-container">
+          <div class="left-top-container">Facility Service Definition</div>
+          <div class="left-bottom-container"></div>
+        </div>
         <div class="middle-container">
           <div>Generator:</div>
           <select class="generator-picker">
@@ -50,7 +54,10 @@
             </select>
           </div>
         </div>
-        <div class="right-container"></div>
+        <div class="right-container">
+          <div class="right-top-container">&nbsp;</div>
+          <div class="right-bottom-container"></div>
+        </div>
       </div>
     </div>
   </body>
@@ -61,9 +68,10 @@
       // get various HTML elements
       var fileList = document.getElementsByClassName('file-list')[0];
       var generatorPicker = document.getElementsByClassName('generator-picker')[0];
+      var outputHeader = document.getElementsByClassName('right-top-container')[0];
 
       // create Monaco editors
-      var leftMonaco = monaco.editor.create(document.getElementsByClassName('left-container')[0], {
+      var leftMonaco = monaco.editor.create(document.getElementsByClassName('left-bottom-container')[0], {
         value: 'service ExampleApi\n{\n\tmethod test {}: {}\n}\n',
         theme: 'vs-dark'
       });
@@ -72,7 +80,7 @@
         theme: 'vs-dark',
         wrappingColumn: -1
       };
-      var rightMonaco = monaco.editor.create(document.getElementsByClassName('right-container')[0], rightMonacoOptions);
+      var rightMonaco = monaco.editor.create(document.getElementsByClassName('right-bottom-container')[0], rightMonacoOptions);
 
       // create function for setting output
       var setOutputFile = function(file) {
@@ -92,6 +100,10 @@
         rightMonacoOptions.wrappingColumn = wrappingColumn;
         rightMonaco.updateOptions(rightMonacoOptions);
         rightMonaco.model.setValue(file && file.text || '');
+
+        // update file name
+        outputHeader.removeChild(outputHeader.firstChild);
+        outputHeader.appendChild(document.createTextNode(file.name || '\u00a0'));
       };
 
       // set output as selection changes
