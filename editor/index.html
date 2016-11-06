@@ -72,7 +72,7 @@
 
       // create Monaco editors
       var leftMonacoOptions = {
-        value: '',
+        value: localStorage.fsdText || '',
         theme: 'vs-dark'
       };
       var leftMonaco = monaco.editor.create(document.getElementsByClassName('left-bottom-container')[0], leftMonacoOptions);
@@ -108,7 +108,7 @@
 
         // update file name
         outputHeader.removeChild(outputHeader.firstChild);
-        outputHeader.appendChild(document.createTextNode(file.name || '\u00a0'));
+        outputHeader.appendChild(document.createTextNode(file && file.name || '\u00a0'));
       };
 
       // set output as selection changes
@@ -213,6 +213,8 @@
                   text: '(' + json.parseError.line + ',' + json.parseError.column + '): ' + json.parseError.message,
                   name: 'error.md'
                 });
+              } else {
+                setOutputFile();
               }
               generating = false;
             })
@@ -234,7 +236,10 @@
         window.clearTimeout(generateTimeout);
         generateTimeout = window.setTimeout(generate, 500);
       }
-      leftMonaco.model.onDidChangeContent(generateSoon);
+      leftMonaco.model.onDidChangeContent(function() {
+        localStorage.fsdText = leftMonaco.model.getValue();
+        generateSoon();
+      });
 
       // start with example
       if (!leftMonaco.model.getValue()) {
