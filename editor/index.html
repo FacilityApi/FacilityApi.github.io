@@ -9,20 +9,18 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <style>
       body { overflow: hidden; font-family: 'Roboto', sans-serif; background-color: #444; color: #eee }
-      .main-container { display: flex; position: absolute; top: 0; right: 0; bottom: 0; left: 0; flex-direction: column }
-      .top-container { display: flex }
-      .bottom-container { height: 100%; display: flex }
-      .left-container { flex: 3; height: 100%; flex-direction: column }
-      .left-top-container { display: flex }
-      .left-bottom-container { height: 100%; display: flex; overflow: hidden }
-      .right-container { flex: 3; height: 100%; flex-direction: column }
-      .right-top-container { display: flex }
-      .right-bottom-container { height: 100%; display: flex; overflow: hidden }
-      .middle-container { flex: 1; height: 100%; display: flex; flex-direction: column; padding-left: 8px }
+      .main-container { display: flex; position: absolute; top: 0; right: 0; bottom: 0; left: 0 }
+      .left-container { flex: 3; display: flex; flex-direction: column }
+      .left-top-container { flex: 0 }
+      .left-bottom-container { flex: 1; overflow: hidden }
+      .right-container { flex: 3; display: flex; flex-direction: column }
+      .right-top-container { flex: 0 }
+      .right-bottom-container { flex: 1; overflow: hidden }
+      .middle-container { flex: 1; display: flex; flex-direction: column; padding-left: 8px }
       .middle-space-above { margin-top: 8px }
       .generator-picker { height: 30px; background-color: #222; color: #eee; margin-right: 8px }
       .generator-picker:focus { outline: 0 }
-      .file-list-container { height: 100%; background-color: #222; position: relative }
+      .file-list-container { flex: 1; background-color: #222; position: relative }
       .file-list { top: 0; bottom: 0; width: 100%; position: absolute; height: inherit; background-color: #222; color: #eee; overflow-y: auto; border: none }
       .file-list option { background-color: #222; color: #eee }
       .file-list option:hover { background-color: #555 }
@@ -36,28 +34,25 @@
   </head>
   <body>
     <div class="main-container">
-      <div class="top-container"></div>
-      <div class="bottom-container">
-        <div class="right-container">
-          <div class="left-top-container">Facility Service Definition</div>
-          <div class="left-bottom-container"></div>
-        </div>
-        <div class="middle-container">
-          <div>Generator:</div>
-          <select class="generator-picker">
-            <option value="csharp" selected>C#</option>
-            <option value="fsd">FSD</option>
+      <div class="left-container">
+        <div class="left-top-container">Facility Service Definition</div>
+        <div class="left-bottom-container"></div>
+      </div>
+      <div class="middle-container">
+        <div>Generator:</div>
+        <select class="generator-picker">
+          <option value="csharp" selected>C#</option>
+          <option value="fsd">FSD</option>
+        </select>
+        <div class="middle-space-above">Output:</div>
+        <div class="file-list-container">
+          <select class="file-list" size="2">
           </select>
-          <div class="middle-space-above">Output:</div>
-          <div class="file-list-container">
-            <select class="file-list" size="2">
-            </select>
-          </div>
         </div>
-        <div class="right-container">
-          <div class="right-top-container">&nbsp;</div>
-          <div class="right-bottom-container"></div>
-        </div>
+      </div>
+      <div class="right-container">
+        <div class="right-top-container">&nbsp;</div>
+        <div class="right-bottom-container"></div>
       </div>
     </div>
   </body>
