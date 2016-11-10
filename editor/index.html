@@ -70,10 +70,109 @@
       var generatorPicker = document.getElementsByClassName('generator-picker')[0];
       var outputHeader = document.getElementsByClassName('right-top-container')[0];
 
+      // register FSD language
+      monaco.languages.register({
+        id: 'fsd',
+        extensions: [ '.fsd' ],
+        aliases: [ 'fsd' ]
+      });
+      monaco.languages.setMonarchTokensProvider('fsd', {
+        defaultToken: 'invalid',
+
+        typeKeywords: [
+          'string', 'boolean', 'double', 'int32', 'int64', 'bytes', 'object', 'error', 'result', 'map'
+        ],
+
+        tokenizer: {
+          root: [
+            { include: '@whitespace' },
+            { include: '@attribute' },
+            [/service\b/, 'keyword'],
+            [/[a-zA-Z][a-zA-Z0-9]*/, 'type.identifier'],
+            [/{/, 'delimiter.curly', '@service'],
+            [/^(?=#)/, 'markdown', '@markdown']
+          ],
+
+          service: [
+            { include: '@whitespace' },
+            { include: '@attribute' },
+            [/(method|data|errors|enum)\b/, 'keyword'],
+            [/:/, 'delimiter' ],
+            [/[a-zA-Z][a-zA-Z0-9]*/, 'type.identifier'],
+            [/{/, 'delimiter.curly', '@member'],
+            [/}/, 'delimiter.curly', '@pop']
+          ],
+
+          member: [
+            { include: '@whitespace' },
+            { include: '@attribute' },
+            [/,/, 'delimiter' ],
+            [/[a-zA-Z][a-zA-Z0-9]*/, ''],
+            [/:/, 'delimiter', '@typeName'],
+            [/}/, 'delimiter.curly', '@pop']
+          ],
+
+          typeName: [
+            { include: '@whitespace' },
+            [/[a-zA-Z][a-zA-Z0-9]*/, { cases: { '@typeKeywords': 'keyword', '@default': 'type.identifier' } }],
+            [/[\[\]<>]/, '@brackets'],
+            [/;/, 'delimiter', '@pop' ]
+          ],
+
+          whitespace: [
+              [/[ \t\r\n]+/, 'white'],
+              [/\/\/.*$/, 'comment']
+          ],
+
+          attribute: [
+            [/\[/, 'delimiter', '@attrName']
+          ],
+
+          attrName: [
+            { include: '@whitespace' },
+            [/[a-zA-Z0-9\.\+\_\-]+/, 'annotation'],
+            [/[\(\),]/, 'delimiter'],
+            [/:/, 'delimiter', '@attrValue'],
+            [/\]/, 'delimiter', '@pop']
+          ],
+
+          attrValue: [
+            { include: '@whitespace' },
+            [/[a-zA-Z0-9\.\+\_\-]+/, 'string'],
+            [/"([^"\\]|\\.)*$/, 'string.invalid' ],
+            [/"/, { token: 'string.quote', bracket: '@open', next: '@string' } ],
+            [/[,\)]/, 'delimiter', '@pop']
+          ],
+
+          string: [
+            [/[^\\"]+/, 'string'],
+            [/\\(?:[bfnrt\\"']|u[0-9A-Fa-f]{4})/, 'string.escape'],
+            [/\\./, 'string.escape.invalid'],
+            [/"/, { token: 'string.quote', bracket: '@close', next: '@pop' } ]
+          ],
+
+          markdown: [
+            [/^\s*##+.*/, 'strong'],
+            [/^\s*#.*/, 'strong type.identifier'],
+            [/^\s*([\*\-+:]|\d\.)/, 'string.list'],
+            [/^\s*>+/, 'string.quote' ],
+            [/\b__([^\\_]|_(?!_))+__\b/, 'strong'],
+            [/\*\*([^\\*]|\*(?!\*))+\*\*/, 'strong'],
+            [/\b_[^_]+_\b/, 'emphasis'],
+            [/\*[^\\*]+\*/, 'emphasis'],
+            [/(!?\[)((?:[^\]\\])+)(\]\([^\)]+\))/, ['string.link', '', 'string.link' ]],
+            [/(!?\[)((?:[^\]\\])+)(\])/, 'string.link'],
+            [/[^*_`([!]+/, '' ],
+            [/[\*_`([!]/, '' ]
+          ]
+        }
+      });
+
       // create Monaco editors
       var leftMonacoOptions = {
         value: localStorage.fsdText || '',
-        theme: 'vs-dark'
+        theme: 'vs-dark',
+        language: 'fsd'
       };
       var leftMonaco = monaco.editor.create(document.getElementsByClassName('left-bottom-container')[0], leftMonacoOptions);
       var rightMonacoOptions = {
@@ -90,6 +189,7 @@
       // create function for setting output
       var setOutputFile = function(file) {
         var language = file && file.name && monaco.languages.getLanguages().find(function (lang) {
+          console.log(lang);
           return lang.extensions.find(function (ext) {
             return file.name.endsWith(ext);
           });
