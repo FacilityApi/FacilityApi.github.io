@@ -182,6 +182,7 @@
       }
 
       // create function for setting output
+      var lastFileName = {};
       var setOutputFile = function(file) {
         var language = file && file.name && monaco.languages.getLanguages().find(function (lang) {
           console.log(lang);
@@ -204,6 +205,11 @@
         // update file name
         outputHeader.removeChild(outputHeader.firstChild);
         outputHeader.appendChild(document.createTextNode(file && file.name || '\u00a0'));
+
+        // remember last file name to maintain selection
+        if (file && file.name) {
+          lastFileName[generatorPicker.value] = file.name;
+        }
       };
 
       // set output as selection changes
@@ -274,7 +280,7 @@
                     }
                   }
                 });
-                var first = true;
+                var selected = false;
                 var optgroup = null;
                 json.output.forEach(function(file) {
                   var path = file.name.split('/');
@@ -291,9 +297,9 @@
 
                   var option = document.createElement("option");
                   option.label = name;
-                  if (first) {
+                  if (!selected && lastFileName[generatorPicker.value] === name) {
                     option.selected = true;
-                    first = false;
+                    selected = true;
                   }
                   option['data-file'] = file;
                   if (optgroup) {
@@ -302,11 +308,13 @@
                     fileList.appendChild(option);
                   }
                 });
+                if (!selected) {
+                  fileList.selectedIndex = 0;
+                }
                 setOutputToSelection();
               } else if (json.parseError) {
                 setOutputFile({
-                  text: '(' + json.parseError.line + ',' + json.parseError.column + '): ' + json.parseError.message,
-                  name: 'error.md'
+                  text: '(' + json.parseError.line + ',' + json.parseError.column + '): ' + json.parseError.message
                 });
               } else {
                 setOutputFile();
