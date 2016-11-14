@@ -44,6 +44,7 @@
           <option value="csharp" selected>C#</option>
           <option value="javascript" selected>JavaScript</option>
           <option value="typescript" selected>TypeScript</option>
+          <option value="markdown" selected>Markdown</option>
           <option value="fsd">FSD</option>
         </select>
         <div class="middle-space-above">Output:</div>
@@ -244,7 +245,8 @@
             }),
             cache: 'no-cache'
           };
-          fetch('https://fsdgen.calexanderdev.com/generate', request)
+          var generateUrl = window.location.href.startsWith('http://local') ? 'http://localhost:45054/generate' : 'https://fsdgen.calexanderdev.com/generate';
+          fetch(generateUrl, request)
             .then(function(response) {
               if (response.status === 200) {
                 return response.json();
