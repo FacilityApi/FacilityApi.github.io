@@ -330,8 +330,7 @@
             })
             .catch(function(error) {
               setOutputFile({
-                text: 'Error: ' + error.message,
-                name: 'error.md'
+                text: 'Error: ' + error.message
               });
               rightMonaco.model.setValue('Error: ' + error.message);
               generating = false;
