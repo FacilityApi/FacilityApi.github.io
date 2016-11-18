@@ -125,7 +125,6 @@ require(['vs/editor/editor.main'], function() {
   var lastFileName = {};
   var setOutputFile = function(file) {
     var language = file && file.name && monaco.languages.getLanguages().find(function (lang) {
-      console.log(lang);
       return lang.extensions.find(function (ext) {
         return file.name.endsWith(ext);
       });
