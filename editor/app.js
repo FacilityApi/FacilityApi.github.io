@@ -1,5 +1,4 @@
-require.config({ paths: { 'vs': '../node_modules/monaco-editor/min/vs' }});
-require(['vs/editor/editor.main'], function() {
+define(['vs/editor/editor.main'], function(_) {
   // get various HTML elements
   var fileList = document.getElementsByClassName('file-list')[0];
   var generatorPicker = document.getElementsByClassName('generator-picker')[0];
