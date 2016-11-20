@@ -8,7 +8,7 @@ body { overflow: hidden; font-family: 'Roboto', sans-serif; background-color: #4
 .right-bottom-container { flex: 1 }
 .middle-container { flex: 1; display: flex; flex-direction: column; padding: 0 8px }
 .middle-space-above { margin-top: 8px }
-.generator-picker { background-color: #222; color: #eee; border: none; overflow-y: auto }
+.generator-picker { width: 100%; background-color: #222; color: #eee; border: none; overflow-y: auto }
 .generator-picker:focus { outline: 0 }
 .generator-picker option { background-color: #222; color: #eee }
 .generator-picker option:hover { background-color: #555 }
