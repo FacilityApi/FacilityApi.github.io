@@ -1,7 +1,7 @@
 import run from './index';
 
-if (window['monaco']) {
+if ((window as any)['monaco']) {
 	run();
 } else {
-	window['onMonacoReady'] = run;
+	(window as any)['onMonacoReady'] = run;
 }

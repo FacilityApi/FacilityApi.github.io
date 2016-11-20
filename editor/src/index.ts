@@ -1,6 +1,11 @@
 /// <reference path="../node_modules/monaco-editor/monaco" />
 import * as _ from 'lodash';
 
+interface IFile {
+	name?: string;
+	text: string;
+}
+
 export default function() {
 	// get various HTML elements
 	var fileList = document.getElementsByClassName('file-list')[0] as HTMLSelectElement;
@@ -120,8 +125,8 @@ export default function() {
 	}
 
 	// create function for setting output
-	var lastFileName = {};
-	var setOutputFile = function(file) {
+	var lastFileName: { [generator: string]: string } = {};
+	var setOutputFile = function(file: IFile) {
 		var language = file && file.name && _.find(monaco.languages.getLanguages(), function (lang) {
 			return _.find(lang.extensions, function (ext) {
 				return file.name.endsWith(ext);
@@ -152,7 +157,7 @@ export default function() {
 	// set output as selection changes
 	var setOutputToSelection = function() {
 		var option = fileList.options[fileList.selectedIndex];
-		setOutputFile(option && option['data-file']);
+		setOutputFile(option && (option as any)['data-file']);
 	};
 	fileList.onchange = setOutputToSelection;
 
@@ -193,7 +198,7 @@ export default function() {
 						fileList.removeChild(fileList.firstChild);
 					}
 					if (json.output && json.output.length) {
-						json.output.sort(function(a, b) {
+						json.output.sort(function(a: IFile, b: IFile) {
 							var aParts = a.name.split('/');
 							var bParts = b.name.split('/');
 							for (var index = 0; ; index++) {
@@ -219,8 +224,8 @@ export default function() {
 							}
 						});
 						var selected = false;
-						var optgroup = null;
-						json.output.forEach(function(file) {
+						var optgroup: HTMLOptGroupElement = null;
+						json.output.forEach(function(file: IFile) {
 							var path = file.name.split('/');
 							var name = path.pop();
 
@@ -239,7 +244,7 @@ export default function() {
 								option.selected = true;
 								selected = true;
 							}
-							option['data-file'] = file;
+							(option as any)['data-file'] = file;
 							if (optgroup) {
 								optgroup.appendChild(option);
 							} else {
@@ -271,7 +276,7 @@ export default function() {
 	generatorPicker.onchange = generate;
 
 	// create function that generates output soon
-	var generateTimeout = undefined;
+	var generateTimeout: number;
 	var generateSoon = function() {
 		window.clearTimeout(generateTimeout);
 		generateTimeout = window.setTimeout(generate, 500);
