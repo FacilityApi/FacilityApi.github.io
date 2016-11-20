@@ -1,4 +1,4 @@
-define(['vs/editor/editor.main'], function(_) {
+module.exports = function() {
   // get various HTML elements
   var fileList = document.getElementsByClassName('file-list')[0];
   var generatorPicker = document.getElementsByClassName('generator-picker')[0];
@@ -611,4 +611,4 @@ Additional enum remarks.
 
   leftMonaco.focus();
   generate();
-});
+}

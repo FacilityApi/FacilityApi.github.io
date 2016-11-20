@@ -35,10 +35,14 @@
         <div class="right-bottom-container"></div>
       </div>
     </div>
+    <script src='vs/loader.js'></script>
+    <script>
+      require(['vs/editor/editor.main'], function() {
+        if (window.onMonacoReady) {
+          window.onMonacoReady();
+        }
+      });
+    </script>
+    <script src='bundle.js' type='text/javascript'></script>
   </body>
-  <script src="../node_modules/monaco-editor/min/vs/loader.js"></script>
-  <script>
-    require.config({ paths: { 'vs': '../node_modules/monaco-editor/min/vs' }});
-    require(['app'], function() {});
-  </script>
 </html>
