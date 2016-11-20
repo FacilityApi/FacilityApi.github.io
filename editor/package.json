@@ -5,6 +5,7 @@
   },
   "devDependencies": {
     "copy-webpack-plugin": "^4.0.1",
+    "raw-loader": "^0.5.1",
     "ts-loader": "^1.2.2",
     "typescript": "^2.0.10",
     "webpack": "^1.13.3"
