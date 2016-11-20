@@ -119,16 +119,16 @@ export default function() {
 		wrappingColumn: -1
 	};
 	const rightMonaco = monaco.editor.create(document.getElementsByClassName('right-bottom-container')[0] as HTMLElement, rightMonacoOptions);
-	window.onresize = function() {
+	window.onresize = () => {
 		leftMonaco.layout();
 		rightMonaco.layout();
 	}
 
 	// create function for setting output
 	const lastFileName: { [generator: string]: string } = {};
-	const setOutputFile = function(file: IFile) {
-		const language = file && file.name && _.find(monaco.languages.getLanguages(), function (lang) {
-			return _.find(lang.extensions, function (ext) {
+	const setOutputFile = (file: IFile) => {
+		const language = file && file.name && _.find(monaco.languages.getLanguages(), lang => {
+			return _.find(lang.extensions, ext => {
 				return _.endsWith(file.name, ext);
 			});
 		});
@@ -155,7 +155,7 @@ export default function() {
 	};
 
 	// set output as selection changes
-	const setOutputToSelection = function() {
+	const setOutputToSelection = () => {
 		const option = fileList.options[fileList.selectedIndex];
 		setOutputFile(option && (option as any)['data-file']);
 	};
@@ -163,7 +163,7 @@ export default function() {
 
 	// create function that generates output
 	let generating = false;
-	const generate = function() {
+	const generate = () => {
 		if (generating) {
 			generateSoon();
 		} else {
@@ -186,19 +186,19 @@ export default function() {
 			};
 			const generateUrl = _.startsWith(window.location.href, 'http://local') ? 'http://localhost:45054/generate' : 'https://fsdgen.calexanderdev.com/generate';
 			fetch(generateUrl, request)
-				.then(function(response) {
+				.then(response => {
 					if (response.status === 200) {
 						return response.json();
 					} else {
 						throw TypeError(response.status + ' ' + response.statusText);
 					}
 				})
-				.then(function(json) {
+				.then(json => {
 					while (fileList.firstChild) {
 						fileList.removeChild(fileList.firstChild);
 					}
 					if (json.output && json.output.length) {
-						json.output.sort(function(a: IFile, b: IFile) {
+						json.output.sort((a: IFile, b: IFile) => {
 							const aParts = a.name.split('/');
 							const bParts = b.name.split('/');
 							for (let index = 0; ; index++) {
@@ -225,7 +225,7 @@ export default function() {
 						});
 						let selected = false;
 						let optgroup: HTMLOptGroupElement = null;
-						json.output.forEach(function(file: IFile) {
+						json.output.forEach((file: IFile) => {
 							const path = file.name.split('/');
 							const name = path.pop();
 
@@ -264,7 +264,7 @@ export default function() {
 					}
 					generating = false;
 				})
-				.catch(function(error) {
+				.catch(error => {
 					setOutputFile({
 						text: 'Error: ' + error.message
 					});
@@ -277,11 +277,11 @@ export default function() {
 
 	// create function that generates output soon
 	let generateTimeout: number;
-	const generateSoon = function() {
+	const generateSoon = () => {
 		window.clearTimeout(generateTimeout);
 		generateTimeout = window.setTimeout(generate, 500);
 	}
-	leftMonaco.getModel().onDidChangeContent(function() {
+	leftMonaco.getModel().onDidChangeContent(() => {
 		localStorage['fsdText'] = leftMonaco.getModel().getValue();
 		generateSoon();
 	});
