@@ -8,9 +8,9 @@ interface IFile {
 
 export default function() {
 	// get various HTML elements
-	var fileList = document.getElementsByClassName('file-list')[0] as HTMLSelectElement;
-	var generatorPicker = document.getElementsByClassName('generator-picker')[0] as HTMLSelectElement;
-	var outputHeader = document.getElementsByClassName('right-top-container')[0];
+	const fileList = document.getElementsByClassName('file-list')[0] as HTMLSelectElement;
+	const generatorPicker = document.getElementsByClassName('generator-picker')[0] as HTMLSelectElement;
+	const outputHeader = document.getElementsByClassName('right-top-container')[0];
 
 	// register FSD language
 	monaco.languages.register({
@@ -107,35 +107,35 @@ export default function() {
 	});
 
 	// create Monaco editors
-	var leftMonacoOptions = {
+	const leftMonacoOptions = {
 		value: localStorage['fsdText'] || '',
 		theme: 'vs-dark',
 		language: 'fsd'
 	};
-	var leftMonaco = monaco.editor.create(document.getElementsByClassName('left-bottom-container')[0] as HTMLElement, leftMonacoOptions);
-	var rightMonacoOptions = {
+	const leftMonaco = monaco.editor.create(document.getElementsByClassName('left-bottom-container')[0] as HTMLElement, leftMonacoOptions);
+	const rightMonacoOptions = {
 		readOnly: true,
 		theme: 'vs-dark',
 		wrappingColumn: -1
 	};
-	var rightMonaco = monaco.editor.create(document.getElementsByClassName('right-bottom-container')[0] as HTMLElement, rightMonacoOptions);
+	const rightMonaco = monaco.editor.create(document.getElementsByClassName('right-bottom-container')[0] as HTMLElement, rightMonacoOptions);
 	window.onresize = function() {
 		leftMonaco.layout();
 		rightMonaco.layout();
 	}
 
 	// create function for setting output
-	var lastFileName: { [generator: string]: string } = {};
-	var setOutputFile = function(file: IFile) {
-		var language = file && file.name && _.find(monaco.languages.getLanguages(), function (lang) {
+	const lastFileName: { [generator: string]: string } = {};
+	const setOutputFile = function(file: IFile) {
+		const language = file && file.name && _.find(monaco.languages.getLanguages(), function (lang) {
 			return _.find(lang.extensions, function (ext) {
 				return file.name.endsWith(ext);
 			});
 		});
-		var languageId = language && language.id;
+		const languageId = language && language.id;
 
 		// word wrap some languages
-		var wrappingColumn = languageId === 'markdown' ? 0 : -1;
+		const wrappingColumn = languageId === 'markdown' ? 0 : -1;
 
 		// update output editor
 		rightMonaco.getModel().setValue('');
@@ -155,20 +155,20 @@ export default function() {
 	};
 
 	// set output as selection changes
-	var setOutputToSelection = function() {
-		var option = fileList.options[fileList.selectedIndex];
+	const setOutputToSelection = function() {
+		const option = fileList.options[fileList.selectedIndex];
 		setOutputFile(option && (option as any)['data-file']);
 	};
 	fileList.onchange = setOutputToSelection;
 
 	// create function that generates output
-	var generating = false;
-	var generate = function() {
+	let generating = false;
+	const generate = function() {
 		if (generating) {
 			generateSoon();
 		} else {
 			generating = true;
-			var request: RequestInit = {
+			const request: RequestInit = {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json'
@@ -184,7 +184,7 @@ export default function() {
 				}),
 				cache: 'no-cache'
 			};
-			var generateUrl = _.startsWith(window.location.href, 'http://local') ? 'http://localhost:45054/generate' : 'https://fsdgen.calexanderdev.com/generate';
+			const generateUrl = _.startsWith(window.location.href, 'http://local') ? 'http://localhost:45054/generate' : 'https://fsdgen.calexanderdev.com/generate';
 			fetch(generateUrl, request)
 				.then(function(response) {
 					if (response.status === 200) {
@@ -199,16 +199,16 @@ export default function() {
 					}
 					if (json.output && json.output.length) {
 						json.output.sort(function(a: IFile, b: IFile) {
-							var aParts = a.name.split('/');
-							var bParts = b.name.split('/');
-							for (var index = 0; ; index++) {
+							const aParts = a.name.split('/');
+							const bParts = b.name.split('/');
+							for (let index = 0; ; index++) {
 								if (index === aParts.length) {
 									return index === bParts.length ? 0 : -1;
 								} else if (index === bParts.length) {
 									return 1;
 								} else {
-									var aIsFile = index + 1 === aParts.length;
-									var bIsFile = index + 1 === bParts.length;
+									const aIsFile = index + 1 === aParts.length;
+									const bIsFile = index + 1 === bParts.length;
 									if (aIsFile === bIsFile) {
 										if (aParts[index] < bParts[index]) {
 											return -1;
@@ -223,14 +223,14 @@ export default function() {
 								}
 							}
 						});
-						var selected = false;
-						var optgroup: HTMLOptGroupElement = null;
+						let selected = false;
+						let optgroup: HTMLOptGroupElement = null;
 						json.output.forEach(function(file: IFile) {
-							var path = file.name.split('/');
-							var name = path.pop();
+							const path = file.name.split('/');
+							const name = path.pop();
 
 							if (path.length) {
-								var groupLabel = path.join('/') + '/';
+								const groupLabel = path.join('/') + '/';
 								if (!optgroup || optgroup.label !== groupLabel) {
 									optgroup = document.createElement("optgroup");
 									optgroup.label = groupLabel;
@@ -238,7 +238,7 @@ export default function() {
 								}
 							}
 
-							var option = document.createElement("option");
+							const option = document.createElement("option");
 							option.label = name;
 							if (!selected && lastFileName[generatorPicker.value] === name) {
 								option.selected = true;
@@ -276,8 +276,8 @@ export default function() {
 	generatorPicker.onchange = generate;
 
 	// create function that generates output soon
-	var generateTimeout: number;
-	var generateSoon = function() {
+	let generateTimeout: number;
+	const generateSoon = function() {
 		window.clearTimeout(generateTimeout);
 		generateTimeout = window.setTimeout(generate, 500);
 	}

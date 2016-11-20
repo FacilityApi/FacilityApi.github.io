@@ -535,9 +535,9 @@
 	const _ = __webpack_require__(4);
 	function default_1() {
 	    // get various HTML elements
-	    var fileList = document.getElementsByClassName('file-list')[0];
-	    var generatorPicker = document.getElementsByClassName('generator-picker')[0];
-	    var outputHeader = document.getElementsByClassName('right-top-container')[0];
+	    const fileList = document.getElementsByClassName('file-list')[0];
+	    const generatorPicker = document.getElementsByClassName('generator-picker')[0];
+	    const outputHeader = document.getElementsByClassName('right-top-container')[0];
 	    // register FSD language
 	    monaco.languages.register({
 	        id: 'fsd',
@@ -623,33 +623,33 @@
 	        }
 	    });
 	    // create Monaco editors
-	    var leftMonacoOptions = {
+	    const leftMonacoOptions = {
 	        value: localStorage['fsdText'] || '',
 	        theme: 'vs-dark',
 	        language: 'fsd'
 	    };
-	    var leftMonaco = monaco.editor.create(document.getElementsByClassName('left-bottom-container')[0], leftMonacoOptions);
-	    var rightMonacoOptions = {
+	    const leftMonaco = monaco.editor.create(document.getElementsByClassName('left-bottom-container')[0], leftMonacoOptions);
+	    const rightMonacoOptions = {
 	        readOnly: true,
 	        theme: 'vs-dark',
 	        wrappingColumn: -1
 	    };
-	    var rightMonaco = monaco.editor.create(document.getElementsByClassName('right-bottom-container')[0], rightMonacoOptions);
+	    const rightMonaco = monaco.editor.create(document.getElementsByClassName('right-bottom-container')[0], rightMonacoOptions);
 	    window.onresize = function () {
 	        leftMonaco.layout();
 	        rightMonaco.layout();
 	    };
 	    // create function for setting output
-	    var lastFileName = {};
-	    var setOutputFile = function (file) {
-	        var language = file && file.name && _.find(monaco.languages.getLanguages(), function (lang) {
+	    const lastFileName = {};
+	    const setOutputFile = function (file) {
+	        const language = file && file.name && _.find(monaco.languages.getLanguages(), function (lang) {
 	            return _.find(lang.extensions, function (ext) {
 	                return file.name.endsWith(ext);
 	            });
 	        });
-	        var languageId = language && language.id;
+	        const languageId = language && language.id;
 	        // word wrap some languages
-	        var wrappingColumn = languageId === 'markdown' ? 0 : -1;
+	        const wrappingColumn = languageId === 'markdown' ? 0 : -1;
 	        // update output editor
 	        rightMonaco.getModel().setValue('');
 	        monaco.editor.setModelLanguage(rightMonaco.getModel(), language && language.id);
@@ -665,20 +665,20 @@
 	        }
 	    };
 	    // set output as selection changes
-	    var setOutputToSelection = function () {
-	        var option = fileList.options[fileList.selectedIndex];
+	    const setOutputToSelection = function () {
+	        const option = fileList.options[fileList.selectedIndex];
 	        setOutputFile(option && option['data-file']);
 	    };
 	    fileList.onchange = setOutputToSelection;
 	    // create function that generates output
-	    var generating = false;
-	    var generate = function () {
+	    let generating = false;
+	    const generate = function () {
 	        if (generating) {
 	            generateSoon();
 	        }
 	        else {
 	            generating = true;
-	            var request = {
+	            const request = {
 	                method: 'POST',
 	                headers: {
 	                    'Content-Type': 'application/json'
@@ -694,7 +694,7 @@
 	                }),
 	                cache: 'no-cache'
 	            };
-	            var generateUrl = _.startsWith(window.location.href, 'http://local') ? 'http://localhost:45054/generate' : 'https://fsdgen.calexanderdev.com/generate';
+	            const generateUrl = _.startsWith(window.location.href, 'http://local') ? 'http://localhost:45054/generate' : 'https://fsdgen.calexanderdev.com/generate';
 	            fetch(generateUrl, request)
 	                .then(function (response) {
 	                if (response.status === 200) {
@@ -710,9 +710,9 @@
 	                }
 	                if (json.output && json.output.length) {
 	                    json.output.sort(function (a, b) {
-	                        var aParts = a.name.split('/');
-	                        var bParts = b.name.split('/');
-	                        for (var index = 0;; index++) {
+	                        const aParts = a.name.split('/');
+	                        const bParts = b.name.split('/');
+	                        for (let index = 0;; index++) {
 	                            if (index === aParts.length) {
 	                                return index === bParts.length ? 0 : -1;
 	                            }
@@ -720,8 +720,8 @@
 	                                return 1;
 	                            }
 	                            else {
-	                                var aIsFile = index + 1 === aParts.length;
-	                                var bIsFile = index + 1 === bParts.length;
+	                                const aIsFile = index + 1 === aParts.length;
+	                                const bIsFile = index + 1 === bParts.length;
 	                                if (aIsFile === bIsFile) {
 	                                    if (aParts[index] < bParts[index]) {
 	                                        return -1;
@@ -739,20 +739,20 @@
 	                            }
 	                        }
 	                    });
-	                    var selected = false;
-	                    var optgroup = null;
+	                    let selected = false;
+	                    let optgroup = null;
 	                    json.output.forEach(function (file) {
-	                        var path = file.name.split('/');
-	                        var name = path.pop();
+	                        const path = file.name.split('/');
+	                        const name = path.pop();
 	                        if (path.length) {
-	                            var groupLabel = path.join('/') + '/';
+	                            const groupLabel = path.join('/') + '/';
 	                            if (!optgroup || optgroup.label !== groupLabel) {
 	                                optgroup = document.createElement("optgroup");
 	                                optgroup.label = groupLabel;
 	                                fileList.appendChild(optgroup);
 	                            }
 	                        }
-	                        var option = document.createElement("option");
+	                        const option = document.createElement("option");
 	                        option.label = name;
 	                        if (!selected && lastFileName[generatorPicker.value] === name) {
 	                            option.selected = true;
@@ -792,8 +792,8 @@
 	    };
 	    generatorPicker.onchange = generate;
 	    // create function that generates output soon
-	    var generateTimeout;
-	    var generateSoon = function () {
+	    let generateTimeout;
+	    const generateSoon = function () {
 	        window.clearTimeout(generateTimeout);
 	        generateTimeout = window.setTimeout(generate, 500);
 	    };
