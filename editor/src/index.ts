@@ -1,7 +1,13 @@
-module.exports = function() {
+/// <reference path="../node_modules/monaco-editor/monaco" />
+
+import * as _ from 'lodash';
+
+export default function() {
+  const fetch = window['fetch'];
+
   // get various HTML elements
-  var fileList = document.getElementsByClassName('file-list')[0];
-  var generatorPicker = document.getElementsByClassName('generator-picker')[0];
+  var fileList = document.getElementsByClassName('file-list')[0] as HTMLSelectElement;
+  var generatorPicker = document.getElementsByClassName('generator-picker')[0] as HTMLSelectElement;
   var outputHeader = document.getElementsByClassName('right-top-container')[0];
 
   // register FSD language
@@ -12,11 +18,7 @@ module.exports = function() {
   });
   monaco.languages.setMonarchTokensProvider('fsd', {
     defaultToken: 'invalid',
-
-    typeKeywords: [
-      'string', 'boolean', 'double', 'int32', 'int64', 'bytes', 'object', 'error', 'result', 'map'
-    ],
-
+    tokenPostfix: '',
     tokenizer: {
       root: [
         { include: '@whitespace' },
@@ -48,7 +50,7 @@ module.exports = function() {
 
       typeName: [
         { include: '@whitespace' },
-        [/[a-zA-Z][a-zA-Z0-9]*/, { cases: { '@typeKeywords': 'keyword', '@default': 'type.identifier' } }],
+        [/[a-zA-Z][a-zA-Z0-9]*/, { cases: { 'string|boolean|double|int32|int64|bytes|object|error|result|map': 'keyword', '@default': 'type.identifier' } }],
         [/[\[\]<>]/, '@brackets'],
         [/;/, 'delimiter', '@pop' ]
       ],
@@ -104,17 +106,17 @@ module.exports = function() {
 
   // create Monaco editors
   var leftMonacoOptions = {
-    value: localStorage.fsdText || '',
+    value: localStorage['fsdText'] || '',
     theme: 'vs-dark',
     language: 'fsd'
   };
-  var leftMonaco = monaco.editor.create(document.getElementsByClassName('left-bottom-container')[0], leftMonacoOptions);
+  var leftMonaco = monaco.editor.create(document.getElementsByClassName('left-bottom-container')[0] as HTMLElement, leftMonacoOptions);
   var rightMonacoOptions = {
     readOnly: true,
     theme: 'vs-dark',
     wrappingColumn: -1
   };
-  var rightMonaco = monaco.editor.create(document.getElementsByClassName('right-bottom-container')[0], rightMonacoOptions);
+  var rightMonaco = monaco.editor.create(document.getElementsByClassName('right-bottom-container')[0] as HTMLElement, rightMonacoOptions);
   window.onresize = function() {
     leftMonaco.layout();
     rightMonaco.layout();
@@ -123,8 +125,8 @@ module.exports = function() {
   // create function for setting output
   var lastFileName = {};
   var setOutputFile = function(file) {
-    var language = file && file.name && monaco.languages.getLanguages().find(function (lang) {
-      return lang.extensions.find(function (ext) {
+    var language = file && file.name && _.find(monaco.languages.getLanguages(), function (lang) {
+      return _.find(lang.extensions, function (ext) {
         return file.name.endsWith(ext);
       });
     });
@@ -134,11 +136,11 @@ module.exports = function() {
     var wrappingColumn = languageId === 'markdown' ? 0 : -1;
 
     // update output editor
-    rightMonaco.model.setValue('');
-    monaco.editor.setModelLanguage(rightMonaco.model, language && language.id);
+    rightMonaco.getModel().setValue('');
+    monaco.editor.setModelLanguage(rightMonaco.getModel(), language && language.id);
     rightMonacoOptions.wrappingColumn = wrappingColumn;
     rightMonaco.updateOptions(rightMonacoOptions);
-    rightMonaco.model.setValue(file && file.text || '');
+    rightMonaco.getModel().setValue(file && file.text || '');
 
     // update file name
     outputHeader.removeChild(outputHeader.firstChild);
@@ -175,12 +177,12 @@ module.exports = function() {
           },
           definition: {
             name: 'api.fsd',
-            text: leftMonaco.model.getValue()
+            text: leftMonaco.getModel().getValue()
           }
         }),
         cache: 'no-cache'
       };
-      var generateUrl = window.location.href.startsWith('http://local') ? 'http://localhost:45054/generate' : 'https://fsdgen.calexanderdev.com/generate';
+      var generateUrl = _.startsWith(window.location.href, 'http://local') ? 'http://localhost:45054/generate' : 'https://fsdgen.calexanderdev.com/generate';
       fetch(generateUrl, request)
         .then(function(response) {
           if (response.status === 200) {
@@ -256,7 +258,7 @@ module.exports = function() {
               text: '(' + json.parseError.line + ',' + json.parseError.column + '): ' + json.parseError.message
             });
           } else {
-            setOutputFile();
+            setOutputFile(undefined);
           }
           generating = false;
         })
@@ -264,7 +266,7 @@ module.exports = function() {
           setOutputFile({
             text: 'Error: ' + error.message
           });
-          rightMonaco.model.setValue('Error: ' + error.message);
+          rightMonaco.getModel().setValue('Error: ' + error.message);
           generating = false;
         });
     }
@@ -277,14 +279,14 @@ module.exports = function() {
     window.clearTimeout(generateTimeout);
     generateTimeout = window.setTimeout(generate, 500);
   }
-  leftMonaco.model.onDidChangeContent(function() {
-    localStorage.fsdText = leftMonaco.model.getValue();
+  leftMonaco.getModel().onDidChangeContent(function() {
+    localStorage['fsdText'] = leftMonaco.getModel().getValue();
     generateSoon();
   });
 
   // start with example
-  if (!leftMonaco.model.getValue()) {
-    leftMonaco.model.setValue(`
+  if (!leftMonaco.getModel().getValue()) {
+    leftMonaco.getModel().setValue(`
 /// Example service for widgets.
 [http(url: "http://local.example.com/v1")]
 [csharp(namespace: Facility.ExampleApi)]

@@ -1,10 +1,17 @@
 var CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
-  entry: './src/entry.js',
+  entry: './src/entry.ts',
   output: {
-    filename: 'bundle.js',
-    path: '.'
+    filename: 'bundle.js'
+  },
+  resolve: {
+    extensions: ['', '.webpack.js', '.web.js', '.ts', '.js']
+  },
+  module: {
+    loaders: [
+      { test: /\.ts$/, loader: 'ts-loader' }
+    ]
   },
   plugins: [
     new CopyWebpackPlugin([
