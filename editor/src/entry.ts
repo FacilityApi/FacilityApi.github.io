@@ -1,7 +1,7 @@
 import run from './index';
 
 if (window['monaco']) {
-  run();
+	run();
 } else {
-  window['onMonacoReady'] = run;
+	window['onMonacoReady'] = run;
 }
