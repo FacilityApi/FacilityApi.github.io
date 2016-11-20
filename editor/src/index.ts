@@ -1,4 +1,4 @@
-/// <reference path="../node_modules/monaco-editor/monaco" />
+/// <reference path="../node_modules/monaco-editor/monaco.d.ts" />
 import * as _ from 'lodash';
 
 interface IFile {
@@ -129,7 +129,7 @@ export default function() {
 	const setOutputFile = function(file: IFile) {
 		const language = file && file.name && _.find(monaco.languages.getLanguages(), function (lang) {
 			return _.find(lang.extensions, function (ext) {
-				return file.name.endsWith(ext);
+				return _.endsWith(file.name, ext);
 			});
 		});
 		const languageId = language && language.id;
