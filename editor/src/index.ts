@@ -1,10 +1,7 @@
 /// <reference path="../node_modules/monaco-editor/monaco" />
-
 import * as _ from 'lodash';
 
 export default function() {
-  const fetch = window['fetch'];
-
   // get various HTML elements
   var fileList = document.getElementsByClassName('file-list')[0] as HTMLSelectElement;
   var generatorPicker = document.getElementsByClassName('generator-picker')[0] as HTMLSelectElement;
@@ -166,7 +163,7 @@ export default function() {
       generateSoon();
     } else {
       generating = true;
-      var request = {
+      var request: RequestInit = {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

@@ -1,7 +1,10 @@
 var CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
-  entry: './src/entry.ts',
+  entry: [
+    'whatwg-fetch',
+    './src/entry.ts'
+  ],
   output: {
     filename: 'bundle.js'
   },
