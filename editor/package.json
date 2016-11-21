@@ -17,6 +17,7 @@
     "@types/requirejs": "^2.1.28",
     "@types/whatwg-fetch": "0.0.32",
     "es6-promise": "^4.0.5",
+    "facility-generator-api": "^0.1.0",
     "lodash": "^4.17.2",
     "monaco-editor": "^0.7.0",
     "whatwg-fetch": "^2.0.1"

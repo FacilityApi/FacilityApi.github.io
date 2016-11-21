@@ -1,10 +1,6 @@
 /// <reference path="../node_modules/monaco-editor/monaco.d.ts" />
 import * as _ from 'lodash';
-
-interface IFile {
-	name?: string;
-	text: string;
-}
+import * as api from 'facility-generator-api';
 
 export default function() {
 	// get various HTML elements
@@ -126,7 +122,7 @@ export default function() {
 
 	// create function for setting output
 	const lastFileName: { [generator: string]: string } = {};
-	const setOutputFile = (file: IFile) => {
+	const setOutputFile = (file: api.INamedText) => {
 		const language = file && file.name && _.find(monaco.languages.getLanguages(), lang => {
 			return _.find(lang.extensions, ext => {
 				return _.endsWith(file.name, ext);
@@ -162,18 +158,16 @@ export default function() {
 	fileList.onchange = setOutputToSelection;
 
 	// create function that generates output
+	const baseUri = _.startsWith(window.location.href, 'http://local') ? 'http://localhost:45054/' : 'https://fsdgen.calexanderdev.com/';
+	const client = api.createHttpClient({ fetch, baseUri });
 	let generating = false;
 	const generate = () => {
 		if (generating) {
 			generateSoon();
 		} else {
 			generating = true;
-			const request: RequestInit = {
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json'
-				},
-				body: JSON.stringify({
+			client
+				.generate({
 					generator: {
 						name: generatorPicker.value
 					},
@@ -181,24 +175,16 @@ export default function() {
 						name: 'api.fsd',
 						text: leftMonaco.getModel().getValue()
 					}
-				}),
-				cache: 'no-cache'
-			};
-			const generateUrl = _.startsWith(window.location.href, 'http://local') ? 'http://localhost:45054/generate' : 'https://fsdgen.calexanderdev.com/generate';
-			fetch(generateUrl, request)
-				.then(response => {
-					if (response.status === 200) {
-						return response.json();
-					} else {
-						throw TypeError(response.status + ' ' + response.statusText);
+				}).then(result => {
+					if (result.error) {
+						throw TypeError(result.error.message);
 					}
-				})
-				.then(json => {
 					while (fileList.firstChild) {
 						fileList.removeChild(fileList.firstChild);
 					}
-					if (json.output && json.output.length) {
-						json.output.sort((a: IFile, b: IFile) => {
+					const { output, failure } = result.value;
+					if (output && output.length) {
+						output.sort((a, b) => {
 							const aParts = a.name.split('/');
 							const bParts = b.name.split('/');
 							for (let index = 0; ; index++) {
@@ -225,7 +211,7 @@ export default function() {
 						});
 						let selected = false;
 						let optgroup: HTMLOptGroupElement = null;
-						json.output.forEach((file: IFile) => {
+						output.forEach(file => {
 							const path = file.name.split('/');
 							const name = path.pop();
 
@@ -255,9 +241,9 @@ export default function() {
 							fileList.selectedIndex = 0;
 						}
 						setOutputToSelection();
-					} else if (json.parseError) {
+					} else if (failure) {
 						setOutputFile({
-							text: '(' + json.parseError.line + ',' + json.parseError.column + '): ' + json.parseError.message
+							text: '(' + failure.line + ',' + failure.column + '): ' + failure.message
 						});
 					} else {
 						setOutputFile(undefined);
