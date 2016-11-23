@@ -1,10 +1,8 @@
+var webpack = require('webpack');
 var CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
-  entry: [
-    'whatwg-fetch',
-    './src/entry.ts'
-  ],
+  entry: './src/entry.ts',
   output: {
     filename: 'bundle.js'
   },
@@ -26,6 +24,10 @@ module.exports = {
         from: 'node_modules/monaco-editor/min/vs',
         to: 'vs'
       }
-    ])
+    ]),
+    new webpack.optimize.UglifyJsPlugin({
+      compress: { warnings: false },
+      output: { comments: false }
+    })
   ]
 }
