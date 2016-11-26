@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Facility API Framework</title>
+    <title>Why Facility?</title>
     <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/flatly/bootstrap.min.css" rel="stylesheet" integrity="sha384-+ENW/yibaokMnme+vBLnHMphUYxHs34h9lpdbSLuAwGkOKFRl4C34WkjazBtb7eT" crossorigin="anonymous">
   </head>
   <body style="padding-top: 50px">
@@ -35,49 +35,18 @@
         </div>
       </div>
     </nav>
-    <div class="jumbotron">
-      <div class="container">
-        <h1>Facility <small>API Framework</small></h1>
-        <p>Helps you design, implement, document, and consume APIs with tools and libraries that work with simple API definitions.</p>
-        <p>
-          <a href="/docs/why.html" class="btn btn-primary">Why Facility?</a>
-          <a href="./editor" class="btn btn-primary">Get Started</a>
-      </div>
-    </div>
-    <div class="container">
+    <div class="container" style="padding-top: 30px">
       <div class="row">
-        <div class="col-sm-6">
-          <h2><small>1.</small> Define API</h2>
-          <pre style="height: 200pt; overflow-y: auto">service WidgetApi
-{
-  method findWidgets
-  {
-    query: string;
-    offset: int32;
-    limit: int32;
-  }:
-  {
-    widgets: Widget[];
-    more: boolean;
-  }
-
-  data Widget
-  {
-    id: string;
-    name: string;
-  }
-}
-          </pre>
-        </div>
-        <div class="col-sm-6">
-          <h2><small>2.</small> Generate Code</h2>
-          <div class="list-group">
-            <a href="https://github.com/FacilityApi/FacilityCSharp/blob/master/README.md" class="list-group-item">C#</a>
-            <a href="https://github.com/FacilityApi/FacilityJavaScript/blob/master/README.md" class="list-group-item">JavaScript</a>
-            <a href="https://github.com/FacilityApi/FacilityJavaScript/blob/master/README.md" class="list-group-item">TypeScript</a>
-            <a href="https://github.com/FacilityApi/FacilityMarkdown/blob/master/README.md" class="list-group-item">Markdown</a>
-            <a href="https://github.com/FacilityApi/FacilityCSharp/blob/master/README.md" class="list-group-item">ASP.NET</a>
-          </div>
+        <div class="col-md-9">
+          <h1>Why Facility?</h1>
+          <p><strong>First things first:</strong> why would you use <em>any</em> API framework? What's the advantage of defining a formal API definition?</p>
+          <h2>Why use an API definition?</h2>
+          <p>An <strong>API definition</strong> provides a single canonical representation of your API. This is useful at every stage of development:</p>
+          <ul>
+            <li><strong>Designing:</strong> Writing an API definition is a great way to work out your API design before you start writing code. Syntax checking minimizes typos, and the definition can be easily submitted for peer review.</li>
+            <li><strong>Implementing:</strong> Generate server code using your preferred web service framework so that your primary coding burden is the actual implementation. Generating data transfer objects and interfaces helps you avoid repeating yourself as you implement your API, especially when using strongly-typed languages.</li>
+            <li><strong>Documenting:</strong> Add comments to your API definition and generate attractive and continuously up-to-date documentation.</li>
+            <li><strong>Consuming:</strong> Generate client libraries in various programming languages, even languages you don't know, to maximize the usability of your API. At the same time, support for JSON over HTTP ensures that clients can use your API even without a client library.</li>
         </div>
       </div>
     </div>
