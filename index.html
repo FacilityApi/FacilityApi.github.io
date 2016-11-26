@@ -5,17 +5,54 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Facility API Framework</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <style>
-      body { margin: 10px }
-    </style>
+    <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/flatly/bootstrap.min.css" rel="stylesheet" integrity="sha384-+ENW/yibaokMnme+vBLnHMphUYxHs34h9lpdbSLuAwGkOKFRl4C34WkjazBtb7eT" crossorigin="anonymous">
   </head>
   <body>
+    <div class="jumbotron">
+      <div class="container">
+        <h1>Facility <small>API Framework</small></h1>
+        <p>Helps you design, implement, document, and consume APIs with tools and libraries that work with simple API definitions.</p>
+        <p>
+          <a href="https://github.com/FacilityApi/Facility/blob/master/README.md" class="btn btn-primary">Why Facility?</a>
+          <a href="./editor" class="btn btn-primary">Get Started</a>
+      </div>
+    </div>
     <div class="container">
-      <h1>Facility API Framework</h1>
-      <p>The Facility API Framework consists of tools, libraries, and specifications that facilitate designing, implementing, documenting, and consuming web APIs.</p>
-      <p>The <a href="https://github.com/FacilityApi/Facility">documentation and source code</a> is at GitHub.</p>
-      <p>Use the <a href="editor">Facility Editor</a> to explore Facility Service Definition design and code generation.</p>
+      <div class="row">
+        <div class="col-sm-6">
+          <h2><small>1.</small> Define API</h2>
+          <pre style="height: 200pt; overflow-y: auto">service WidgetApi
+{
+  method findWidgets
+  {
+    query: string;
+    offset: int32;
+    limit: int32;
+  }:
+  {
+    widgets: Widget[];
+    more: boolean;
+  }
+
+  data Widget
+  {
+    id: string;
+    name: string;
+  }
+}
+          </pre>
+        </div>
+        <div class="col-sm-6">
+          <h2><small>2.</small> Generate Code</h2>
+          <div class="list-group">
+            <a href="https://github.com/FacilityApi/FacilityCSharp/blob/master/README.md" class="list-group-item">C#</a>
+            <a href="https://github.com/FacilityApi/FacilityJavaScript/blob/master/README.md" class="list-group-item">JavaScript</a>
+            <a href="https://github.com/FacilityApi/FacilityJavaScript/blob/master/README.md" class="list-group-item">TypeScript</a>
+            <a href="https://github.com/FacilityApi/FacilityMarkdown/blob/master/README.md" class="list-group-item">Markdown</a>
+            <a href="https://github.com/FacilityApi/FacilityCSharp/blob/master/README.md" class="list-group-item">ASP.NET</a>
+          </div>
+        </div>
+      </div>
     </div>
   </body>
 </html>
