@@ -29,3 +29,7 @@ nav.affix[data-toggle='toc'] {
     display: none;
   }
 }
+
+a.anchorjs-link:active, a.anchorjs-link:hover {
+  text-decoration: none;
+}
