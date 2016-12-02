@@ -2,13 +2,17 @@
   margin-bottom: 0;
 }
 
+.small-code-section {
+  height: 200pt;
+  overflow-y: auto;
+}
+
 .page-container {
   margin-top: 21px;
 }
 
-.small-code-section {
-  height: 200pt;
-  overflow-y: auto;
+.content-column {
+  padding-left: 45px;
 }
 
 h1, .h1, h2, .h2, h3, .h3 {
@@ -16,24 +20,20 @@ h1, .h1, h2, .h2, h3, .h3 {
   padding-top: 21px;
 }
 
+a.anchorjs-link:active, a.anchorjs-link:hover {
+  text-decoration: none;
+}
+
 nav.affix[data-toggle='toc'] {
   margin-top: -60px;
 }
 
 #toc {
-  width: 160px;
+  width: 190px;
 }
 
 @media (max-width: 767px) {
   #toc {
     display: none;
   }
-}
-
-a.anchorjs-link:active, a.anchorjs-link:hover {
-  text-decoration: none;
-}
-
-.content-column {
-  padding-left: 45px;
 }
