@@ -10,3 +10,22 @@
   height: 200pt;
   overflow-y: auto;
 }
+
+h1, .h1, h2, .h2, h3, .h3 {
+  margin-top: 0;
+  padding-top: 21px;
+}
+
+nav.affix[data-toggle='toc'] {
+  margin-top: -60px;
+}
+
+#toc {
+  width: 160px;
+}
+
+@media (max-width: 767px) {
+  #toc {
+    display: none;
+  }
+}
