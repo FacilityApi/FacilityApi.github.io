@@ -8,7 +8,7 @@
 }
 
 .page-container {
-  margin-top: 21px;
+  margin: 21px 0;
 }
 
 .content-column {
@@ -34,6 +34,16 @@ nav.affix[data-toggle='toc'] {
 
 @media (max-width: 767px) {
   #toc {
+    display: none;
+  }
+}
+
+@media (max-width: 479px) {
+  .content-column {
+    padding-left: 15px;
+  }
+
+  .anchorjs-link {
     display: none;
   }
 }
