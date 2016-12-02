@@ -33,3 +33,7 @@ nav.affix[data-toggle='toc'] {
 a.anchorjs-link:active, a.anchorjs-link:hover {
   text-decoration: none;
 }
+
+.content-column {
+  padding-left: 45px;
+}
