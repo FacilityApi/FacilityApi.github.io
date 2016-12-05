@@ -2,7 +2,6 @@
   margin-bottom: 0;
 }
 
-.small-code-section {
-  height: 200pt;
-  overflow-y: auto;
+.large {
+  font-size: 125%;
 }

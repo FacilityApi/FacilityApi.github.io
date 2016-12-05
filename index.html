@@ -14,31 +14,16 @@ layout: home
   <div class="row">
     <div class="col-sm-6">
       <h2><small>1.</small> Define API</h2>
-      <pre class="small-code-section">service WidgetApi
-{
-  method findWidgets
-  {
-    query: string;
-    offset: int32;
-    limit: int32;
-  }:
-  {
-    widgets: Widget[];
-    more: boolean;
-  }
-
-  data Widget
-  {
-    id: string;
-    name: string;
-  }
-}
-      </pre>
+      <p>Describe the operations of your API in one of the supported API definition languages. Use tools to convert definitions from one format to another.</p>
+      <div class="list-group large">
+        <a href="/docs/spec" class="list-group-item">Facility Service Definition (FSD)</a>
+      </div>
     </div>
     <div class="col-sm-6">
       <h2><small>2.</small> Generate Code</h2>
-      <div class="list-group">
-        <a href="/docs/csharp" class="list-group-item">C#</a>
+      <p>Use tools to generate client code, server code, and documentation in many different languages and frameworks.</p>
+      <div class="list-group large">
+        <a href="/docs/csharp" class="list-group-item">C# (.NET)</a>
         <a href="/docs/javascript" class="list-group-item">JavaScript</a>
         <a href="/docs/typescript" class="list-group-item">TypeScript</a>
         <a href="/docs/markdown" class="list-group-item">Markdown</a>
