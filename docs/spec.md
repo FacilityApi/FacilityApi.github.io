@@ -29,9 +29,9 @@ There is one standard attribute:
 
 ### FSD
 
-An attribute is surrounded by square brackets, and its optional parameters are comma-delimited and surrounded with parentheses.
+In an FSD file, an attribute is surrounded by square brackets, and its optional parameters are comma-delimited and surrounded with parentheses.
 
-Each parameter value can be represented as a ASCII token or a JSON-style double-quoted string. An ASCII token can consist of numbers, letters, periods, hyphens, plus signs, and/or underscores. An ASCII token (such as an integer) is not semantically different than a double-quoted string containing that token.
+Each parameter value can be represented as an ASCII token or a JSON-style double-quoted string. An ASCII token can consist of numbers, letters, periods, hyphens, plus signs, and/or underscores. An ASCII token (such as an integer) is not semantically different than a double-quoted string containing that token.
 
 ```
 [myService] // no parameters
@@ -62,7 +62,9 @@ A service with no methods is permitted. It could be used to define data transfer
 
 ### FSD
 
-In an FSD file, the `service` keyword starts the definition of a service. It is followed by the service name and optionally preceded by service attributes. The methods and other definitions follow the service name, enclosed in braces.
+In an FSD file, the `service` keyword starts the definition of a service. It is followed by the service name and optionally preceded by service attributes.
+
+The methods and other service items follow the service name, enclosed in braces.
 
 ```
 [http(url: "https://api.example.com/v1/")]
@@ -74,14 +76,6 @@ service MyApi
   ...
 }
 ```
-
-### JSON
-
-Since [JSON](http://www.json.org/) is currently the most commonly-used serialization format for APIs over HTTP, field definitions are designed to be trivially compatible with JSON.
-
-When reading JSON, conforming clients and servers may match property names case-insensitively, and they may perform type conversions for property values, e.g. strings to numbers. They may also support non-standard JSON features, such as unquoted property names, single-quoted strings, comments, etc.
-
-However, when writing JSON, conforming clients and servers must always use [standard JSON](http://www.json.org/) with no comments, correctly-cased property names, correctly-typed property values, etc.
 
 ### HTTP
 
@@ -97,11 +91,11 @@ When a client invokes a service method, it provides values for some or all of th
 
 If the method succeeds, values are returned for some or all of the response fields. A `translate` method might return the translated text in a `text` field and a confidence level in a `confidence` field.
 
-If the method fails, an error is returned instead. An error consists of a machine-readable code, a human-readable message, and potentially other details.
+If the method fails, a [service error](#service-errors) is returned instead.
 
 ### FSD
 
-The `method` keyword starts the definition of a method. It is followed by the method name and optionally preceded by method attributes.
+In an FSD file, the `method` keyword starts the definition of a method. It is followed by the method name and optionally preceded by method attributes.
 
 The request and response follow the method name, each enclosed in braces and separated by a colon (`:`). The request and response fields are listed within the braces.
 
@@ -120,15 +114,15 @@ The request and response follow the method name, each enclosed in braces and sep
 
 ### HTTP
 
-The `method` parameter of the `http` attribute indicates the HTTP method that is used, e.g. `GET`, `POST`, `PUT`, `DELETE`, or `PATCH`. If omitted, the default is `POST`. The HTTP method name is always uppercased, so lowercase is permitted, e.g. `[http(method: get)]`.
+The `http` attribute of a method supports a parameter named `method` that indicates the HTTP method that is used, e.g. `GET`, `POST`, `PUT`, `DELETE`, or `PATCH`. If omitted, the default is `POST`. Lowercase is permitted, e.g. `[http(method: get)]`.
 
-The `path`  parameter indicates the HTTP path of the method (relative to the base URI). The path must start with a slash. A single slash indicates that the method is at the base URL itself.
+The `path`  parameter indicates the HTTP path of the method (relative to the base URL). The path must start with a slash. A single slash indicates that the method is at the base URL itself.
 
 For example, if a method uses `[http(method: GET, path: "/widgets"]` in a service that uses `[http(url: "https://api.example.com/v1/"]`, the full HTTP method and path for that method would be `GET https://api.example.com/v1/widgets`.
 
 If the `path` parameter is not specified, it defaults to the method name, e.g. `/getWidgets` for a method named `getWidgets`. This default would not be appropriate for a RESTful API, but may be acceptable for an RPC-style API.
 
-The `code` parameter indicates the HTTP status code used if the method is successful (but see also *body fields* below). If omitted, it defaults to `200` (OK), or to `204` (No Content) if the response has no normal or body fields.
+The `code` parameter indicates the HTTP status code used if the method is successful (but see also [body fields](#body-fields) below). If omitted, it defaults to `200` (OK), or to `204` (No Content) if the response has no normal or body fields.
 
 ```
   [http(method: POST, path: "/widgets", code: 201)]
@@ -176,6 +170,8 @@ In an FSD file, a field is represented by a name and a field type, which are sep
 
 ### JSON
 
+Since [JSON](http://www.json.org/) is currently the most commonly-used serialization format for APIs over HTTP, Facility APIs are designed to be trivially compatible with JSON.
+
 In a JSON request body, response body, or DTO, a field is serialized as a JSON object property. In fact, to avoid complicating implementations, there is no way to customize the JSON serialization of a request body, response body, or DTO. Each field is always serialized as a JSON property with the same name.
 
 * `string`, `boolean`, `double`, `int32`, and `int64` are encoded as JSON literals.
@@ -187,6 +183,10 @@ In a JSON request body, response body, or DTO, a field is serialized as a JSON o
 * `map<T>` is encoded as a JSON object.
 
 `null` is not a valid value for any field type. If a JSON property is set to `null`, it is treated as though it were omitted. Arrays and maps are not permitted to have `null` items.
+
+When reading JSON, conforming clients and servers may match property names case-insensitively, and they may perform type conversions for property values, e.g. strings to numbers. They may also support non-standard JSON features, such as unquoted property names, single-quoted strings, comments, etc.
+
+However, when writing JSON, conforming clients and servers must always use [standard JSON](http://www.json.org/) with no comments, correctly-cased property names, correctly-typed property values, etc.
 
 ### HTTP
 
@@ -444,11 +444,11 @@ The standard error codes already have reasonable status codes:
 To add a comment to an FSD file, use `// this syntax`.
 
 ```
-data MyData // this comment is ignored
-{
-  name: string; // so is this
-  // and this
-}
+  data MyData // this comment is ignored
+  {
+    name: string; // so is this
+    // and this
+  }
 ```
 
 ## Summary
@@ -466,11 +466,11 @@ Multiple summary comments can be used for a single element of a service; newline
 Summaries are supported by services, methods, DTOs, fields, enumerated types, enumerated values, error sets, and error values.
 
 ```
-/// My awesome data.
-data MyData
-{
-  ...
-}
+  /// My awesome data.
+  data MyData
+  {
+    ...
+  }
 ```
 
 ## Remarks
@@ -488,11 +488,14 @@ The first non-blank line immediately following the closing bracket must be a top
 That first heading as well as any additional top-level headings must match the name of the service or a method, DTO, enumerated type, or error set. Any text under that heading represents additional documentation for that part of the service.
 
 ```
+/// The service summary.
 service MyApi
 {
+  /// The method summary.
   method myMethod { ... }: { ... }
+
+  /// The DTO summary.
   data MyData { ... }
-  ...
 }
 
 # MyApi
