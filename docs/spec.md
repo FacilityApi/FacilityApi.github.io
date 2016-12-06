@@ -166,7 +166,7 @@ Arrays or maps of other arrays or maps are not permitted.
 
 ### FSD
 
-In an FSD file, a field is represented by a name and a field type, which are separated by a colon `:` and followed by a semicolon (`;`). Fields can also be preceded by field attributes. (See below for examples.)
+In an FSD file, a field is represented by a name and a field type, which are separated by a colon (`:`) and followed by a semicolon (`;`). Fields can also be preceded by field attributes.
 
 For fields whose type corresponds to a DTO or enumerated type, that DTO or enumerated type must be defined elsewhere in this service, before or after the method or DTO that contains the field.
 
@@ -231,16 +231,6 @@ The following example uses two query fields, e.g. `GET https://api.example.com/v
   {
     [http(name: "q")] query: string;
     limit: int32;
-  }:
-  {
-    ...
-  }
-
-  [http(method: DELETE, path: "/widgets/{id}")]
-  method deleteWidget
-  {
-    id: string;
-    [http(from: query)] rev: string;
   }:
   {
     ...
@@ -327,7 +317,7 @@ Each data transfer object has a **name** and a collection of **fields**. A DTO a
 
 ### FSD
 
-The `data` keyword starts the definition of a DTO. It is followed by the name of the DTO and optionally preceded by data attributes.
+The `data` keyword starts the definition of a DTO. It is followed by the name of the DTO and optionally preceded by data attributes. The DTO fields follow the DTO name and are enclosed in braces.
 
 ```
   data Widget
@@ -349,11 +339,9 @@ The value names of an enumerated type must be case-insensitively unique and may 
 
 ### FSD
 
-The `enum` keyword starts the definition of an enumerated type. It is optionally preceded by enum attributes.
+The `enum` keyword starts the definition of an enumerated type. It is optionally preceded by attributes.
 
 The enumerated values are comma-delimited alphanumeric names surrounded by braces. A final trailing comma is permitted.
-
-Enumerated values are always transmitted as strings, not integers.
 
 ```
   enum MyEnum
@@ -363,13 +351,17 @@ Enumerated values are always transmitted as strings, not integers.
   }
 ```
 
+### JSON
+
+Enumerated values are always transmitted as strings, not integers.
+
 ## Service Errors
 
-As mentioned above, a failed service method call returns a service error instead of a response. A service error can also be stored in an `error` field, or in a non-successful `result` field.
+As mentioned above, a failed service method call returns a service error instead of a response. A service error can also be stored in an `error` field, or in a non-successful `result<T>` field.
 
-Each instance of a service error has a **code** and a **message**. It may also have **details** (an arbitrary JSON object) and an **inner error** (another service error instance).
+Each instance of a service error has a **code** and a **message**. It may also have **details** and an **inner error**.
 
-The **code** is a machine-readable string that identifies the error. There are a number of standard error codes that should be used if possible:
+The **code** is a machine-readable `string` that identifies the error. There are a number of standard error codes that should be used if possible:
 
 * `InvalidRequest`: The request was invalid.
 * `InternalError`: The service experienced an unexpected internal error.
@@ -384,17 +376,17 @@ The **code** is a machine-readable string that identifies the error. There are a
 * `TooManyRequests`: The client has made too many requests.
 * `RequestTooLarge`: The request is too large.
 
-The **message** is a human-readable string that describes the error. It is usually intended for client developers, not end users.
+The **message** is a human-readable `string` that describes the error. It is usually intended for client developers, not end users.
 
-The **details** object can be used however the service wants, though cross-service standards may emerge.
+The **details** `object` can be used to store whatever additional error information the service wants to communicate.
 
-The **inner error** can be used to provide more information about what caused the error, especially if it was caused by a dependent service that failed.
+The **inner error** is an `error` that can be used to provide more information about what caused the error, especially if it was caused by a dependent service that failed.
 
 ## Service Results
 
  A service result (or an array of service results) can be used in response fields by methods that perform multiple operations and want to return separate success or failure for each one.
 
- An instance of a service result contains either a **value** of one of the defined DTO types or an **error** (see service errors above).
+ An instance of a service result contains either a **value** of one of the defined DTO types or an **error**.
 
 ## Error Sets
 
@@ -408,7 +400,7 @@ The documentation summary of each error set value is used as the default error m
 
 ### FSD
 
-The `errors` keyword starts an [error set](/docs/spec#error-sets). It is followed by the name of the error set and optionally preceded by attributes.
+The `errors` keyword starts an error set. It is followed by the name of the error set and optionally preceded by attributes.
 
 The error values are comma-delimited alphanumeric names surrounded by braces. A final trailing comma is permitted.
 
@@ -417,6 +409,14 @@ The error values are comma-delimited alphanumeric names surrounded by braces. A 
 On an error of an error set, the `code` parameter of the `http` attribute is used to specify the HTTP status code that should be used when that error is returned, e.g. `404`.
 
 If the `code` parameter is missing from an error, `500` (Internal Server Error) is used.
+
+```
+  errors MyErrors
+  {
+    [http(code: 503)]
+    OutToLunch
+  }
+```
 
 The standard error codes already have reasonable status codes:
 
@@ -432,14 +432,6 @@ The standard error codes already have reasonable status codes:
 * `Conflict`: 409
 * `TooManyRequests`: 429
 * `RequestTooLarge`: 413
-
-```
-  errors MyErrors
-  {
-    [http(code: 503)]
-    OutToLunch
-  }
-```
 
 ## Comments
 
