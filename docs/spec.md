@@ -9,7 +9,7 @@ A Facility Service Definition (FSD) describes the operations supported by a serv
 
 ## FSD File
 
-An FSD is typically represented by an FSD file, though [Open API (Swagger) 2.0](/docs/swagger) is also supported.
+A Facility Service Definition is typically represented by an FSD file, though [Open API (Swagger) 2.0](/docs/swagger) is also supported.
 
 An FSD file uses a domain-specific language in an effort to make Facility Service Definitions easier to read and write, especially for developers comfortable with C-style languages.
 
@@ -21,11 +21,7 @@ An FSD file should use UTF-8 with no byte order mark (BOM).
 
 Attributes are used to attach additional information to a service and other service elements.
 
-One or more attributes can be placed on the service, methods, DTOs, fields, enumerated types, enumerated type values, error sets, and/or error set values.
-
-Each attribute has a **name** and can also have one or more **parameters**.
-
-Each parameter has a **name** and a **value**, which can be a string or a 64-bit signed integer.
+Each attribute has an alphanumeric **name** and may optionally include one or more **parameters**. Each parameter has its own **name** as well as a **value**.
 
 There is one standard attribute:
 
@@ -33,11 +29,9 @@ There is one standard attribute:
 
 ### FSD
 
-One or more attributes can be added before a service, method, DTO, field, enumerated type, enumerated value, error set, or error value.
+An attribute is surrounded by square brackets, and its optional parameters are comma-delimited and surrounded with parentheses.
 
-Each attribute has an alphanumeric name and may optionally include one or more parameters. Each parameter has also has a name as well as a value, which can be a ASCII token or a JSON-style double-quoted string. An ASCII token can consist of numbers, letters, periods, hyphens, plus signs, and/or underscores. An ASCII token (such as an integer) is not semantically different than a double-quoted string containing that token.
-
-An attribute is surrounded by square brackets, and its optional parameters are comma-delimited and specified in parentheses.
+Each parameter value can be represented as a ASCII token or a JSON-style double-quoted string. An ASCII token can consist of numbers, letters, periods, hyphens, plus signs, and/or underscores. An ASCII token (such as an integer) is not semantically different than a double-quoted string containing that token.
 
 ```
 [myService] // no parameters
@@ -50,10 +44,13 @@ Multiple attributes can be comma-delimited within one set of square brackets and
 ```
 [attr1, attr2]
 [attr3]
-data MyData
-{
-}
 ```
+
+### HTTP
+
+Every Facility API has a default HTTP mapping. The HTTP mapping can be customized by using the `http` attribute, which can be applied to services, methods, request fields, response fields, and errors, as documented below.
+
+The `http` attribute is always optional. When the attribute is omitted, the defaults are used, as documented below.
 
 ## Service
 
@@ -87,10 +84,6 @@ When reading JSON, conforming clients and servers may match property names case-
 However, when writing JSON, conforming clients and servers must always use [standard JSON](http://www.json.org/) with no comments, correctly-cased property names, correctly-typed property values, etc.
 
 ### HTTP
-
-Every service has a default HTTP mapping. The HTTP mapping can be customized by using the `http` attribute, which can be applied to services, methods, request fields, response fields, and errors, as documented below.
-
-The `http` attribute is always optional. When the attribute is omitted, the defaults are used, as documented below.
 
 The `url` parameter of the `http` attribute indicates the base URL where the HTTP service lives. The trailing slash is optional. Clients should still be able to use a different base URL; if this parameter is omitted, clients will be required to provide the base URL.
 
