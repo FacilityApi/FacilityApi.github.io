@@ -56,7 +56,7 @@ The `http` attribute is always optional. When the attribute is omitted, the defa
 
 Every service has a **name**. Unless otherwise noted, a name in this specification must start with an ASCII letter but may otherwise contain ASCII letters, numbers, and/or underscores.
 
-A service consists of **methods**, **data transfer objects**, **enumerated types**, and **error sets**. A service also supports **attributes**, **summary**, and **remarks**.
+A service consists of **methods**, **data transfer objects**, **enumerated types**, and **error sets**. A service also supports **attributes**, a **summary**, and **remarks**.
 
 A service with no methods is permitted. It could be used to define data transfer objects rather than the operations of an actual service.
 
@@ -85,7 +85,7 @@ The `url` parameter of the `http` attribute indicates the base URL where the HTT
 
 Each method represents an operation of the service.
 
-Each method has a **name**, **request fields**, and **response fields**. A method also supports **attributes**, **summary**, and **remarks**.
+Each method has a **name**, **request fields**, and **response fields**. A method also supports **attributes**, a **summary**, and **remarks**.
 
 When a client invokes a service method, it provides values for some or all of the request fields. For example, a translation service could have a `translate` method with request fields named `text`, `sourceLanguage`, and `targetLanguage`.
 
@@ -122,7 +122,7 @@ For example, if a method uses `[http(method: GET, path: "/widgets"]` in a servic
 
 If the `path` parameter is not specified, it defaults to the method name, e.g. `/getWidgets` for a method named `getWidgets`. This default would not be appropriate for a RESTful API, but may be acceptable for an RPC-style API.
 
-The `code` parameter indicates the HTTP status code used if the method is successful (but see also [body fields](#body-fields) below). If omitted, it defaults to `200` (OK), or to `204` (No Content) if the response has no normal or body fields.
+The `code` parameter indicates the HTTP status code used if the method is successful (but see also [body fields](#body-fields) below). If omitted, it defaults to `200` (OK), or to `204` (No Content) if the response has no relevant response fields.
 
 ```
   [http(method: POST, path: "/widgets", code: 201)]
@@ -139,7 +139,7 @@ The `code` parameter indicates the HTTP status code used if the method is succes
 
 A field stores data for a method request, method response, or data transfer object.
 
-Each field has a **name** and a **type**. The field type restricts type of data that can be stored in that field.
+Each field has a **name** and a **type**. The field type restricts the type of data that can be stored in that field.
 
 Fields are generally optional, i.e. they may or may not store a value.
 
@@ -167,6 +167,8 @@ Arrays or maps of other arrays or maps are not permitted.
 ### FSD
 
 In an FSD file, a field is represented by a name and a field type, which are separated by a colon `:` and followed by a semicolon (`;`). Fields can also be preceded by field attributes. (See below for examples.)
+
+For fields whose type corresponds to a DTO or enumerated type, that DTO or enumerated type must be defined elsewhere in this service, before or after the method or DTO that contains the field.
 
 ### JSON
 
@@ -321,7 +323,7 @@ A method response may have both normal fields and body fields, in which case the
 
 Data transfer objects (DTOs) are used to combine simpler data types into a more complex data type.
 
-Each data transfer object has a **name** and a collection of **fields**.
+Each data transfer object has a **name** and a collection of **fields**. A DTO also supports **attributes**, a **summary**, and **remarks**.
 
 ### FSD
 
@@ -339,7 +341,7 @@ The `data` keyword starts the definition of a DTO. It is followed by the name of
 
 An enumerated type is a string that is restricted to a set of named values.
 
-An enumerated type has a **name** and a collection of **values**, each of which has a name.
+An enumerated type has a **name** and a collection of **values**, each of which has a name. An enumerated type also supports **attributes**, a **summary**, and **remarks**.
 
 The string stored by an enumerated type field should match the name of one of the values.
 
@@ -398,7 +400,7 @@ The **inner error** can be used to provide more information about what caused th
 
 A service that needs to support non-standard error codes can define its own error set, which supplements the standard error codes.
 
-Each error set has a **name** and a collection of **values**, each of which has a name.
+Each error set has a **name** and a collection of **values**, each of which has a name. An error set also supports **attributes**, a **summary**, and **remarks**.
 
 The name of each error set value represents a supported error code.
 
