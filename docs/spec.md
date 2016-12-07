@@ -23,7 +23,7 @@ Every service has a **name**. Unless otherwise noted, a name in this specificati
 
 A service consists of **methods**, **data transfer objects**, **enumerated types**, and **error sets**. A service also supports **attributes**, a **summary**, and **remarks**.
 
-### FSD
+#### FSD
 
 In an FSD file, the `service` keyword starts the definition of a service. It is followed by the service name and optionally preceded by service attributes.
 
@@ -40,7 +40,7 @@ service MyApi
 }
 ```
 
-### HTTP
+#### HTTP
 
 The `url` parameter of the `http` attribute indicates the base URL where the HTTP service lives. The trailing slash is optional. If the attribute or its parameter is omitted, the client will have to provide the base URL.
 
@@ -54,7 +54,7 @@ There is one standard attribute:
 
 * `obsolete`: Indicates that the service element is obsolete and/or deprecated and should no longer be used.
 
-### FSD
+#### FSD
 
 In an FSD file, an attribute is surrounded by square brackets, and its optional parameters are comma-delimited and surrounded with parentheses.
 
@@ -72,7 +72,7 @@ Multiple attributes can be comma-delimited within one set of square brackets and
 [obsolete, csharp(name: query)]
 ```
 
-### HTTP
+#### HTTP
 
 Every Facility API has a default HTTP mapping. The HTTP mapping can be customized by using the `http` attribute, which can be applied to services, methods, request fields, response fields, and errors, as documented.
 
@@ -90,7 +90,7 @@ If the method succeeds, values are returned for some or all of the response fiel
 
 If the method fails, a [service error](#service-errors) is returned instead.
 
-### FSD
+#### FSD
 
 In an FSD file, the `method` keyword starts the definition of a method. It is followed by the method name and optionally preceded by method attributes.
 
@@ -109,7 +109,7 @@ The request and response follow the method name, each enclosed in braces and sep
   }
 ```
 
-### HTTP
+#### HTTP
 
 The `http` attribute of a method supports a parameter named `method` that indicates the HTTP method that is used, e.g. `GET`, `POST`, `PUT`, `DELETE`, or `PATCH`. If omitted, the default is `POST`. Lowercase is permitted, e.g. `[http(method: get)]`.
 
@@ -161,13 +161,13 @@ A field type can be a dictionary that maps strings to values of a particular typ
 
 Arrays or maps of other arrays or maps are not permitted.
 
-### FSD
+#### FSD
 
 In an FSD file, a field is represented by a name and a field type, which are separated by a colon (`:`) and followed by a semicolon (`;`). Fields can also be preceded by field attributes.
 
 For fields whose type corresponds to a DTO or enumerated type, that DTO or enumerated type must be defined elsewhere in this service, before or after the method or DTO that contains the field.
 
-### JSON
+#### JSON
 
 Since [JSON](http://www.json.org/) is currently the most commonly-used serialization format for APIs over HTTP, Facility APIs are designed to be trivially compatible with JSON.
 
@@ -187,13 +187,13 @@ When reading JSON, conforming clients and servers may match property names case-
 
 However, when writing JSON, conforming clients and servers must always use [standard JSON](http://www.json.org/) with no comments, correctly-cased property names, correctly-typed property values, etc.
 
-### HTTP
+#### HTTP
 
 On a request or response field, the `from` parameter of the `http` attribute indicates where the field comes from. It can be set to `path`, `query`, `body`, `header`, or `normal`. Like all `http` parameters, the `from` parameter is optional; see below for defaults.
 
 The `http` attribute should not be used on a DTO field.
 
-### Path Fields
+#### Path Fields
 
 If `from: path` is used on a request field, the field comes from the method path, which must contain the field name in braces. (Response fields cannot be path fields.)
 
@@ -212,7 +212,7 @@ For example, a `getWidget` method might have a `/widgets/{id}` path and a corres
   }
 ```
 
-### Query Fields
+#### Query Fields
 
 If `from: query` is used on a request field, that field value comes from the query string. (Response fields cannot be query fields.)
 
@@ -234,7 +234,7 @@ The following example uses two query fields, e.g. `GET https://api.example.com/v
   }
 ```
 
-### Body Fields
+#### Body Fields
 
 If `from: body` is used on a request or response field, the field value comprises the entire request or response body. The name of the field is not used by the HTTP mapping.
 
@@ -257,7 +257,7 @@ The field type of a body field should generally be a DTO. A `boolean` body field
   }
 ```
 
-### Header Fields
+#### Header Fields
 
 If `from: header` is used on a request or response field, the field is transmitted via HTTP header.
 
@@ -284,7 +284,7 @@ Headers commonly used by all service methods (`Authorization`, `User Agent`, etc
   }
 ```
 
-### Normal Fields
+#### Normal Fields
 
 If `from: normal` is used on a request or response field, the field is a normal part of the request or response body.
 
@@ -312,7 +312,7 @@ Data transfer objects (DTOs) are used to combine simpler data types into a more 
 
 Each data transfer object has a **name** and a collection of **fields**. A DTO also supports **attributes**, a **summary**, and **remarks**.
 
-### FSD
+#### FSD
 
 The `data` keyword starts the definition of a DTO. It is followed by the name of the DTO and optionally preceded by data attributes. The DTO fields follow the DTO name and are enclosed in braces.
 
@@ -334,7 +334,7 @@ The string stored by an enumerated type field should match the name of one of th
 
 The value names of an enumerated type must be case-insensitively unique and may be matched case-insensitively but should nevertheless always be transmitted with the correct case.
 
-### FSD
+#### FSD
 
 The `enum` keyword starts the definition of an enumerated type. It is optionally preceded by attributes.
 
@@ -348,7 +348,7 @@ The enumerated values are comma-delimited alphanumeric names surrounded by brace
   }
 ```
 
-### JSON
+#### JSON
 
 Enumerated values are always transmitted as strings, not integers.
 
@@ -395,13 +395,13 @@ The name of each error set value represents a supported error code.
 
 The documentation summary of each error set value is used as the default error message for that error code.
 
-### FSD
+#### FSD
 
 The `errors` keyword starts an error set. It is followed by the name of the error set and optionally preceded by attributes.
 
 The error values are comma-delimited alphanumeric names surrounded by braces. A final trailing comma is permitted.
 
-### HTTP
+#### HTTP
 
 On an error of an error set, the `code` parameter of the `http` attribute is used to specify the HTTP status code that should be used when that error is returned, e.g. `404`.
 
@@ -448,7 +448,7 @@ Most elements of a service support a **summary** string for documentation purpos
 
 The summary should be short and consist of a single sentence or short paragraph.
 
-### FSD
+#### FSD
 
 To add a summary, use a special comment that appears in generated code and documentation. Comments with summaries use three slashes instead of two.
 
@@ -470,7 +470,7 @@ Some elements also support **remarks**: service, methods, DTOs, enumerated types
 
 The remarks can use [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/). They can be arbitrarily long and can include multiple paragraphs.
 
-### FSD
+#### FSD
 
 Add remarks to an FSD file after the end of the closing bracket of the `service`.
 
