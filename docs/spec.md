@@ -5,7 +5,7 @@ layout: page
 
 # Facility Service Definition Specification
 
-A Facility Service Definition (FSD) describes the operations supported by a service API.
+A Facility Service Definition (FSD) describes the operations supported by a Facility API.
 
 ## FSD File
 
@@ -13,52 +13,15 @@ A Facility Service Definition is typically represented by an FSD file, though [O
 
 An FSD file uses a domain-specific language in an effort to make Facility Service Definitions easier to read and write, especially for developers comfortable with C-style languages.
 
-Each FSD file contains the definition of one **service**. Frequently the file name will match the service name followed by an `.fsd` file extension, e.g. `MyApi.fsd`.
+Each FSD file contains the definition of one **service**. The name of an FSD file is typically the service name with an `.fsd` file extension, e.g. `MyApi.fsd`.
 
 An FSD file should use UTF-8 with no byte order mark (BOM).
-
-## Attributes
-
-Attributes are used to attach additional information to a service and other service elements.
-
-Each attribute has an alphanumeric **name** and may optionally include one or more **parameters**. Each parameter has its own **name** as well as a **value**.
-
-There is one standard attribute:
-
-* `obsolete`: Indicates that the service element is obsolete and/or deprecated and should no longer be used.
-
-### FSD
-
-In an FSD file, an attribute is surrounded by square brackets, and its optional parameters are comma-delimited and surrounded with parentheses.
-
-Each parameter value can be represented as an ASCII token or a JSON-style double-quoted string. An ASCII token can consist of numbers, letters, periods, hyphens, plus signs, and/or underscores. An ASCII token (such as an integer) is not semantically different than a double-quoted string containing that token.
-
-```
-[myService] // no parameters
-[something(name: q)] // one parameter
-[meaning(of: "life", is: 42)] // two parameters
-```
-
-Multiple attributes can be comma-delimited within one set of square brackets and/or specified in separate sets of square brackets.
-
-```
-[attr1, attr2]
-[attr3]
-```
-
-### HTTP
-
-Every Facility API has a default HTTP mapping. The HTTP mapping can be customized by using the `http` attribute, which can be applied to services, methods, request fields, response fields, and errors, as documented below.
-
-The `http` attribute is always optional. When the attribute is omitted, the defaults are used, as documented below.
 
 ## Service
 
 Every service has a **name**. Unless otherwise noted, a name in this specification must start with an ASCII letter but may otherwise contain ASCII letters, numbers, and/or underscores.
 
 A service consists of **methods**, **data transfer objects**, **enumerated types**, and **error sets**. A service also supports **attributes**, a **summary**, and **remarks**.
-
-A service with no methods is permitted. It could be used to define data transfer objects rather than the operations of an actual service.
 
 ### FSD
 
@@ -79,7 +42,41 @@ service MyApi
 
 ### HTTP
 
-The `url` parameter of the `http` attribute indicates the base URL where the HTTP service lives. The trailing slash is optional. Clients should still be able to use a different base URL; if this parameter is omitted, clients will be required to provide the base URL.
+The `url` parameter of the `http` attribute indicates the base URL where the HTTP service lives. The trailing slash is optional. If the attribute or its parameter is omitted, the client will have to provide the base URL.
+
+## Attributes
+
+Attributes are used to attach additional information to a service and its elements.
+
+Each attribute has an alphanumeric **name** and may optionally include one or more **parameters**. Each parameter has its own **name** as well as a **value**.
+
+There is one standard attribute:
+
+* `obsolete`: Indicates that the service element is obsolete and/or deprecated and should no longer be used.
+
+### FSD
+
+In an FSD file, an attribute is surrounded by square brackets, and its optional parameters are comma-delimited and surrounded with parentheses.
+
+Each parameter value can be represented as an ASCII token or a JSON-style double-quoted string. An ASCII token can consist of numbers, letters, periods, hyphens, plus signs, and/or underscores. An ASCII token is not semantically different than a double-quoted string containing that token.
+
+```
+[obsolete] // no parameters
+[csharp(name: query)] // one parameter
+[http(method: "GET", code: 202)] // two parameters
+```
+
+Multiple attributes can be comma-delimited within one set of square brackets and/or specified in separate sets of square brackets.
+
+```
+[obsolete, csharp(name: query)]
+```
+
+### HTTP
+
+Every Facility API has a default HTTP mapping. The HTTP mapping can be customized by using the `http` attribute, which can be applied to services, methods, request fields, response fields, and errors, as documented.
+
+The `http` attribute is always optional. When the attribute is omitted, the defaults are used, as documented below.
 
 ## Methods
 
