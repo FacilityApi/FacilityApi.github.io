@@ -7,6 +7,8 @@ layout: page
 
 A Facility Service Definition (FSD) describes the operations supported by a Facility API.
 
+Unlike other API definition formats, an FSD focuses on the shape of the client library rather than on the HTTP paths. Each service operation has a name, request fields, and response fields. In that way it resembles [RPC](https://en.wikipedia.org/wiki/Remote_procedure_call) more than [REST](https://en.wikipedia.org/wiki/Representational_state_transfer), though it can certainly be used to describe RESTful APIs.
+
 ## FSD File
 
 A Facility Service Definition is typically represented by an FSD file, though [Open API (Swagger) 2.0](/docs/swagger) is also supported.
@@ -15,7 +17,7 @@ An FSD file uses a domain-specific language in an effort to make Facility Servic
 
 Each FSD file contains the definition of one **service**. The name of an FSD file is typically the service name with an `.fsd` file extension, e.g. `MyApi.fsd`.
 
-An FSD file should use UTF-8 with no byte order mark (BOM).
+An FSD file is a text file encoded with UTF-8 and no byte order mark (BOM).
 
 ## Service
 
@@ -50,23 +52,21 @@ Attributes are used to attach additional information to a service and its elemen
 
 Each attribute has an alphanumeric **name** and may optionally include one or more **parameters**. Each parameter has its own **name** as well as a **value**.
 
-There is one standard attribute:
-
-* `obsolete`: Indicates that the service element is obsolete and/or deprecated and should no longer be used.
+The `obsolete` attribute indicates that the service element is obsolete and/or deprecated and should no longer be used. It has no parameters.
 
 #### FSD
 
-In an FSD file, an attribute is surrounded by square brackets, and its optional parameters are comma-delimited and surrounded with parentheses.
+In an FSD file, the attribute name is surrounded by square brackets. The comma-delimited parameters, if any, are surrounded by parentheses and follow the attribute name.
 
-Each parameter value can be represented as an ASCII token or a JSON-style double-quoted string. An ASCII token can consist of numbers, letters, periods, hyphens, plus signs, and/or underscores. An ASCII token is not semantically different than a double-quoted string containing that token.
+Each parameter value can be represented as an ASCII token or a [JSON-style](http://www.json.org/) double-quoted string. An ASCII token can consist of numbers, letters, periods, hyphens, plus signs, and/or underscores. An ASCII token is not semantically different than a double-quoted string containing that token.
 
 ```
 [obsolete] // no parameters
 [csharp(name: query)] // one parameter
-[http(method: "GET", code: 202)] // two parameters
+[http(path: "/search", code: 202)] // two parameters
 ```
 
-Multiple attributes can be comma-delimited within one set of square brackets and/or specified in separate sets of square brackets.
+Multiple attributes can be comma-delimited within one set of square brackets (as below) and/or specified in separate sets of square brackets (as above).
 
 ```
 [obsolete, csharp(name: query)]
@@ -74,15 +74,15 @@ Multiple attributes can be comma-delimited within one set of square brackets and
 
 #### HTTP
 
-Every Facility API has a default HTTP mapping. The HTTP mapping can be customized by using the `http` attribute, which can be applied to services, methods, request fields, response fields, and errors, as documented.
+Every Facility API has a default HTTP mapping. The HTTP mapping can be customized by using the `http` attribute, which can be applied to services, methods, request fields, response fields, and errors.
 
-The `http` attribute is always optional. When the attribute is omitted, the defaults are used, as documented below.
+The `http` attribute is always optional. When the attribute is omitted, the defaults are used, as documented.
 
 ## Methods
 
 Each method represents an operation of the service.
 
-Each method has a **name**, **request fields**, and **response fields**. A method also supports **attributes**, a **summary**, and **remarks**.
+A method has a **name**, **request fields**, and **response fields**. A method also supports **attributes**, a **summary**, and **remarks**.
 
 When a client invokes a service method, it provides values for some or all of the request fields. For example, a translation service could have a `translate` method with request fields named `text`, `sourceLanguage`, and `targetLanguage`.
 
@@ -94,7 +94,7 @@ If the method fails, a [service error](#service-errors) is returned instead.
 
 In an FSD file, the `method` keyword starts the definition of a method. It is followed by the method name and optionally preceded by method attributes.
 
-The request and response follow the method name, each enclosed in braces and separated by a colon (`:`). The request and response fields are listed within the braces.
+The request and response follow the method name, each enclosed in braces and separated by a colon (`:`). The request and response fields, if any, are listed within the braces.
 
 ```
   method translate
@@ -151,9 +151,9 @@ The following primitive field types are supported:
 * `object`: An arbitrary JSON object.
 * `error`: A [service error](#service-errors).
 
-A field type can be any data transfer object or enumerated type in the service, referenced by name.
+A field type can be any [data transfer object](#data-transfer-objects) or [enumerated type](#enumerated-types) in the service, referenced by name.
 
-A field type can be a service result. Use `result<T>` to indicate a service result; for example, `result<Widget>` is a service result whose value is a DTO named `Widget`.
+A field type can be a [service result](#service-results). Use `result<T>` to indicate a service result; for example, `result<Widget>` is a service result whose value is a DTO named `Widget`.
 
 A field type can be an array, i.e. zero or more ordered items of a particular type, including primitive types, data transfer objects, enumerated types, or service results. Use `T[]` to indicate an array; for example, `int32[]` is an array of `int32`.
 
@@ -182,6 +182,8 @@ In a JSON request body, response body, or DTO, a field is serialized as a JSON o
 * `map<T>` is encoded as a JSON object.
 
 `null` is not a valid value for any field type. If a JSON property is set to `null`, it is treated as though it were omitted. Arrays and maps are not permitted to have `null` items.
+
+Even though `int64` is a 64-bit signed integer, avoid ±2<sup>51</sup> or larger, as JavaScript [cannot safely represent](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/MAX_SAFE_INTEGER) integers that large.
 
 When reading JSON, conforming clients and servers may match property names case-insensitively, and they may perform type conversions for property values, e.g. strings to numbers. They may also support non-standard JSON features, such as unquoted property names, single-quoted strings, comments, etc.
 
