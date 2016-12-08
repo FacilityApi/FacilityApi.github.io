@@ -9,3 +9,7 @@ body {
 .large {
   font-size: 125%;
 }
+
+.github {
+  height: 40px;
+}
