@@ -23,7 +23,7 @@ An FSD file is a text file encoded with UTF-8 and no byte order mark (BOM).
 
 Every service has a **name**. Unless otherwise noted, a name in this specification must start with an ASCII letter but may otherwise contain ASCII letters, numbers, and/or underscores.
 
-A service consists of **methods**, **data transfer objects**, **enumerated types**, and **error sets**. A service also supports **attributes**, a **summary**, and **remarks**.
+A service contains one or more service elements: [methods](#methods), [data transfer objects](#data-transfer-objects), [enumerated types](#enumerated-types), and [error sets](#error-sets). A service can also have [attributes](#attributes), a [summary](#summary), and [remarks](#remarks).
 
 #### FSD
 
@@ -35,10 +35,10 @@ The methods and other service items follow the service name, enclosed in braces.
 [http(url: "https://api.example.com/v1/")]
 service MyApi
 {
-  method myMethod { ... }: { ... }
-  data MyData { ... }
-  enum MyEnum { ... }
-  ...
+  method myMethod { … }: { … }
+  data MyData { … }
+  enum MyEnum { … }
+  …
 }
 ```
 
@@ -82,7 +82,7 @@ The `http` attribute is always optional. When the attribute is omitted, the defa
 
 Each method represents an operation of the service.
 
-A method has a **name**, **request fields**, and **response fields**. A method also supports **attributes**, a **summary**, and **remarks**.
+A method has a **name**, **request fields**, and **response fields**. A method can also have [attributes](#attributes), a [summary](#summary), and [remarks](#remarks).
 
 When a client invokes a service method, it provides values for some or all of the request fields. For example, a translation service could have a `translate` method with request fields named `text`, `sourceLanguage`, and `targetLanguage`.
 
@@ -119,16 +119,16 @@ For example, if a method uses `[http(method: GET, path: "/widgets"]` in a servic
 
 If the `path` parameter is not specified, it defaults to the method name, e.g. `/getWidgets` for a method named `getWidgets`. This default would not be appropriate for a RESTful API, but may be acceptable for an RPC-style API.
 
-The `code` parameter indicates the HTTP status code used if the method is successful (but see also [body fields](#body-fields) below). If omitted, it defaults to `200` (OK), or to `204` (No Content) if the response has no relevant response fields.
+The `code` parameter indicates the HTTP status code used if the method is successful (but see also [body fields](#body-fields) below). If omitted, it defaults to `200` (OK), or to `204` (No Content) if the response has no [normal fields](#normal-fields) or [body fields](#body-fields).
 
 ```
-  [http(method: POST, path: "/widgets", code: 201)]
-  method createWidget
+  [http(method: POST, path: "/jobs/start", code: 202)]
+  method startJob
   {
-    ...
+    …
   }:
   {
-    ...
+    …
   }
 ```
 
@@ -197,9 +197,9 @@ The `http` attribute should not be used on a DTO field.
 
 #### Path Fields
 
-If `from: path` is used on a request field, the field comes from the method path, which must contain the field name in braces. (Response fields cannot be path fields.)
+If `from: path` is used on a request field, the field comes from the HTTP path of the method, which must contain the field name in braces. (Response fields cannot be path fields.)
 
-If the name of a request field without a `from` parameter is found in the path, it is assumed to be a path field, so `from: path` is rarely used explicitly.
+If the name of a request field without a `from` parameter is found in the path, it is assumed to be a path field, so `from: path` never needs to be used explicitly.
 
 For example, a `getWidget` method might have a `/widgets/{id}` path and a corresponding `id` request field.
 
@@ -210,17 +210,17 @@ For example, a `getWidget` method might have a `/widgets/{id}` path and a corres
     id: string;
   }:
   {
-    ...
+    …
   }
 ```
 
 #### Query Fields
 
-If `from: query` is used on a request field, that field value comes from the query string. (Response fields cannot be query fields.)
+If `from: query` is used on a request field, that field value comes from the query string of the HTTP request. (Response fields cannot be query fields.)
 
 The `name` parameter of the `http` attribute can be used to indicate the name of the field as found in the query string; if omitted, it defaults to the field name.
 
-If a request field of an `method: GET` method is not a path field and it has no other `http` attributes, it is assumed to be a query field. For non-`GET` methods like `POST`, `from: query` is always needed to identify query fields.
+If a request field of an `method: GET` method has no `from` value, it is assumed to be a query field. For non-`GET` methods like `POST`, `from: query` is always needed to identify query fields.
 
 The following example uses two query fields, e.g. `GET https://api.example.com/v1/widgets?q=blue&limit=10`.
 
@@ -232,25 +232,27 @@ The following example uses two query fields, e.g. `GET https://api.example.com/v
     limit: int32;
   }:
   {
-    ...
+    …
   }
 ```
 
 #### Body Fields
 
-If `from: body` is used on a request or response field, the field value comprises the entire request or response body. The name of the field is not used by the HTTP mapping.
+If `from: body` is used on a request or response field, the field value comprises the entire request or response body. The name of the field is not used in the actual HTTP request or response.
 
-The `code` parameter of the `http` attribute can be used on a body field of a response to indicate the HTTP status code used if the method is successful. If omitted, it defaults to the status code of the method.
+Only one request field may be marked as a body field, and the request must have no normal fields.
 
-In the response, multiple fields can use `from: body` to indicate multiple possible response bodies. Each field should use a different `code`.
+For response fields, the `code` parameter of the `http` attribute of the body field is used to indicate the HTTP status code used if the method is successful. If omitted, it defaults to `200` (OK).
 
-The field type of a body field should generally be a DTO. A `boolean` body field can be used to indicate an empty response; when used, it is set to `true`.
+In the response, multiple fields can use `from: body` to indicate multiple possible response bodies. Each field must use a different `code`.
+
+The field type of a body field should generally be a DTO. A response body field can use `boolean` to indicate an empty response; when used, it is set to `true`. The default `code` for a `boolean` body field is `204` (No Content).
 
 ```
-  [http(path: "/widgets", code: 201)]
+  [http(path: "/widgets")]
   method createWidget
   {
-    [http(from: body)]
+    [http(from: body, code: 201)]
     widget: Widget;
   }:
   {
@@ -267,7 +269,7 @@ The `name` parameter of the `http` attribute can be used to indicate the name of
 
 Header fields must be of type `string`. The header value is not transformed in any way and must conform to the HTTP requirements for that header.
 
-Headers commonly used by all service methods (`Authorization`, `User Agent`, etc.) are generally outside the scope of the FSD and not explicitly included with each request and/or response.
+Headers commonly used by all service methods (`Authorization`, `User Agent`, etc.) are generally outside the scope of the FSD and not explicitly mentioned in each method request and/or response.
 
 ```
   [http(method: GET, path: "/widgets/{id}")]
@@ -282,7 +284,7 @@ Headers commonly used by all service methods (`Authorization`, `User Agent`, etc
     [http(from: header)]
     eTag: string;
 
-    ...
+    …
   }
 ```
 
@@ -290,7 +292,7 @@ Headers commonly used by all service methods (`Authorization`, `User Agent`, etc
 
 If `from: normal` is used on a request or response field, the field is a normal part of the request or response body.
 
-Except as indicated above, request and response fields are assumed to be normal fields, so `from: normal` is rarely used explicitly.
+Except as indicated above, request and response fields are assumed to be normal fields, so `from: normal` never needs to be used explicitly.
 
 A method response may have both normal fields and body fields, in which case the set of normal fields is used by a different status code than any of the body fields.
 
@@ -312,7 +314,7 @@ A method response may have both normal fields and body fields, in which case the
 
 Data transfer objects (DTOs) are used to combine simpler data types into a more complex data type.
 
-Each data transfer object has a **name** and a collection of **fields**. A DTO also supports **attributes**, a **summary**, and **remarks**.
+Each data transfer object has a **name** and a collection of **fields**. A DTO can also have [attributes](#attributes), a [summary](#summary), and [remarks](#remarks).
 
 #### FSD
 
@@ -328,9 +330,9 @@ The `data` keyword starts the definition of a DTO. It is followed by the name of
 
 ## Enumerated Types
 
-An enumerated type is a string that is restricted to a set of named values.
+An enumerated type is a type of string that is restricted to a set of named values.
 
-An enumerated type has a **name** and a collection of **values**, each of which has a name. An enumerated type also supports **attributes**, a **summary**, and **remarks**.
+An enumerated type has a **name** and a collection of **values**, each of which has its own **name**. An enumerated type can also have [attributes](#attributes), a [summary](#summary), and [remarks](#remarks).
 
 The string stored by an enumerated type field should match the name of one of the values.
 
@@ -356,7 +358,7 @@ Enumerated values are always transmitted as strings, not integers.
 
 ## Service Errors
 
-As mentioned above, a failed service method call returns a service error instead of a response. A service error can also be stored in an `error` field, or in a non-successful `result<T>` field.
+As [mentioned above](#methods), a failed service method call returns a service error instead of a response. A service error can also be stored in an `error` field, or in a failed `result<T>` field.
 
 Each instance of a service error has a **code** and a **message**. It may also have **details** and an **inner error**.
 
@@ -375,7 +377,7 @@ The **code** is a machine-readable `string` that identifies the error. There are
 * `TooManyRequests`: The client has made too many requests.
 * `RequestTooLarge`: The request is too large.
 
-The **message** is a human-readable `string` that describes the error. It is usually intended for client developers, not end users.
+The **message** is a human-readable `string` that describes the error. It is usually intended for developers, not end users.
 
 The **details** `object` can be used to store whatever additional error information the service wants to communicate.
 
@@ -385,15 +387,18 @@ The **inner error** is an `error` that can be used to provide more information a
 
  A service result (or an array of service results) can be used in response fields by methods that perform multiple operations and want to return separate success or failure for each one.
 
- An instance of a service result contains either a **value** of one of the defined DTO types or an **error**.
+ An instance of a service result contains exactly one of the following:
+
+ * **value**: an instance of a (data transfer object)(#data-transfer-objects) (success)
+ * **error**: a [service error](#service-errors) (failure)
 
 ## Error Sets
 
 A service that needs to support non-standard error codes can define its own error set, which supplements the standard error codes.
 
-Each error set has a **name** and a collection of **values**, each of which has a name. An error set also supports **attributes**, a **summary**, and **remarks**.
+Each error set has a **name** and a collection of **values**, each of which has its own **name**. An error set can also have [attributes](#attributes), a [summary](#summary), and [remarks](#remarks).
 
-The name of each error set value represents a supported error code.
+The name of each error set value represents a supported [error code](#service-errors).
 
 The documentation summary of each error set value is used as the default error message for that error code.
 
@@ -417,24 +422,24 @@ If the `code` parameter is missing from an error, `500` (Internal Server Error) 
   }
 ```
 
-The standard error codes already have reasonable status codes:
+The standard error codes already have reasonable HTTP status codes:
 
-* `InvalidRequest`: 400
-* `InternalError`: 500
-* `InvalidResponse`: 500
-* `ServiceUnavailable`: 503
-* `Timeout`: 500
-* `NotAuthenticated`: 401
-* `NotAuthorized`: 403
-* `NotFound`: 404
-* `NotModified`: 304
-* `Conflict`: 409
-* `TooManyRequests`: 429
-* `RequestTooLarge`: 413
+* `InvalidRequest`: `400`
+* `InternalError`: `500`
+* `InvalidResponse`: `500`
+* `ServiceUnavailable`: `503`
+* `Timeout`: `500`
+* `NotAuthenticated`: `401`
+* `NotAuthorized`: `403`
+* `NotFound`: `404`
+* `NotModified`: `304`
+* `Conflict`: `409`
+* `TooManyRequests`: `429`
+* `RequestTooLarge`: `413`
 
 ## Comments
 
-To add a comment to an FSD file, use `// this syntax`.
+Use two slashes to start a comment. The slashes and everything that follows them on that line are ignored (except for [summaries](#summary)).
 
 ```
   data MyData // this comment is ignored
@@ -452,9 +457,7 @@ The summary should be short and consist of a single sentence or short paragraph.
 
 #### FSD
 
-To add a summary, use a special comment that appears in generated code and documentation. Comments with summaries use three slashes instead of two.
-
-Multiple summary comments can be used for a single element of a service; newlines are automatically replaced with spaces.
+To add a summary to a service element, place a comment line before it that uses three slashes instead of two. Multiple summary comments can be used for a single element of a service; newlines are automatically replaced with spaces.
 
 Summaries are supported by services, methods, DTOs, fields, enumerated types, enumerated values, error sets, and error values.
 
@@ -462,7 +465,7 @@ Summaries are supported by services, methods, DTOs, fields, enumerated types, en
   /// My awesome data.
   data MyData
   {
-    ...
+    …
   }
 ```
 
@@ -474,7 +477,7 @@ The remarks can use [GitHub Flavored Markdown](https://guides.github.com/feature
 
 #### FSD
 
-Add remarks to an FSD file after the end of the closing bracket of the `service`.
+Add remarks to an FSD file after the end of the closing brace of the `service`.
 
 The first non-blank line immediately following the closing bracket must be a top-level `#` heading  (e.g. `# myMethod`).
 
@@ -485,10 +488,10 @@ That first heading as well as any additional top-level headings must match the n
 service MyApi
 {
   /// The method summary.
-  method myMethod { ... }: { ... }
+  method myMethod { … }: { … }
 
   /// The DTO summary.
-  data MyData { ... }
+  data MyData { … }
 }
 
 # MyApi
