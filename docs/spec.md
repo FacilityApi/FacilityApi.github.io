@@ -220,7 +220,7 @@ If `from: query` is used on a request field, that field value comes from the que
 
 The `name` parameter of the `http` attribute can be used to indicate the name of the field as found in the query string; if omitted, it defaults to the field name.
 
-If a request field of an `method: GET` method has no `from` value, it is assumed to be a query field. For non-`GET` methods like `POST`, `from: query` is always needed to identify query fields.
+If a request field of a `GET` or  `DELETE` method has no `from` value, it is assumed to be a query field. For other methods like `POST`, `from: query` is always needed to identify query fields.
 
 The following example uses two query fields, e.g. `GET https://api.example.com/v1/widgets?q=blue&limit=10`.
 
