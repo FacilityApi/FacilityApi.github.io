@@ -296,6 +296,8 @@ Except as indicated above, request and response fields are assumed to be normal 
 
 A method response may have both normal fields and body fields, in which case the set of normal fields is used by a different status code than any of the body fields.
 
+Methods using `GET` and `DELETE` do not support normal fields.
+
 ```
   [http(method: POST, path: "/widgets/search")]
   method searchWidgets
