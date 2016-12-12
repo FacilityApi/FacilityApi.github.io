@@ -159,8 +159,6 @@ A field type can be an array, i.e. zero or more ordered items of a particular ty
 
 A field type can be a dictionary that maps strings to values of a particular type, including primitive types, data transfer objects, enumerated types, or service results. Use `map<T>` to indicate a map; for example, `map<int32>` is a map of strings to `int32`.
 
-Arrays or maps of other arrays or maps are not permitted.
-
 #### FSD
 
 In an FSD file, a field is represented by a name and a field type, which are separated by a colon (`:`) and followed by a semicolon (`;`). Fields can also be preceded by field attributes.
@@ -387,11 +385,11 @@ The **inner error** is an `error` that can be used to provide more information a
 
 ## Service Results
 
- A service result (or an array of service results) can be used in response fields by methods that perform multiple operations and want to return separate success or failure for each one.
+ A service result can be used in response fields by methods that perform multiple operations and want to return separate success or failure for each one.
 
  An instance of a service result contains exactly one of the following:
 
- * **value**: an instance of a (data transfer object)(#data-transfer-objects) (success)
+ * **value**: a value of a [particular type](#fields) (success)
  * **error**: a [service error](#service-errors) (failure)
 
 ## Error Sets
