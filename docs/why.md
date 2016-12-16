@@ -18,13 +18,13 @@ An **API definition** provides a single canonical representation of your API. Th
 
 ## Why use Facility?
 
-Other API frameworks already exist, most notably [Open API](https://www.openapis.org/) (aka [Swagger](http://swagger.io/)).
+Other API frameworks already exist, most notably [OpenAPI](https://www.openapis.org/) (aka [Swagger](http://swagger.io/)).
 
 Consider using Facility if our design goals line up with your expectations better than other frameworks:
 
 * **Concise API specification.** A clear and concise specification is ideal for API designers, implementors, and consumers.
 * **Familiar file format.** The Facility Service Definition (FSD) file format uses a domain-specific language in an effort to make definitions easier to read and write, especially for developers comfortable with C-style languages. Alternative standardized formats (e.g. JSON, YAML) may be supported in the future.
-* **Interoperability with other API platforms.** Service definitions can imported from other API platforms such as [Open API](https://openapis.org/specification), which allows developers to leverage Facility tools without having to adopt a different specification format. We can also export definitions for those platforms so that developers can leverage the tools supported by those platforms.
+* **Interoperability with other API platforms.** Service definitions can imported from other API platforms such as [OpenAPI](https://openapis.org/specification), which allows developers to leverage Facility tools without having to adopt a different specification format. We can also export definitions for those platforms so that developers can leverage the tools supported by those platforms.
 * **Keep it simple.** The FSD specification will be kept as simple as possible, even though that means that many APIs cannot be represented by it. Every new capability adds complexity to every tool that leverages an FSD, and a complex definition language can hinder the creation of new tools. Constraints can also free API designers from the paralysis of too many choices.
 * **Multiple languages, platforms, and frameworks.** A Facility Service Definition can be used to generate code in any programming language (C#, JavaScript, etc.) on any platform (Windows, Linux, etc.) for use with any API framework (ASP.NET, Node, etc.).
 * **Easy-to-write tooling.** The standard tools and libraries use C#, which can be used on Windows, Linux, and Mac. They work well with ASP.NET but can be used to generate code for any programming language, platform, or framework. Facility tools and libraries can be written in other languages as well.

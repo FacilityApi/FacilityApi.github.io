@@ -1,6 +1,6 @@
 ---
-title: "Open API (Swagger) 2.0"
+title: "OpenAPI (Swagger) 2.0"
 layout: page
 ---
 
-# Open API (Swagger) 2.0
+# OpenAPI (Swagger) 2.0
