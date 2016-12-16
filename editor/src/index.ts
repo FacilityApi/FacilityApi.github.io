@@ -158,7 +158,7 @@ export default function() {
 	fileList.onchange = setOutputToSelection;
 
 	// create function that generates output
-	const baseUri = _.startsWith(window.location.href, 'http://local') ? 'http://localhost:45054/' : 'https://fsdgen.calexanderdev.com/';
+	const baseUri = _.startsWith(window.location.href, 'http://local') ? 'http://localhost:45054/' : 'https://fsdgenapi.faithlife.com/';
 	const client = api.createHttpClient({ fetch, baseUri });
 	let generating = false;
 	const generate = () => {
