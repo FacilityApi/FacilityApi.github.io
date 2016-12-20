@@ -22,7 +22,7 @@ export default function() {
 				{ include: '@whitespace' },
 				{ include: '@attribute' },
 				[/service\b/, 'keyword'],
-				[/[a-zA-Z][a-zA-Z0-9]*/, 'type.identifier'],
+				[/[a-zA-Z_][a-zA-Z_0-9]*/, 'type.identifier'],
 				[/{/, 'delimiter.curly', '@service'],
 				[/^(?=#)/, 'markdown', '@markdown']
 			],
@@ -32,7 +32,7 @@ export default function() {
 				{ include: '@attribute' },
 				[/(method|data|errors|enum)\b/, 'keyword'],
 				[/:/, 'delimiter' ],
-				[/[a-zA-Z][a-zA-Z0-9]*/, 'type.identifier'],
+				[/[a-zA-Z_][a-zA-Z_0-9]*/, 'type.identifier'],
 				[/{/, 'delimiter.curly', '@member'],
 				[/}/, 'delimiter.curly', '@pop']
 			],
@@ -41,14 +41,14 @@ export default function() {
 				{ include: '@whitespace' },
 				{ include: '@attribute' },
 				[/,/, 'delimiter' ],
-				[/[a-zA-Z][a-zA-Z0-9]*/, ''],
+				[/[a-zA-Z_][a-zA-Z_0-9]*/, ''],
 				[/:/, 'delimiter', '@typeName'],
 				[/}/, 'delimiter.curly', '@pop']
 			],
 
 			typeName: [
 				{ include: '@whitespace' },
-				[/[a-zA-Z][a-zA-Z0-9]*/, { cases: { 'string|boolean|double|int32|int64|bytes|object|error|result|map': 'keyword', '@default': 'type.identifier' } }],
+				[/[a-zA-Z_][a-zA-Z_0-9]*/, { cases: { 'string|boolean|double|int32|int64|bytes|object|error|result|map': 'keyword', '@default': 'type.identifier' } }],
 				[/[\[\]<>]/, '@brackets'],
 				[/;/, 'delimiter', '@pop' ]
 			],
@@ -105,8 +105,7 @@ export default function() {
 	// create Monaco editors
 	const leftMonacoOptions = {
 		value: localStorage['fsdText'] || '',
-		theme: 'vs-dark',
-		language: 'fsd'
+		theme: 'vs-dark'
 	};
 	const leftMonaco = monaco.editor.create(document.getElementsByClassName('left-bottom-container')[0] as HTMLElement, leftMonacoOptions);
 	const rightMonacoOptions = {
@@ -119,6 +118,18 @@ export default function() {
 		leftMonaco.layout();
 		rightMonaco.layout();
 	}
+
+	// create function for detecting input language
+	let currentLanguageId = '';
+	const detectLanguage = () =>
+	{
+		const text = leftMonaco.getModel().getValue();
+		const languageId = /^\s*\{/.test(text) ? 'json' : /^\s*(sw|-|#)/.test(text) ? 'yaml' : 'fsd';
+		if (languageId !== currentLanguageId) {
+			currentLanguageId = languageId;
+			monaco.editor.setModelLanguage(leftMonaco.getModel(), languageId);
+		}
+	};
 
 	// create function for setting output
 	const lastFileName: { [generator: string]: string } = {};
@@ -158,7 +169,7 @@ export default function() {
 	fileList.onchange = setOutputToSelection;
 
 	// create function that generates output
-	const baseUri = _.startsWith(window.location.href, 'http://local') ? 'http://localhost:45054/' : 'https://fsdgenapi.faithlife.com/';
+	const baseUri = 'https://fsdgenapi.faithlife.com/';
 	const client = api.createHttpClient({ fetch, baseUri });
 	let generating = false;
 	const generate = () => {
@@ -172,7 +183,7 @@ export default function() {
 						name: generatorPicker.value
 					},
 					definition: {
-						name: 'api.fsd',
+						name: `api.${currentLanguageId}`,
 						text: leftMonaco.getModel().getValue()
 					}
 				}).then(result => {
@@ -269,6 +280,7 @@ export default function() {
 	}
 	leftMonaco.getModel().onDidChangeContent(() => {
 		localStorage['fsdText'] = leftMonaco.getModel().getValue();
+		detectLanguage();
 		generateSoon();
 	});
 
@@ -278,5 +290,6 @@ export default function() {
 	}
 
 	leftMonaco.focus();
+	detectLanguage();
 	generate();
 }
