@@ -6,7 +6,11 @@ export default function() {
 	// get various HTML elements
 	const fileList = document.getElementsByClassName('file-list')[0] as HTMLSelectElement;
 	const generatorPicker = document.getElementsByClassName('generator-picker')[0] as HTMLSelectElement;
-	const outputHeader = document.getElementsByClassName('right-top-container')[0];
+	const outputHeader = document.getElementsByClassName('right-top-container')[0] as HTMLDivElement;
+	const definitionNameInput = document.getElementsByName('definitionName')[0] as HTMLInputElement;
+	const definitionTextInput = document.getElementsByName('definitionText')[0] as HTMLInputElement;
+	const generatorNameInput = document.getElementsByName('generatorName')[0] as HTMLInputElement;
+	const downloadButton = document.getElementsByClassName('download-button')[0] as HTMLButtonElement;
 
 	// register FSD language
 	monaco.languages.register({
@@ -177,97 +181,105 @@ export default function() {
 			generateSoon();
 		} else {
 			generating = true;
-			client
-				.generate({
-					generator: {
-						name: generatorPicker.value
-					},
-					definition: {
-						name: `api.${currentLanguageId}`,
-						text: leftMonaco.getModel().getValue()
-					}
-				}).then(result => {
-					if (result.error) {
-						throw TypeError(result.error.message);
-					}
-					while (fileList.firstChild) {
-						fileList.removeChild(fileList.firstChild);
-					}
-					const { output, failure } = result.value;
-					if (output && output.length) {
-						output.sort((a, b) => {
-							const aParts = a.name.split('/');
-							const bParts = b.name.split('/');
-							for (let index = 0; ; index++) {
-								if (index === aParts.length) {
-									return index === bParts.length ? 0 : -1;
-								} else if (index === bParts.length) {
-									return 1;
-								} else {
-									const aIsFile = index + 1 === aParts.length;
-									const bIsFile = index + 1 === bParts.length;
-									if (aIsFile === bIsFile) {
-										if (aParts[index] < bParts[index]) {
-											return -1;
-										} else if (aParts[index] > bParts[index]) {
-											return 1;
-										}
-									} else if (aIsFile) {
+			const generateRequest = {
+				generator: {
+					name: generatorPicker.value
+				},
+				definition: {
+					name: `api.${currentLanguageId}`,
+					text: leftMonaco.getModel().getValue()
+				}
+			};
+			client.generate(generateRequest).then(result => {
+				if (result.error) {
+					throw TypeError(result.error.message);
+				}
+				while (fileList.firstChild) {
+					fileList.removeChild(fileList.firstChild);
+				}
+				const { output, failure } = result.value;
+				if (output && output.length) {
+					output.sort((a, b) => {
+						const aParts = a.name.split('/');
+						const bParts = b.name.split('/');
+						for (let index = 0; ; index++) {
+							if (index === aParts.length) {
+								return index === bParts.length ? 0 : -1;
+							} else if (index === bParts.length) {
+								return 1;
+							} else {
+								const aIsFile = index + 1 === aParts.length;
+								const bIsFile = index + 1 === bParts.length;
+								if (aIsFile === bIsFile) {
+									if (aParts[index] < bParts[index]) {
 										return -1;
-									} else {
+									} else if (aParts[index] > bParts[index]) {
 										return 1;
 									}
+								} else if (aIsFile) {
+									return -1;
+								} else {
+									return 1;
 								}
 							}
-						});
-						let selected = false;
-						let optgroup: HTMLOptGroupElement = null;
-						output.forEach(file => {
-							const path = file.name.split('/');
-							const name = path.pop();
-
-							if (path.length) {
-								const groupLabel = path.join('/') + '/';
-								if (!optgroup || optgroup.label !== groupLabel) {
-									optgroup = document.createElement("optgroup");
-									optgroup.label = groupLabel;
-									fileList.appendChild(optgroup);
-								}
-							}
-
-							const option = document.createElement("option");
-							option.label = name;
-							if (!selected && lastFileName[generatorPicker.value] === name) {
-								option.selected = true;
-								selected = true;
-							}
-							(option as any)['data-file'] = file;
-							if (optgroup) {
-								optgroup.appendChild(option);
-							} else {
-								fileList.appendChild(option);
-							}
-						});
-						if (!selected) {
-							fileList.selectedIndex = 0;
 						}
-						setOutputToSelection();
-					} else if (failure) {
-						setOutputFile({
-							text: '(' + failure.line + ',' + failure.column + '): ' + failure.message
-						});
-					} else {
-						setOutputFile(undefined);
-					}
-					generating = false;
-				})
-				.catch(error => {
-					setOutputFile({
-						text: 'Error: ' + error.message
 					});
-					rightMonaco.getModel().setValue('Error: ' + error.message);
-					generating = false;
+					let selected = false;
+					let optgroup: HTMLOptGroupElement = null;
+					output.forEach(file => {
+						const path = file.name.split('/');
+						const name = path.pop();
+
+						if (path.length) {
+							const groupLabel = path.join('/') + '/';
+							if (!optgroup || optgroup.label !== groupLabel) {
+								optgroup = document.createElement("optgroup");
+								optgroup.label = groupLabel;
+								fileList.appendChild(optgroup);
+							}
+						}
+
+						const option = document.createElement("option");
+						option.label = name;
+						if (!selected && lastFileName[generatorPicker.value] === name) {
+							option.selected = true;
+							selected = true;
+						}
+						(option as any)['data-file'] = file;
+						if (optgroup) {
+							optgroup.appendChild(option);
+						} else {
+							fileList.appendChild(option);
+						}
+					});
+					if (!selected) {
+						fileList.selectedIndex = 0;
+					}
+					setOutputToSelection();
+
+					definitionNameInput.value = generateRequest.definition.name;
+					definitionTextInput.value = generateRequest.definition.text;
+					generatorNameInput.value = generateRequest.generator.name;
+					downloadButton.disabled = false;
+				} else if (failure) {
+					setOutputFile({
+						text: '(' + failure.line + ',' + failure.column + '): ' + failure.message
+					});
+					downloadButton.disabled = true;
+				} else {
+					setOutputFile(undefined);
+					downloadButton.disabled = true;
+				}
+				generating = false;
+			})
+			.catch(error => {
+				setOutputFile({
+					text: 'Error: ' + error.message
 				});
+				rightMonaco.getModel().setValue('Error: ' + error.message);
+				downloadButton.disabled = true;
+				generating = false;
+			});
 		}
 	}
 	generatorPicker.onchange = generate;
