@@ -135,6 +135,13 @@ export default function() {
 		}
 	};
 
+	// create output to clear output
+	const clearOutput = () => {
+		while (fileList.firstChild) {
+			fileList.removeChild(fileList.firstChild);
+		}
+	};
+
 	// create function for setting output
 	const lastFileName: { [generator: string]: string } = {};
 	const setOutputFile = (file: api.INamedText) => {
@@ -194,9 +201,7 @@ export default function() {
 				if (result.error) {
 					throw TypeError(result.error.message);
 				}
-				while (fileList.firstChild) {
-					fileList.removeChild(fileList.firstChild);
-				}
+				clearOutput();
 				const { output, failure } = result.value;
 				if (output && output.length) {
 					output.sort((a, b) => {
@@ -273,10 +278,10 @@ export default function() {
 				generating = false;
 			})
 			.catch(error => {
+				clearOutput();
 				setOutputFile({
 					text: 'Error: ' + error.message
 				});
-				rightMonaco.getModel().setValue('Error: ' + error.message);
 				downloadButton.disabled = true;
 				generating = false;
 			});
