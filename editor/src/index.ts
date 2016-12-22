@@ -11,6 +11,7 @@ export default function() {
 	const definitionTextInput = document.getElementsByName('definitionText')[0] as HTMLInputElement;
 	const generatorNameInput = document.getElementsByName('generatorName')[0] as HTMLInputElement;
 	const downloadButton = document.getElementsByClassName('download-button')[0] as HTMLButtonElement;
+	downloadButton.disabled = true;
 
 	// register FSD language
 	monaco.languages.register({
