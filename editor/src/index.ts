@@ -183,112 +183,118 @@ export default function() {
 	// create function that generates output
 	const baseUri = 'https://fsdgenapi.faithlife.com/';
 	const client = api.createHttpClient({ fetch, baseUri });
-	let generating = false;
+	let currentGeneration: {} = null;
 	const generate = () => {
-		if (generating) {
-			generateSoon();
-		} else {
-			generating = true;
-			const generateRequest = {
-				generator: {
-					name: generatorPicker.value
-				},
-				definition: {
-					name: `api.${currentLanguageId}`,
-					text: leftMonaco.getModel().getValue()
-				}
-			};
-			client.generate(generateRequest).then(result => {
-				if (result.error) {
-					throw TypeError(result.error.message);
-				}
-				clearOutput();
-				const { output, failure } = result.value;
-				if (output && output.length) {
-					output.sort((a, b) => {
-						const aParts = a.name.split('/');
-						const bParts = b.name.split('/');
-						for (let index = 0; ; index++) {
-							if (index === aParts.length) {
-								return index === bParts.length ? 0 : -1;
-							} else if (index === bParts.length) {
-								return 1;
-							} else {
-								const aIsFile = index + 1 === aParts.length;
-								const bIsFile = index + 1 === bParts.length;
-								if (aIsFile === bIsFile) {
-									if (aParts[index] < bParts[index]) {
-										return -1;
-									} else if (aParts[index] > bParts[index]) {
-										return 1;
-									}
-								} else if (aIsFile) {
+		const thisGeneration = {};
+		currentGeneration = thisGeneration;
+		const generateRequest = {
+			generator: {
+				name: generatorPicker.value
+			},
+			definition: {
+				name: `api.${currentLanguageId}`,
+				text: leftMonaco.getModel().getValue()
+			}
+		};
+		client.generate(generateRequest).then(result => {
+			if (currentGeneration !== thisGeneration) {
+				return;
+			}
+			if (result.error) {
+				throw TypeError(result.error.message);
+			}
+			clearOutput();
+			const { output, failure } = result.value;
+			if (output && output.length) {
+				output.sort((a, b) => {
+					const aParts = a.name.split('/');
+					const bParts = b.name.split('/');
+					for (let index = 0; ; index++) {
+						if (index === aParts.length) {
+							return index === bParts.length ? 0 : -1;
+						} else if (index === bParts.length) {
+							return 1;
+						} else {
+							const aIsFile = index + 1 === aParts.length;
+							const bIsFile = index + 1 === bParts.length;
+							if (aIsFile === bIsFile) {
+								if (aParts[index] < bParts[index]) {
 									return -1;
-								} else {
+								} else if (aParts[index] > bParts[index]) {
 									return 1;
 								}
+							} else if (aIsFile) {
+								return -1;
+							} else {
+								return 1;
 							}
 						}
-					});
-					let selected = false;
-					let optgroup: HTMLOptGroupElement = null;
-					output.forEach(file => {
-						const path = file.name.split('/');
-						const name = path.pop();
-
-						if (path.length) {
-							const groupLabel = path.join('/') + '/';
-							if (!optgroup || optgroup.label !== groupLabel) {
-								optgroup = document.createElement("optgroup");
-								optgroup.label = groupLabel;
-								fileList.appendChild(optgroup);
-							}
-						}
-
-						const option = document.createElement("option");
-						option.label = name;
-						if (!selected && lastFileName[generatorPicker.value] === name) {
-							option.selected = true;
-							selected = true;
-						}
-						(option as any)['data-file'] = file;
-						if (optgroup) {
-							optgroup.appendChild(option);
-						} else {
-							fileList.appendChild(option);
-						}
-					});
-					if (!selected) {
-						fileList.selectedIndex = 0;
 					}
-					setOutputToSelection();
+				});
+				let selected = false;
+				let optgroup: HTMLOptGroupElement = null;
+				output.forEach(file => {
+					const path = file.name.split('/');
+					const name = path.pop();
 
-					definitionNameInput.value = generateRequest.definition.name;
-					definitionTextInput.value = generateRequest.definition.text;
-					generatorNameInput.value = generateRequest.generator.name;
-					downloadButton.disabled = false;
-				} else if (failure) {
-					setOutputFile({
-						text: '(' + failure.line + ',' + failure.column + '): ' + failure.message
-					});
-					downloadButton.disabled = true;
-				} else {
-					setOutputFile(undefined);
-					downloadButton.disabled = true;
+					if (path.length) {
+						const groupLabel = path.join('/') + '/';
+						if (!optgroup || optgroup.label !== groupLabel) {
+							optgroup = document.createElement("optgroup");
+							optgroup.label = groupLabel;
+							fileList.appendChild(optgroup);
+						}
+					}
+
+					const option = document.createElement("option");
+					option.label = name;
+					if (!selected && lastFileName[generatorPicker.value] === name) {
+						option.selected = true;
+						selected = true;
+					}
+					(option as any)['data-file'] = file;
+					if (optgroup) {
+						optgroup.appendChild(option);
+					} else {
+						fileList.appendChild(option);
+					}
+				});
+				if (!selected) {
+					fileList.selectedIndex = 0;
 				}
-				generating = false;
-			})
-			.catch(error => {
-				clearOutput();
+				setOutputToSelection();
+
+				definitionNameInput.value = generateRequest.definition.name;
+				definitionTextInput.value = generateRequest.definition.text;
+				generatorNameInput.value = generateRequest.generator.name;
+				downloadButton.disabled = false;
+			} else if (failure) {
 				setOutputFile({
-					text: 'Error: ' + error.message
+					text: '(' + failure.line + ',' + failure.column + '): ' + failure.message
 				});
 				downloadButton.disabled = true;
-				generating = false;
+			} else {
+				setOutputFile(undefined);
+				downloadButton.disabled = true;
+			}
+			currentGeneration = null;
+		})
+		.catch(error => {
+			clearOutput();
+			setOutputFile({
+				text: 'Error: ' + error.message
 			});
-		}
+			downloadButton.disabled = true;
+			currentGeneration = null;
+		});
 	}
-	generatorPicker.onchange = generate;
+
+	// generate immediately if generator changes
+	generatorPicker.onchange = () => {
+		clearOutput();
+		setOutputFile(undefined);
+		generate();
+	}
 
 	// create function that generates output soon
 	let generateTimeout: number;
@@ -296,6 +302,8 @@ export default function() {
 		window.clearTimeout(generateTimeout);
 		generateTimeout = window.setTimeout(generate, 500);
 	}
+
+	// generate output soon as definition changes
 	leftMonaco.getModel().onDidChangeContent(() => {
 		localStorage['fsdText'] = leftMonaco.getModel().getValue();
 		detectLanguage();
