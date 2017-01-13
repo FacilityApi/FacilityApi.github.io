@@ -12,6 +12,8 @@ export default function() {
 	const generatorNameInput = document.getElementsByName('generatorName')[0] as HTMLInputElement;
 	const downloadButton = document.getElementsByClassName('download-button')[0] as HTMLButtonElement;
 	downloadButton.disabled = true;
+	const rightWorkingOverlay = document.getElementsByClassName('right-working-overlay')[0] as HTMLDivElement;
+	rightWorkingOverlay.style.visibility = 'hidden';
 
 	// register FSD language
 	monaco.languages.register({
@@ -196,6 +198,7 @@ export default function() {
 				text: leftMonaco.getModel().getValue()
 			}
 		};
+		rightWorkingOverlay.style.visibility = 'visible';
 		client.generate(generateRequest).then(result => {
 			if (currentGeneration !== thisGeneration) {
 				return;
@@ -278,6 +281,7 @@ export default function() {
 				downloadButton.disabled = true;
 			}
 			currentGeneration = null;
+			rightWorkingOverlay.style.visibility = 'hidden';
 		})
 		.catch(error => {
 			clearOutput();
@@ -286,6 +290,7 @@ export default function() {
 			});
 			downloadButton.disabled = true;
 			currentGeneration = null;
+			rightWorkingOverlay.style.visibility = 'hidden';
 		});
 	}
 
@@ -301,6 +306,7 @@ export default function() {
 	const generateSoon = () => {
 		window.clearTimeout(generateTimeout);
 		generateTimeout = window.setTimeout(generate, 500);
+		rightWorkingOverlay.style.visibility = 'visible';
 	}
 
 	// generate output soon as definition changes
