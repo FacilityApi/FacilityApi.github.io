@@ -11,7 +11,7 @@ Unlike other API definition formats, an FSD focuses on the shape of the client l
 
 ## FSD File
 
-A Facility Service Definition is typically represented by an FSD file, though [OpenAPI (Swagger) 2.0](/docs/swagger) is also supported.
+A Facility Service Definition is typically represented by an FSD file, though [OpenAPI (Swagger) 2.0](/swagger) is also supported.
 
 An FSD file uses a domain-specific language in an effort to make Facility Service Definitions easier to read and write, especially for developers comfortable with C-style languages.
 

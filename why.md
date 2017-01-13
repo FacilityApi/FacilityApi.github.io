@@ -36,4 +36,4 @@ Consider using Facility if our design goals line up with your expectations bette
 * **JSON over HTTP.** Using JSON over HTTP makes it possible for existing libraries and tools to be used to consume, implement, and monitor Facility APIs.
 * **Flexible transport and encoding.** While optimized for JSON over HTTP, an FSD can be used with other encodings (e.g. Protocol Buffers) and transports (e.g. WebSockets), or even for simple in-process communication.
 
-Still interested in Facility? Read about how to [get started](/docs/start) or just start playing around with the [Facility Editor](/editor).
+Still interested in Facility? Read about how to [get started](/start) or just start playing around with the [Facility Editor](/editor).
