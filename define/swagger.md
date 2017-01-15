@@ -7,15 +7,13 @@ layout: page
 
 A [Swagger (OpenAPI) 2.0 definition](http://swagger.io/specification/) can be used in place of an [FSD file](/define/fsd) in any of the Facility command-line tools. A Swagger definition can also be generated from an FSD file.
 
-## Purpose
-
 Developers can choose to define their API in Swagger instead of FSD if they prefer the Swagger syntax or want to easily leverage [Swagger-compatible tools and code generators](http://swagger.io/tools/) as well as [Facility code generators](/generate).
 
 Developers that prefer the FSD syntax can generate Swagger from their FSD to leverage [Swagger-compatible tools and code generators](http://swagger.io/tools/) if they prefer them or for languages and platforms not supported by the [Facility code generators](/generate).
 
 Developers that already have a Swagger definition but want to switch to using an FSD can generate an FSD from the Swagger definition.
 
-## Support
+## Tools
 
 Facility command-line tools support both JSON and YAML formats for a Swagger definition file.
 
@@ -24,30 +22,6 @@ Not every feature in Swagger is supported. Also, Facility API information withou
 Facility command-line tools do not currently support `$ref` fields that reference separate files.
 
 The [`fsdgenfsd`](/define#fsdgenfsd) tool can be used to generate a Swagger definition from an FSD and vice versa.
-
-## Swagger Data Types
-
-The following table describes how each Swagger `type` and optional `format` map to an [FSD field type](/define/fsd#fields).
-
-{: .table .table-striped .table-hover}
-| Swagger type/format | FSD Type |
-| --- | --- | --- |
-| `boolean` | `boolean` |
-| `integer` | `int32` |
-| `integer`/`int32` | `int32` |
-| `integer`/`int64` | `int64` |
-| `number` | `double` |
-| `number`/`float` | `double` |
-| `number`/`double` | `double` |
-| `string` | `string`, `enum` |
-| `string`/`byte` | `bytes` |
-| `string`/`binary` | `string` |
-| `string`/`date` | `string` |
-| `string`/`date-time` | `string` |
-| `string`/`password` | `string` |
-| `object` |  DTO, `error`, `result<T>`, `map<T>`, `object` |
-| `array` |  `T[]` |
-| `file` |  (not supported) |
 
 ## Swagger Schema
 
@@ -154,11 +128,11 @@ Defines a request [field](/define/fsd#field) and its type.
 | `name` | query, path, or header name |
 | `description` | field summary |
 | `required` | (`true` for path parameter; ignored otherwise) |
-| `schema` | (see [Schema Object](#schema-object) |
-| `type` | field type (see [Swagger Data Types](#swagger-data-types)) |
-| `format` | field type (see [Swagger Data Types](#swagger-data-types)) |
+| `schema` | (see [Schema Object](#schema-object)) |
+| `type` | field type (see [Data Types](#data-types)) |
+| `format` | field type (see [Data Types](#data-types)) |
 | `allowEmptyValue` | (ignored) |
-| `items` | array value type (see [Swagger Data Types](#swagger-data-types)) |
+| `items` | array value type (see [Data Types](#data-types)) |
 | `collectionFormat` | (ignored) |
 | `default` | (ignored) |
 | `maximum` | (ignored) |
@@ -171,7 +145,7 @@ Defines a request [field](/define/fsd#field) and its type.
 | `maxItems` | (ignored) |
 | `minItems` | (ignored) |
 | `uniqueItems` | (ignored) |
-| `enum` | ([enum](/define/fsd#enumerated-types) values) |
+| `enum` | enum values |
 | `multipleOf` | (ignored) |
 | `x-identifier` | field name |
 | `x-obsolete` | `[obsolete]` on field |
@@ -189,7 +163,7 @@ The field name corresponds to `[http(code: (code))]` on the entire method or the
 | --- | --- |
 | `$ref` | (supports internal references) |
 | `description` | body field summary |
-| `schema` | response field(s) or body field (see [Schema Object](#schema-object) |
+| `schema` | response field(s) or body field (see [Schema Object](#schema-object)) |
 | `headers` | (ignored) |
 | `examples` | (ignored) |
 | `x-identifier` | body field name |
@@ -207,9 +181,9 @@ An items object, header object, or schema object. Defines a [DTO](/define/fsd#da
 | `description` | field summary |
 | `required` | (ignored) |
 | `title` | (ignored) |
-| `type` | field type (see [Swagger Data Types](#swagger-data-types)) |
-| `format` | field type (see [Swagger Data Types](#swagger-data-types)) |
-| `items` | array value type (see [Swagger Data Types](#swagger-data-types)) |
+| `type` | field type (see [Data Types](#data-types)) |
+| `format` | field type (see [Data Types](#data-types)) |
+| `items` | array value type (see [Data Types](#data-types)) |
 | `maxProperties` | (ignored) |
 | `minProperties` | (ignored) |
 | `default` | (ignored) |
@@ -225,9 +199,9 @@ An items object, header object, or schema object. Defines a [DTO](/define/fsd#da
 | `uniqueItems` | (ignored) |
 | `enum` | enum values |
 | `multipleOf` | (ignored) |
-| `properties` | DTO fields) |
+| `properties` | DTO fields |
 | `allOf` | (ignored) |
-| `additionalProperties` | map value type (see [Swagger Data Types](#swagger-data-types)) |
+| `additionalProperties` | map value type (see [Data Types](#data-types)) |
 | `discriminator` | (ignored) |
 | `readOnly` | (ignored) |
 | `xml` | (ignored) |
@@ -238,3 +212,27 @@ An items object, header object, or schema object. Defines a [DTO](/define/fsd#da
 | `x-remarks` | DTO remarks |
 
 If `x-identifier` is not specified, the field name is set to the `name` field (or `"body"` for body fields).
+
+### Data Types
+
+The following table describes how each Swagger `type` and optional `format` map to an [FSD field type](/define/fsd#fields).
+
+{: .table .table-striped .table-hover}
+| Swagger type/format | FSD Type |
+| --- | --- | --- |
+| `boolean` | `boolean` |
+| `integer` | `int32` |
+| `integer`/`int32` | `int32` |
+| `integer`/`int64` | `int64` |
+| `number` | `double` |
+| `number`/`float` | `double` |
+| `number`/`double` | `double` |
+| `string` | `string`, `enum` |
+| `string`/`byte` | `bytes` |
+| `string`/`binary` | `string` |
+| `string`/`date` | `string` |
+| `string`/`date-time` | `string` |
+| `string`/`password` | `string` |
+| `object` |  DTO, `error`, `result<T>`, `map<T>`, `object` |
+| `array` |  `T[]` |
+| `file` |  (not supported) |
