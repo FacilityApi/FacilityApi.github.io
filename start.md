@@ -11,10 +11,10 @@ Facility can be used for existing APIs by creating and using an FSD that reflect
 
 ## Design Your API
 
-* Encode the [service definition](/spec) of your API as an FSD file.
+* Encode the [service definition](/define) of your API as an FSD file.
 * Determine how your API will use JSON over HTTP, adding attributes to your FSD file as needed.
 * Document your API with summary comments and Markdown remarks in your FSD file.
 
 ## Use Your API
 
-* Use code generation (e.g. via the [Facility Editor](/editor)) to generate server code, client code, and Markdown documentation.
+* Use [code generation](/generate) (e.g. via the [Facility Editor](/editor)) to generate server code, client code, and Markdown documentation.
