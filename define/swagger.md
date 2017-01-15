@@ -29,7 +29,7 @@ The [`fsdgenfsd`](/define#fsdgenfsd) tool can be used to generate a Swagger defi
 
 The following table describes how each Swagger `type` and optional `format` map to an [FSD field type](/define/fsd#fields).
 
-{: .table .table-striped}
+{: .table .table-striped .table-hover}
 | Swagger type/format | FSD Type |
 | --- | --- | --- |
 | `boolean` | `boolean` |
@@ -51,7 +51,7 @@ The following table describes how each Swagger `type` and optional `format` map 
 
 ### Swagger Object
 
-{: .table .table-striped}
+{: .table .table-striped .table-hover}
 | Field Name | FSD Equivalent |
 | --- | --- |
 | `swagger` | (always `2.0`) |
@@ -74,7 +74,7 @@ Only one scheme is supported by FSD. `https` is preferred over `http`.
 
 ### Info Object
 
-{: .table .table-striped}
+{: .table .table-striped .table-hover}
 | Field Name | FSD Equivalent |
 | --- | --- |
 | `title` | [service](/define/fsd#service) summary |
