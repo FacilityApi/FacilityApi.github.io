@@ -53,14 +53,16 @@ The following table describes how each Swagger `type` and optional `format` map 
 
 ### Swagger Object
 
+Defines the [service](/define/fsd#service).
+
 {: .table .table-striped .table-hover}
 | Field Name | FSD Equivalent |
 | --- | --- |
 | `swagger` | (always `2.0`) |
 | `info` | (see [Info Object](#info-object)) |
-| `host` | `[http(url: "(scheme)://(host)/(basePath)")]` on [service](/define/fsd#service) |
-| `basePath` | `[http(url: "(scheme)://(host)/(basePath)")]` on [service](/define/fsd#service) |
-| `schemes` | `[http(url: "(scheme)://(host)/(basePath)")]` on [service](/define/fsd#service) |
+| `host` | `[http(url: "(scheme)://(host)/(basePath)")]` on service |
+| `basePath` | `[http(url: "(scheme)://(host)/(basePath)")]` on service |
+| `schemes` | `[http(url: "(scheme)://(host)/(basePath)")]` on service |
 | `consumes` | (ignored) |
 | `produces` | (ignored) |
 | `paths` | (see [Path Object](#path-object)) |
@@ -76,16 +78,163 @@ Only one scheme is supported by FSD. `https` is preferred over `http`.
 
 ### Info Object
 
+Defines the [service](/define/fsd#service).
+
 {: .table .table-striped .table-hover}
 | Field Name | FSD Equivalent |
 | --- | --- |
-| `title` | [service](/define/fsd#service) summary |
-| `description` | [service](/define/fsd#service) remarks |
+| `title` | service summary |
+| `description` | service remarks |
 | `termsOfService` | (ignored) |
 | `contact` | (ignored) |
 | `license` | (ignored) |
-| `version` | `[info(version: (version))]` on [service](/define/fsd#service) |
-| `x-identifier` | [service](/define/fsd#service) name |
+| `version` | `[info(version: (version))]` on service |
+| `x-identifier` | service name |
 | `x-codegen` | (set by `fsdgenfsd --swagger`) |
 
-If the service name is not specified by `x-identifier` or the `--serviceName` command-line option, the `title` is used as the service name (with spaces removed, etc.).
+If the service name is not specified by `x-identifier` or the `--serviceName` command-line option, a service name is created from the `title`.
+
+### Path Object
+
+Defines a [method](/define/fsd#method).
+
+{: .table .table-striped .table-hover}
+| Field Name | FSD Equivalent |
+| --- | --- |
+| `/path` | `[http(path: "(path)")]` on method (see [Path Item Object](#path-item-object)) |
+
+### Path Item Object
+
+Defines a [method](/define/fsd#method).
+
+{: .table .table-striped .table-hover}
+| Field Name | FSD Equivalent |
+| --- | --- |
+| `$ref` | (supports internal references) |
+| `get` | `[http(method: GET)]` on method (see [Operation Object](#operation-object)) |
+| `put` | `[http(method: PUT)]` on method (see [Operation Object](#operation-object)) |
+| `post` | `[http(method: POST)]` on method (see [Operation Object](#operation-object)) |
+| `delete` | `[http(method: DELETE)]` on method (see [Operation Object](#operation-object)) |
+| `options` | `[http(method: OPTIONS)]` on method (see [Operation Object](#operation-object)) |
+| `head` | `[http(method: HEAD)]` on method (see [Operation Object](#operation-object)) |
+| `patch` | `[http(method: PATCH)]` on method (see [Operation Object](#operation-object)) |
+| `parameters` | (see [Parameter Object](#parameter-object)) |
+
+### Operation Object
+
+Defines a [method](/define/fsd#method).
+
+{: .table .table-striped .table-hover}
+| Field Name | FSD Equivalent |
+| --- | --- |
+| `tags` | (ignored) |
+| `summary` | method summary |
+| `description` | method remarks |
+| `externalDocs` | (ignored) |
+| `operationId` | method name |
+| `consumes` | (`application/json` as appropriate) |
+| `produces` | (`application/json` as appropriate) |
+| `parameters` | (see [Parameter Object](#parameter-object)) |
+| `responses` | (see [Responses Object](#responses-object)) |
+| `schemes` | (ignored) |
+| `deprecated` | `[obsolete]` on method |
+| `security` | (ignored) |
+
+If `operationId` is not specified, a method name is created from the HTTP method and path.
+
+### Parameter Object
+
+Defines a request [field](/define/fsd#field) and its type.
+
+{: .table .table-striped .table-hover}
+| Field Name | FSD Equivalent |
+| --- | --- |
+| `$ref` | (supports internal references) |
+| `in` | `[http(from: (path|query|header|body))]` on field (`formData` not supported) |
+| `name` | query, path, or header name |
+| `description` | field summary |
+| `required` | (`true` for path parameter; ignored otherwise) |
+| `schema` | (see [Schema Object](#schema-object) |
+| `type` | field type (see [Swagger Data Types](#swagger-data-types)) |
+| `format` | field type (see [Swagger Data Types](#swagger-data-types)) |
+| `allowEmptyValue` | (ignored) |
+| `items` | array value type (see [Swagger Data Types](#swagger-data-types)) |
+| `collectionFormat` | (ignored) |
+| `default` | (ignored) |
+| `maximum` | (ignored) |
+| `exclusiveMaximum` | (ignored) |
+| `minimum` | (ignored) |
+| `exclusiveMinimum` | (ignored) |
+| `maxLength` | (ignored) |
+| `minLength` | (ignored) |
+| `pattern` | (ignored) |
+| `maxItems` | (ignored) |
+| `minItems` | (ignored) |
+| `uniqueItems` | (ignored) |
+| `enum` | ([enum](/define/fsd#enumerated-types) values) |
+| `multipleOf` | (ignored) |
+| `x-identifier` | field name |
+| `x-obsolete` | `[obsolete]` on field |
+
+If `x-identifier` is not specified, the field name is set to the `name` field (or `"body"` for body fields).
+
+### Responses Object
+
+Defines response [fields](/define/fsd#field) of a [method](/define/fsd#method).
+
+The field name corresponds to `[http(code: (code))]` on the entire method or the corresponding body field.
+
+{: .table .table-striped .table-hover}
+| Field Name | FSD Equivalent |
+| --- | --- |
+| `$ref` | (supports internal references) |
+| `description` | body field summary |
+| `schema` | response field(s) or body field (see [Schema Object](#schema-object) |
+| `headers` | (ignored) |
+| `examples` | (ignored) |
+| `x-identifier` | body field name |
+
+If `operationId` is not specified, a method name is created from the HTTP method and path.
+
+### Schema Object
+
+An items object, header object, or schema object. Defines a [DTO](/define/fsd#data-transfer-objects), a [field](/define/fsd#field), or a field type.
+
+{: .table .table-striped .table-hover}
+| Field Name | FSD Equivalent |
+| --- | --- |
+| `$ref` | (supports internal references) |
+| `description` | field summary |
+| `required` | (ignored) |
+| `title` | (ignored) |
+| `type` | field type (see [Swagger Data Types](#swagger-data-types)) |
+| `format` | field type (see [Swagger Data Types](#swagger-data-types)) |
+| `items` | array value type (see [Swagger Data Types](#swagger-data-types)) |
+| `maxProperties` | (ignored) |
+| `minProperties` | (ignored) |
+| `default` | (ignored) |
+| `maximum` | (ignored) |
+| `exclusiveMaximum` | (ignored) |
+| `minimum` | (ignored) |
+| `exclusiveMinimum` | (ignored) |
+| `maxLength` | (ignored) |
+| `minLength` | (ignored) |
+| `pattern` | (ignored) |
+| `maxItems` | (ignored) |
+| `minItems` | (ignored) |
+| `uniqueItems` | (ignored) |
+| `enum` | enum values |
+| `multipleOf` | (ignored) |
+| `properties` | DTO fields) |
+| `allOf` | (ignored) |
+| `additionalProperties` | map value type (see [Swagger Data Types](#swagger-data-types)) |
+| `discriminator` | (ignored) |
+| `readOnly` | (ignored) |
+| `xml` | (ignored) |
+| `externalDocs` | (ignored) |
+| `example` | (ignored) |
+| `x-identifier` | field name |
+| `x-obsolete` | `[obsolete]` on field |
+| `x-remarks` | DTO remarks |
+
+If `x-identifier` is not specified, the field name is set to the `name` field (or `"body"` for body fields).
