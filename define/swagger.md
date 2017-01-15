@@ -39,12 +39,14 @@ The following table describes how each Swagger `type` and optional `format` map 
 | `number` | `double` |
 | `number`/`float` | `double` |
 | `number`/`double` | `double` |
-| `string` | `string` |
+| `string` | `string`, `enum` |
 | `string`/`byte` | `bytes` |
 | `string`/`binary` | `string` |
 | `string`/`date` | `string` |
 | `string`/`date-time` | `string` |
 | `string`/`password` | `string` |
+| `object` |  DTO, `error`, `result<T>`, `map<T>`, `object` |
+| `array` |  `T[]` |
 | `file` |  (not supported) |
 
 ## Swagger Schema
