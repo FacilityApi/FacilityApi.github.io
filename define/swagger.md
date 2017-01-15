@@ -29,27 +29,29 @@ The [`fsdgenfsd`](/define#fsdgenfsd) tool can be used to generate a Swagger defi
 
 The following table describes how each Swagger `type` and optional `format` map to an [FSD field type](/define/fsd#fields).
 
-| Swagger `type` / `format` | FSD Type |
+{: .table .table-striped}
+| Swagger type/format | FSD Type |
 | --- | --- | --- |
 | `boolean` | `boolean` |
 | `integer` | `int32` |
-| `integer` / `int32` | `int32` |
-| `integer` / `int64` | `int64` |
+| `integer`/`int32` | `int32` |
+| `integer`/`int64` | `int64` |
 | `number` | `double` |
-| `number` / `float` | `double` |
-| `number` / `double` | `double` |
+| `number`/`float` | `double` |
+| `number`/`double` | `double` |
 | `string` | `string` |
-| `string` / `byte` | `bytes` |
-| `string` / `binary` | `string` |
-| `string` / `date` | `string` |
-| `string` / `date-time` | `string` |
-| `string` / `password` | `string` |
+| `string`/`byte` | `bytes` |
+| `string`/`binary` | `string` |
+| `string`/`date` | `string` |
+| `string`/`date-time` | `string` |
+| `string`/`password` | `string` |
 | `file` |  (not supported) |
 
 ## Swagger Schema
 
 ### Swagger Object
 
+{: .table .table-striped}
 | Field Name | FSD Equivalent |
 | --- | --- |
 | `swagger` | (always `2.0`) |
@@ -72,6 +74,7 @@ Only one scheme is supported by FSD. `https` is preferred over `http`.
 
 ### Info Object
 
+{: .table .table-striped}
 | Field Name | FSD Equivalent |
 | --- | --- |
 | `title` | [service](/define/fsd#service) summary |
@@ -83,4 +86,4 @@ Only one scheme is supported by FSD. `https` is preferred over `http`.
 | `x-identifier` | [service](/define/fsd#service) name |
 | `x-codegen` | (set by `fsdgenfsd --swagger`) |
 
-If the service name is not specified by `x-identifier` or the `--serviceName` command-line option, the `title` is used.
+If the service name is not specified by `x-identifier` or the `--serviceName` command-line option, the `title` is used as the service name (with spaces removed, etc.).
