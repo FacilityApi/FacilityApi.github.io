@@ -7,23 +7,23 @@ layout: page
 
 A [Swagger (OpenAPI) 2.0 definition](http://swagger.io/specification/) can be used in place of an [FSD file](/define/fsd) in any of the Facility command-line tools. A Swagger definition can also be generated from an FSD file.
 
-Developers can choose to define their API in Swagger instead of FSD if they prefer the Swagger syntax or want to easily leverage [Swagger-compatible tools and code generators](http://swagger.io/tools/) as well as [Facility code generators](/generate).
-
-Developers that prefer the FSD syntax can generate Swagger from their FSD to leverage [Swagger-compatible tools and code generators](http://swagger.io/tools/) if they prefer them or for languages and platforms not supported by the [Facility code generators](/generate).
-
-Developers that already have a Swagger definition but want to switch to using an FSD can generate an FSD from the Swagger definition.
-
 ## Tools
 
-Facility command-line tools support both JSON and YAML formats for a Swagger definition file.
+Developers can choose to define their API in Swagger instead of FSD if they prefer the Swagger syntax or want to easily leverage [Swagger-compatible tools and code generators](http://swagger.io/tools/) as well as [Facility code generators](/generate).
 
-Not every feature in Swagger is supported. Also, Facility API information without a corresponding Swagger field is stored in an extension field (starts with `x-`).
+Developers that prefer the FSD syntax can use the [`fsdgenfsd`](/define#fsdgenfsd) tool to generate Swagger, e.g. to leverage Swagger-compatible code generators for languages and platforms not supported by the Facility code generators.
 
-Facility command-line tools do not currently support `$ref` fields that reference separate files.
+Developers that already have a Swagger definition but want to switch to using an FSD can generate an FSD from the Swagger definition, also using the [`fsdgenfsd`](/define#fsdgenfsd) tool.
 
-The [`fsdgenfsd`](/define#fsdgenfsd) tool can be used to generate a Swagger definition from an FSD and vice versa.
+Facility supports both JSON and YAML formats for a Swagger definition file.
 
 ## Swagger Schema
+
+This section describes the Swagger fields supported by Facility and their equivalent in FSD.
+
+Not every feature in Swagger is supported. Facility API information without a corresponding Swagger field is stored in an extension field (starts with `x-`).
+
+Facility does not currently support `$ref` fields that span files.
 
 ### Swagger Object
 
@@ -34,15 +34,15 @@ Defines the [service](/define/fsd#service).
 | --- | --- |
 | `swagger` | (always `2.0`) |
 | `info` | (see [Info Object](#info-object)) |
-| `host` | `[http(url: "(scheme)://(host)/(basePath)")]` on service |
-| `basePath` | `[http(url: "(scheme)://(host)/(basePath)")]` on service |
-| `schemes` | `[http(url: "(scheme)://(host)/(basePath)")]` on service |
+| `host` | `[http(url: "...://(host)/...")]` on service |
+| `basePath` | `[http(url: ".../(basePath)")]` on service |
+| `schemes` | `[http(url: "(scheme)://...")]` on service |
 | `consumes` | (ignored) |
 | `produces` | (ignored) |
 | `paths` | (see [Path Object](#path-object)) |
 | `definitions` | (see [Definition  Object](#definition-object)) |
 | `parameters` | (see [Parameter  Object](#parameter-object)) |
-| `responses` | (see [Response  Object](#response-object)) |
+| `responses` | (see [Responses Object](#responses-object)) |
 | `securityDefinitions` | (ignored) |
 | `security` | (ignored) |
 | `tags` | (ignored) |
@@ -70,16 +70,16 @@ If the service name is not specified by `x-identifier` or the `--serviceName` co
 
 ### Path Object
 
-Defines a [method](/define/fsd#method).
+Defines one or more [methods](/define/fsd#method).
 
 {: .table .table-striped .table-hover}
 | Field Name | FSD Equivalent |
 | --- | --- |
-| `/path` | `[http(path: "(path)")]` on method (see [Path Item Object](#path-item-object)) |
+| `(path)` | `[http(path: "(path)")]` on method (see [Path Item Object](#path-item-object)) |
 
 ### Path Item Object
 
-Defines a [method](/define/fsd#method).
+Defines one or more [methods](/define/fsd#method).
 
 {: .table .table-striped .table-hover}
 | Field Name | FSD Equivalent |
@@ -156,7 +156,14 @@ If `x-identifier` is not specified, the field name is set to the `name` field (o
 
 Defines response [fields](/define/fsd#field) of a [method](/define/fsd#method).
 
-The field name corresponds to `[http(code: (code))]` on the entire method or the corresponding body field.
+{: .table .table-striped .table-hover}
+| Field Name | FSD Equivalent |
+| --- | --- |
+| `(code)` | `[http(code: (code))]` on the method or the corresponding body field (see [Response Object](#response-object)) |
+
+### Response Object
+
+Defines response [fields](/define/fsd#field) of a [method](/define/fsd#method).
 
 {: .table .table-striped .table-hover}
 | Field Name | FSD Equivalent |
@@ -201,7 +208,7 @@ An items object, header object, or schema object. Defines a [DTO](/define/fsd#da
 | `multipleOf` | (ignored) |
 | `properties` | DTO fields |
 | `allOf` | (ignored) |
-| `additionalProperties` | map value type (see [Data Types](#data-types)) |
+| `additionalProperties` | map value type (see [Data Types](#data-types)[Data Types](#data-types)) |
 | `discriminator` | (ignored) |
 | `readOnly` | (ignored) |
 | `xml` | (ignored) |
