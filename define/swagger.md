@@ -1,5 +1,5 @@
 ---
-title: "Swagger (OpenAPI) 2.0 Definition"
+title: "Swagger (OpenAPI) 2.0"
 layout: page
 ---
 

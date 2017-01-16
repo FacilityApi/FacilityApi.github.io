@@ -14,9 +14,9 @@ You can describe the operations of an API in one of the supported API definition
 
 API definitions can be converted between formats by doing one of the following:
 
-* Use the [Facility Editor](/editor). Enter an FSD or Swagger API definition and choose the "Swagger" or "FSD" generator.
+* Use the [Facility Editor](/editor). Enter an FSD or Swagger API definition in the left pane, choose the "Swagger" or "FSD" generator, and copy the generated definition from the right pane (or click Download).
 * Run the `fsdgenfsd` tool (see below) on the command line or in a build script.
-* Use the [`Facility.Definition`](https://www.nuget.org/packages/Facility.Definition) .NET library.
+* Use the `Facility.Definition` .NET library ([NuGet Package](https://www.nuget.org/packages/Facility.Definition)) in your own build tool.
 
 ## fsdgenfsd
 
