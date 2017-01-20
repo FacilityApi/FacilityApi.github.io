@@ -29,7 +29,6 @@ Facility does not currently support `$ref` fields that span files.
 
 Defines the [service](/define/fsd#service).
 
-{: .table .table-striped .table-hover}
 | Field Name | FSD Equivalent |
 | --- | --- |
 | `swagger` | (always `2.0`) |
@@ -47,6 +46,7 @@ Defines the [service](/define/fsd#service).
 | `security` | (ignored) |
 | `tags` | (ignored) |
 | `externalDocs` | (ignored) |
+{: .table .table-striped .table-hover}
 
 Only one scheme is supported by FSD. `https` is preferred over `http`.
 
@@ -54,7 +54,6 @@ Only one scheme is supported by FSD. `https` is preferred over `http`.
 
 Defines the [service](/define/fsd#service).
 
-{: .table .table-striped .table-hover}
 | Field Name | FSD Equivalent |
 | --- | --- |
 | `title` | service summary |
@@ -65,6 +64,7 @@ Defines the [service](/define/fsd#service).
 | `version` | `[info(version: (version))]` on service |
 | `x-identifier` | service name |
 | `x-codegen` | (set by `fsdgenfsd --swagger`) |
+{: .table .table-striped .table-hover}
 
 If the service name is not specified by `x-identifier` or the `--serviceName` command-line option, a service name is created from the `title`.
 
@@ -72,16 +72,15 @@ If the service name is not specified by `x-identifier` or the `--serviceName` co
 
 Defines one or more [methods](/define/fsd#method).
 
-{: .table .table-striped .table-hover}
 | Field Name | FSD Equivalent |
 | --- | --- |
 | `(path)` | `[http(path: "(path)")]` on method (see [Path Item Object](#path-item-object)) |
+{: .table .table-striped .table-hover}
 
 ### Path Item Object
 
 Defines one or more [methods](/define/fsd#method).
 
-{: .table .table-striped .table-hover}
 | Field Name | FSD Equivalent |
 | --- | --- |
 | `$ref` | (supports internal references) |
@@ -93,12 +92,12 @@ Defines one or more [methods](/define/fsd#method).
 | `head` | `[http(method: HEAD)]` on method (see [Operation Object](#operation-object)) |
 | `patch` | `[http(method: PATCH)]` on method (see [Operation Object](#operation-object)) |
 | `parameters` | (see [Parameter Object](#parameter-object)) |
+{: .table .table-striped .table-hover}
 
 ### Operation Object
 
 Defines a [method](/define/fsd#method).
 
-{: .table .table-striped .table-hover}
 | Field Name | FSD Equivalent |
 | --- | --- |
 | `tags` | (ignored) |
@@ -113,6 +112,7 @@ Defines a [method](/define/fsd#method).
 | `schemes` | (ignored) |
 | `deprecated` | `[obsolete]` on method |
 | `security` | (ignored) |
+{: .table .table-striped .table-hover}
 
 If `operationId` is not specified, a method name is created from the HTTP method and path.
 
@@ -120,7 +120,6 @@ If `operationId` is not specified, a method name is created from the HTTP method
 
 Defines a request [field](/define/fsd#field) and its type.
 
-{: .table .table-striped .table-hover}
 | Field Name | FSD Equivalent |
 | --- | --- |
 | `$ref` | (supports internal references) |
@@ -149,6 +148,7 @@ Defines a request [field](/define/fsd#field) and its type.
 | `multipleOf` | (ignored) |
 | `x-identifier` | field name |
 | `x-obsolete` | `[obsolete]` on field |
+{: .table .table-striped .table-hover}
 
 If `x-identifier` is not specified, the field name is set to the `name` field (or `"body"` for body fields).
 
@@ -156,16 +156,15 @@ If `x-identifier` is not specified, the field name is set to the `name` field (o
 
 Defines response [fields](/define/fsd#field) of a [method](/define/fsd#method).
 
-{: .table .table-striped .table-hover}
 | Field Name | FSD Equivalent |
 | --- | --- |
 | `(code)` | `[http(code: (code))]` on the method or the corresponding body field (see [Response Object](#response-object)) |
+{: .table .table-striped .table-hover}
 
 ### Response Object
 
 Defines response [fields](/define/fsd#field) of a [method](/define/fsd#method).
 
-{: .table .table-striped .table-hover}
 | Field Name | FSD Equivalent |
 | --- | --- |
 | `$ref` | (supports internal references) |
@@ -174,6 +173,7 @@ Defines response [fields](/define/fsd#field) of a [method](/define/fsd#method).
 | `headers` | (ignored) |
 | `examples` | (ignored) |
 | `x-identifier` | body field name |
+{: .table .table-striped .table-hover}
 
 If `operationId` is not specified, a method name is created from the HTTP method and path.
 
@@ -181,7 +181,6 @@ If `operationId` is not specified, a method name is created from the HTTP method
 
 An items object, header object, or schema object. Defines a [DTO](/define/fsd#data-transfer-objects), a [field](/define/fsd#field), or a field type.
 
-{: .table .table-striped .table-hover}
 | Field Name | FSD Equivalent |
 | --- | --- |
 | `$ref` | (supports internal references) |
@@ -217,6 +216,7 @@ An items object, header object, or schema object. Defines a [DTO](/define/fsd#da
 | `x-identifier` | field name |
 | `x-obsolete` | `[obsolete]` on field |
 | `x-remarks` | DTO remarks |
+{: .table .table-striped .table-hover}
 
 If `x-identifier` is not specified, the field name is set to the `name` field (or `"body"` for body fields).
 
@@ -224,7 +224,6 @@ If `x-identifier` is not specified, the field name is set to the `name` field (o
 
 The following table describes how each Swagger `type` and optional `format` map to an [FSD field type](/define/fsd#fields).
 
-{: .table .table-striped .table-hover}
 | Swagger type/format | FSD Type |
 | --- | --- | --- |
 | `boolean` | `boolean` |
@@ -243,3 +242,4 @@ The following table describes how each Swagger `type` and optional `format` map 
 | `object` |  DTO, `error`, `result<T>`, `map<T>`, `object` |
 | `array` |  `T[]` |
 | `file` |  (not supported) |
+{: .table .table-striped .table-hover}
