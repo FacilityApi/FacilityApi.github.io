@@ -33,6 +33,7 @@ The methods and other service items follow the service name, enclosed in braces.
 
 ```
 [http(url: "https://api.example.com/v1/")]
+[info(version: 2.1.3)]
 service MyApi
 {
   method myMethod { … }: { … }
@@ -45,6 +46,10 @@ service MyApi
 #### HTTP
 
 The `url` parameter of the `http` attribute indicates the base URL where the HTTP service lives. The trailing slash is optional. If the attribute or its parameter is omitted, the client will have to provide the base URL.
+
+#### Info
+
+If desired, use the `version` parameter of the `info` attribute to indicate the version of the API.
 
 ## Attributes
 
