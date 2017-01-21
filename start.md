@@ -1,13 +1,8 @@
----
-title: "Getting Started"
-layout: page
----
-
 # Getting Started
 
-Facility is primarily for new APIs. Design a Facility Service Definition (FSD) for your API and then leverage various tools and libraries to implement, document, and consume your API. The [Facility Editor](/editor) is a great way to experiment with API ideas and preview the client and server code that would be generated.
+Facility is best with new APIs. Design a Facility Service Definition (FSD) for your API and then leverage various tools and libraries to implement, document, and consume your API. The [Facility Editor](/editor) is a great way to experiment with API ideas and preview the client and server code that would be generated.
 
-Facility can be used for existing APIs by creating and using an FSD that reflects that API. However, it is reasonably likely that an existing API will use features that aren't supported by Facility, especially since a limited feature set is one of the [design goals](/why) of Facility.
+Facility can be used for existing APIs by creating and using an FSD that reflects that API. Note that an existing API may use features that aren't supported by Facility, especially since a limited feature set is one of the [design goals](/why) of Facility.
 
 ## Design Your API
 
