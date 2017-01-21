@@ -1,8 +1,3 @@
----
-title: "Command-Line Tools"
-layout: page
----
-
 # Command-Line Tools
 
 Facility supports command-line tools for generating code from [Facility Service Definitions](/define). The supported tools generate client code, server code, and documentation for different programming languages and frameworks. They can also be used to convert a definition from one format to another.

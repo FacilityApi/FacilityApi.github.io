@@ -1,8 +1,3 @@
----
-title: "Facility Service Definition"
-layout: page
----
-
 # Facility Service Definition
 
 A Facility Service Definition (FSD) describes the operations supported by a Facility API.

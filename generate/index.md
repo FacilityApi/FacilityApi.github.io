@@ -1,8 +1,3 @@
----
-title: "Generate Code"
-layout: page
----
-
 # Generate Code
 
 To generate code from a [Facility Service Definition](/define), do one of the following:

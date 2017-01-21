@@ -1,8 +1,3 @@
----
-title: "Swagger (OpenAPI) 2.0"
-layout: page
----
-
 # Swagger (OpenAPI) 2.0
 
 A [Swagger (OpenAPI) 2.0 definition](http://swagger.io/specification/) can be used in place of an [FSD file](/define/fsd) in any of the Facility command-line tools. A Swagger definition can also be generated from an FSD file.

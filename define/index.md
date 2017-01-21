@@ -1,8 +1,3 @@
----
-title: "Define API"
-layout: page
----
-
 # Define API
 
 You can describe the operations of an API in one of the supported API definition languages:
