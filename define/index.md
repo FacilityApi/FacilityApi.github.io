@@ -1,6 +1,6 @@
 # Define API
 
-You can describe the operations of an API in one of the supported API definition languages:
+Describe the operations of your API in one of the supported API definition languages:
 
 * [Facility Service Definition (FSD)](/define/fsd)
 * [Swagger (OpenAPI) 2.0](/define/swagger)
@@ -15,7 +15,7 @@ API definitions can be converted between formats by doing one of the following:
 
 ## fsdgenfsd
 
-`fsdgenfsd` is used to convert a service definition between the supported API definition languages. It can also be used to "normalize" an API definition by "converting" it to the same format.
+`fsdgenfsd` is a command-line tool that can convert a service definition between the supported API definition languages. It can also be used to "normalize" an API definition by "converting" it to the same format.
 
 Install `fsdgenfsd` [as documented](/generate/tools#installation) from its [NuGet package](https://www.nuget.org/packages/fsdgenfsd/).
 

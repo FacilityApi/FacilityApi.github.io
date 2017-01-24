@@ -1,6 +1,6 @@
 # Generate Code
 
-To generate code from a [Facility Service Definition](/define), do one of the following:
+To generate client code, server code, and/or documentation for a [Facility Service Definition](/define), do one of the following:</p>
 
 * Use the [Facility Editor](/editor). Enter an FSD or Swagger API definition, choose the desired generator, and click Download.
 * Run a [command-line tool](/generate/tools) on the command line or in a build script.
@@ -15,9 +15,7 @@ Facility supports the following code generators:
 * [JavaScript/TypeScript](/generate/javascript): Generates a JavaScript or TypeScript API client.
 * [Markdown](/generate/markdown): Generates Markdown documentation for your API.
 
-### Philosophy
-
-The official Facility code generators conform to a particular philosophy of code generation:
+The official Facility code generators conform to the following guidelines:
 
 * **Encapsulate the protocol on the client.** When a developer calls a service method using a generated client, the details of the protocol – the URL, `GET` vs. `POST`, whether the request fields are sent via query string or JSON body, which HTTP status codes are used, etc. – should be hidden from the caller, not because the details are secret, but because they are unrelated to the purpose of the call.
 * **Encapsulate the protocol on the server.** In the same way, code generated for a server implementation should provide a mechanism for the developer to implement each service method in such a way that the request fields are already extracted from the HTTP path, query string, JSON request body, etc., and in which the HTTP status code and JSON response fields are automatically determined from the response.
@@ -27,8 +25,6 @@ The official Facility code generators conform to a particular philosophy of code
 * **Delete previously generated files that are no longer needed.** When it can be done safely, code generators should delete previously generated but now unneeded files.
 * **Avoid merging changes into generated files.** Developers should be discouraged from editing generated files, which should be replaced wholesale by code generators, not edited by them.
 * **Keep it simple.** Code generators should be as simple as possible, generating as little code as possible and supporting as few options as possible.
-
-For other code generation philosophies, check out the Swagger tools below.
 
 ## Swagger Tools
 
