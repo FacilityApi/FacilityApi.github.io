@@ -19,4 +19,4 @@ Install `fsdgenaspnet` [as documented](/generate/tools#installation) from its [N
 `fsdgenaspnet` generates an ASP.NET controller in the output directory. It supports the [standard command-line options](/generate/tools#options) as well as the following additional command-line options:
 
 * `--namespace <name>`: Sets the namespace used by the generated ASP.NET controller.
-* `--apinamespace <name>`: Sets the namespace that was used by the [C# code generator](#csharp).
+* `--apinamespace <name>`: Sets the namespace that was used by the [C# code generator](./csharp).
