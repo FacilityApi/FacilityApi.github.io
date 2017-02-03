@@ -119,7 +119,7 @@ For example, if a method uses `[http(method: GET, path: "/widgets"]` in a servic
 
 If the `path` parameter is not specified, it defaults to the method name, e.g. `/getWidgets` for a method named `getWidgets`. This default would not be appropriate for a RESTful API, but may be acceptable for an RPC-style API.
 
-The `code` parameter indicates the HTTP status code used if the method is successful (but see also [body fields](#body-fields) below). If omitted, it defaults to `200` (OK), or to `204` (No Content) if the response has no [normal fields](#normal-fields) or [body fields](#body-fields).
+The `code` parameter indicates the HTTP status code used if the method is successful (but see also [body fields](#body-fields) below). If omitted, it defaults to `200` (OK).
 
 ```
   [http(method: POST, path: "/jobs/start", code: 202)]
