@@ -14,37 +14,36 @@ layout: home
   <div class="row">
     <div class="col-sm-6 col-lg-3">
       <h3>Design</h2>
-      <p>Use the <a href="/editor">Live Editor</a> (or any text editor) to design the methods of your API using the simple <a href="/define/fsd">FSD format</a> or the industry-standard <a href="/define/swagger">OpenAPI format</a>.</p>
-      <p>A method has a name and a corresponding HTTP path. Clients <code>POST</code> the JSON request and receive a JSON response.</p>
+      <p>Use the <a href="/editor">Live Editor</a> (or any text editor) to design your API using the simple <a href="/define/fsd">FSD format</a> or the industry-standard <a href="/define/swagger">OpenAPI format</a>.</p>
+      <p>Each method of your API has a name and a corresponding HTTP path. Clients POST the JSON request and receive a JSON response.</p>
       <p>Make your API less RPC-ish and more RESTful by adding <a href="/define/fsd#attributes">attributes</a> to your FSD methods and data fields.</p>
       <p>Commit your API definition to source control for revision tracking and peer review.</p>
       <p>Run <a href="/generate">command-line tools</a> from your automated builds to validate the syntax and ensure that generated code and documentation stays up-to-date.</p>
     </div>
     <div class="col-sm-6 col-lg-3">
       <h3>Implement</h2>
-      <p>Facility <a href="/generate/csharp">generates a C# interface</a> with one simple method for each of your API methods.</p>
-      <p>Write a C# class that implements that interface and <a href="/generate/aspnet">integrate that class</a> into an ASP.NET web app (Web API or Core).</p>
+      <p>Facility <a href="/generate/csharp">generates a C# interface</a> with one method for each method of your API.</p>
+      <p>You write a C# class that implements that interface and then <a href="/generate/aspnet">integrate that class</a> into an ASP.NET app (Web API or Core).</p>
       <p>Facility takes care of the HTTP mapping so you can focus on the implementation logic.</p>
       <p>Your C# class is easily unit tested, encourages good separation of concerns, and is more flexible than a hand-coded controller.</p>
-      <p>Edit the FSD and regenerate the C# code to rapidly add new features to your API.</p>
+      <p>Edit the FSD and regenerate the code to rapidly add new features to your API.</p>
       <p>Alternatively, <a href="/define/fsd#conversion">convert your FSD to OpenAPI</a> and find support for your favorite API framework among the many <a href="http://swagger.io/tools/">supported tools</a>.</p>
-      <p>Or just implement the API without using any special tooling and leverage Facility in other ways.</p>
     </div>
     <div class="col-sm-6 col-lg-3">
       <h3>Consume</h2>
-      <p>Facility generates client libraries in C# and JavaScript.</p>
-      <p>Publish to NuGet and npm to make it easy for clients to use your API.</p>
-      <p>The client libraries are designed to prevent breaking changes even as your API evolves.</p>
+      <p>Facility generates client libraries in <a href="/generate/csharp">C#</a> and <a href="/generate/javascript">JavaScript</a>.</p>
+      <p>Publish to <a href="https://www.nuget.org/">NuGet</a> and <a href="https://www.npmjs.com/">npm</a> to make it easy for clients to use your API.</p>
+      <p>The generated code is designed to avoid breaking changes even as your API evolves.</p>
       <p>Don't repeat yourself: The C# client library and the server implementation use the same C# interfaces and classes.</p>
-      <p>You can generate TypeScript to leverage type information while maintaining JavaScript compatibility.</p>
-      <p>To build client libraries for other languages and frameworks, [convert your FSD to OpenAPI]() and use the corresponding [Swagger tools]().</p>
+      <p>Generate TypeScript to leverage type information while maintaining JavaScript compatibility.</p>
+      <p>To build client libraries for other languages and frameworks, <a href="/define/fsd#conversion">convert your FSD to OpenAPI</a> and use any of the <a href="http://swagger.io/tools/">supported tools</a>.</p>
     </div>
     <div class="col-sm-6 col-lg-3">
       <h3>Document</h2>
-      <p>[Generate Markdown documentation]() for your API.</p>
-      <p>Push the documentation to [GitHub]() for easy reading at your GitHub repository.</p>
-      <p>Better yet, use the Markdown support of [GitHub Pages]() to display the documentation on your project website.</p>
-      <p>You can also [convert your FSD to OpenAPI]() and use [Swagger UI]().</p>
+      <p><a href="/generate/markdown">Generate Markdown documentation</a> for your API.</p>
+      <p>Push the documentation to <a href="https://github.com/">GitHub</a> for easy reading at your GitHub repository.</p>
+      <p>Better yet, use the Markdown support of <a href="https://pages.github.com/">GitHub Pages</a> to display the documentation on your project website.</p>
+      <p>You can also <a href="/define/fsd#conversion">convert your FSD to OpenAPI</a> and use <a href="http://swagger.io/swagger-ui/">Swagger UI</a>.</p>
     </div>
   </div>
 </div>
