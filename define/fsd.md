@@ -52,7 +52,7 @@ Attributes are used to attach additional information to a service and its elemen
 
 Each attribute has an alphanumeric **name** and may optionally include one or more **parameters**. Each parameter has its own **name** as well as a **value**.
 
-The `obsolete` attribute indicates that the service element is obsolete and/or deprecated and should no longer be used. It has no parameters.
+The `obsolete` attribute indicates that the service element is obsolete and/or deprecated and should no longer be used. The optional `message` parameter can be used to provide additional information, e.g. what should be used instead.
 
 #### FSD
 
