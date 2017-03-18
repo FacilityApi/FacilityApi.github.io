@@ -147,6 +147,7 @@ The following primitive field types are supported:
 * `double`: A double-precision floating-point number.
 * `int32`: A 32-bit signed integer.
 * `int64`: A 64-bit signed integer.
+* `decimal`: A 128-bit number appropriate for monetary calculations.
 * `bytes`: Zero or more bytes.
 * `object`: An arbitrary JSON object.
 * `error`: A [service error](#service-errors).
@@ -171,7 +172,7 @@ Since [JSON](http://www.json.org/) is currently the most commonly-used serializa
 
 In a JSON request body, response body, or DTO, a field is serialized as a JSON object property. In fact, to avoid complicating implementations, there is no way to customize the JSON serialization of a request body, response body, or DTO. Each field is always serialized as a JSON property with the same name.
 
-* `string`, `boolean`, `double`, `int32`, and `int64` are encoded as JSON literals.
+* `string`, `boolean`, `double`, `int32`, `int64`, and `decimal` are encoded as JSON literals.
 * `bytes` are encoded as a [Base64](https://en.wikipedia.org/wiki/Base64) string.
 * `object` is encoded as a JSON object.
 * `error` is encoded as a JSON object with `code`, `message`, `details`, and `innerError` properties.
@@ -181,7 +182,7 @@ In a JSON request body, response body, or DTO, a field is serialized as a JSON o
 
 `null` is not a valid value for any field type. If a JSON property is set to `null`, it is treated as though it were omitted. Arrays and maps are not permitted to have `null` items.
 
-Even though `int64` is a 64-bit signed integer, avoid ±2<sup>51</sup> or larger, as JavaScript [cannot safely represent](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/MAX_SAFE_INTEGER) integers that large.
+Even though `int64` is a 64-bit signed integer, avoid ±2<sup>51</sup> or larger, as JavaScript [cannot safely represent](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/MAX_SAFE_INTEGER) integers that large. Similarly, JavaScript numbers cannot accurately represent `decimal`.
 
 When reading JSON, conforming clients and servers may match property names case-insensitively, and they may perform type conversions for property values, e.g. strings to numbers. They may also support non-standard JSON features, such as unquoted property names, single-quoted strings, comments, etc.
 

@@ -55,7 +55,7 @@ export default function() {
 
 			typeName: [
 				{ include: '@whitespace' },
-				[/[a-zA-Z_][a-zA-Z_0-9]*/, { cases: { 'string|boolean|double|int32|int64|bytes|object|error|result|map': 'keyword', '@default': 'type.identifier' } }],
+				[/[a-zA-Z_][a-zA-Z_0-9]*/, { cases: { 'string|boolean|double|int32|int64|decimal|bytes|object|error|result|map': 'keyword', '@default': 'type.identifier' } }],
 				[/[\[\]<>]/, '@brackets'],
 				[/;/, 'delimiter', '@pop' ]
 			],
