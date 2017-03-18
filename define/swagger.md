@@ -228,6 +228,7 @@ The following table describes how each Swagger `type` and optional `format` map 
 | `number` | `double` |
 | `number`/`float` | `double` |
 | `number`/`double` | `double` |
+| `number`/`decimal` | `decimal` |
 | `string` | `string`, `enum` |
 | `string`/`byte` | `bytes` |
 | `string`/`binary` | `string` |
