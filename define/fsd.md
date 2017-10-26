@@ -58,7 +58,7 @@ The `obsolete` attribute indicates that the service element is obsolete and/or d
 
 In an FSD file, the attribute name is surrounded by square brackets. The comma-delimited parameters, if any, are surrounded by parentheses and follow the attribute name.
 
-Each parameter value can be represented as an ASCII token or a [JSON-style](http://www.json.org/) double-quoted string. An ASCII token can consist of numbers, letters, periods, hyphens, plus signs, and/or underscores. An ASCII token is not semantically different than a double-quoted string containing that token.
+Each parameter value can be represented as an ASCII token or a [JSON-style](https://www.json.org/) double-quoted string. An ASCII token can consist of numbers, letters, periods, hyphens, plus signs, and/or underscores. An ASCII token is not semantically different than a double-quoted string containing that token.
 
 ```
 [obsolete] // no parameters
@@ -168,7 +168,7 @@ For fields whose type corresponds to a DTO or enumerated type, that DTO or enume
 
 #### JSON
 
-Since [JSON](http://www.json.org/) is currently the most commonly-used serialization format for APIs over HTTP, Facility APIs are designed to be trivially compatible with JSON.
+Since [JSON](https://www.json.org/) is currently the most commonly-used serialization format for APIs over HTTP, Facility APIs are designed to be trivially compatible with JSON.
 
 In a JSON request body, response body, or DTO, a field is serialized as a JSON object property. In fact, to avoid complicating implementations, there is no way to customize the JSON serialization of a request body, response body, or DTO. Each field is always serialized as a JSON property with the same name.
 
@@ -186,7 +186,7 @@ Even though `int64` is a 64-bit signed integer, avoid ±2<sup>51</sup> or larger
 
 When reading JSON, conforming clients and servers may match property names case-insensitively, and they may perform type conversions for property values, e.g. strings to numbers. They may also support non-standard JSON features, such as unquoted property names, single-quoted strings, comments, etc.
 
-However, when writing JSON, conforming clients and servers must always use [standard JSON](http://www.json.org/) with no comments, correctly-cased property names, correctly-typed property values, etc.
+However, when writing JSON, conforming clients and servers must always use [standard JSON](https://www.json.org/) with no comments, correctly-cased property names, correctly-typed property values, etc.
 
 #### HTTP
 

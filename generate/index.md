@@ -28,9 +28,9 @@ The official Facility code generators conform to the following guidelines:
 
 ## Swagger Tools
 
-By using [Swagger (OpenAPI) 2.0](/define/swagger) for your API definition, or converting your [FSD](/define/fsd) to the Swagger format, you can leverage the many [Swagger tools and code generators](http://swagger.io/tools/). For example:
+By using [Swagger (OpenAPI) 2.0](/define/swagger) for your API definition, or converting your [FSD](/define/fsd) to the Swagger format, you can leverage the many [Swagger tools and code generators](https://swagger.io/tools/). For example:
 
-* [Swagger Editor](http://swagger.io/swagger-editor/) makes it easy to generate client and server code from a Swagger definition.
-* [Swagger Codegen](http://swagger.io/swagger-codegen/) supports dozens of languages and frameworks, including C++, Go, Java, Node, Objective-C, Python, Ruby, Swift, etc.
-* [Swagger UI](http://swagger.io/swagger-ui/) displays visual documentation for your API.
-* Many other [open source](http://swagger.io/open-source-integrations/) and [commercial](http://swagger.io/commercial-tools/) tools also support Swagger.
+* [Swagger Editor](https://swagger.io/swagger-editor/) makes it easy to generate client and server code from a Swagger definition.
+* [Swagger Codegen](https://swagger.io/swagger-codegen/) supports dozens of languages and frameworks, including C++, Go, Java, Node, Objective-C, Python, Ruby, Swift, etc.
+* [Swagger UI](https://swagger.io/swagger-ui/) displays visual documentation for your API.
+* Many other [open source](https://swagger.io/open-source-integrations/) and [commercial](https://swagger.io/commercial-tools/) tools also support Swagger.

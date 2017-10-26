@@ -1,6 +1,6 @@
 # JavaScript/TypeScript Support
 
-Facility supports tools and libraries for using [JavaScript](https://en.wikipedia.org/wiki/JavaScript) and/or [TypeScript](http://www.typescriptlang.org/) with Facility Service Definitions.
+Facility supports tools and libraries for using [JavaScript](https://en.wikipedia.org/wiki/JavaScript) and/or [TypeScript](https://www.typescriptlang.org/) with Facility Service Definitions.
 
 ## Tools
 

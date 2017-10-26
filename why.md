@@ -13,7 +13,7 @@ An **API definition** provides a single canonical representation of your API. Th
 
 ## Why use Facility?
 
-Other API frameworks already exist, most notably [OpenAPI](https://www.openapis.org/) (aka [Swagger](http://swagger.io/)).
+Other API frameworks already exist, most notably [OpenAPI](https://www.openapis.org/) (aka [Swagger](https://swagger.io/)).
 
 Consider using Facility if our design goals line up with your expectations better than other frameworks:
 
