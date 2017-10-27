@@ -1,10 +1,10 @@
 # Swagger (OpenAPI) 2.0
 
-A [Swagger (OpenAPI) 2.0 definition](http://swagger.io/specification/) can be used in place of an [FSD file](/define/fsd) in any of the Facility command-line tools. A Swagger definition can also be generated from an FSD file.
+A [Swagger (OpenAPI) 2.0 definition](https://swagger.io/specification/) can be used in place of an [FSD file](/define/fsd) in any of the Facility command-line tools. A Swagger definition can also be generated from an FSD file.
 
 ## Tools
 
-Developers can choose to define their API in Swagger instead of FSD if they prefer the Swagger syntax or want to easily leverage [Swagger-compatible tools and code generators](http://swagger.io/tools/) as well as [Facility code generators](/generate).
+Developers can choose to define their API in Swagger instead of FSD if they prefer the Swagger syntax or want to easily leverage [Swagger-compatible tools and code generators](https://swagger.io/tools/) as well as [Facility code generators](/generate).
 
 Developers that prefer the FSD syntax can use the [`fsdgenfsd`](/define#fsdgenfsd) tool to generate Swagger, e.g. to leverage Swagger-compatible code generators for languages and platforms not supported by the Facility code generators.
 
