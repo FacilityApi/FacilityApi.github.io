@@ -20,3 +20,4 @@ Install `fsdgenaspnet` [as documented](/generate/tools#installation) from its [N
 
 * `--namespace <name>`: Sets the namespace used by the generated ASP.NET controller.
 * `--apinamespace <name>`: Sets the namespace that was used by the [C# code generator](./csharp).
+* `--target (webapi|core)`: Sets the target framework to write the code against. (default `webapi`)
