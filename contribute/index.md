@@ -1,3 +1,3 @@
 # Contribute
 
-To contribute, submit issues and/or pull requests to the various projects at https://github.com/FacilityApi/.
+To contribute, submit issues and/or pull requests to one or more of [our GitHub repositories](https://github.com/FacilityApi/).
