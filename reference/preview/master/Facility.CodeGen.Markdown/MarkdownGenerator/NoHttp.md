@@ -1,6 +1,6 @@
 # MarkdownGenerator.NoHttp property
 
-True if HTTP documentation should be omitted.
+True if the HTTP documentation should be omitted.
 
 ```csharp
 public bool NoHttp { get; set; }

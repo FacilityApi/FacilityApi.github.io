@@ -11,7 +11,7 @@ public sealed class MarkdownGenerator : CodeGenerator
 | name | description |
 | --- | --- |
 | [MarkdownGenerator](MarkdownGenerator/MarkdownGenerator.md)() | The default constructor. |
-| [NoHttp](MarkdownGenerator/NoHttp.md) { get; set; } | True if HTTP documentation should be omitted. |
+| [NoHttp](MarkdownGenerator/NoHttp.md) { get; set; } | True if the HTTP documentation should be omitted. |
 
 ## Protected Members
 
