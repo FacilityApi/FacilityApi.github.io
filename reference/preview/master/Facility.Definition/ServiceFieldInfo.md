@@ -10,7 +10,7 @@ public sealed class ServiceFieldInfo : IServiceElementInfo
 
 | name | description |
 | --- | --- |
-| [ServiceFieldInfo](ServiceFieldInfo/ServiceFieldInfo.md)(…) | Creates a field. (2 constructors) |
+| [ServiceFieldInfo](ServiceFieldInfo/ServiceFieldInfo.md)(…) | Creates a field. |
 | [Attributes](ServiceFieldInfo/Attributes.md) { get; } | The attributes of the field. |
 | [Name](ServiceFieldInfo/Name.md) { get; } | The name of the field. |
 | [Position](ServiceFieldInfo/Position.md) { get; } | The position of the field in the definition. |

@@ -1,20 +1,4 @@
-# ServiceAttributeParameterInfo constructor (1 of 2)
-
-Creates an attribute parameter.
-
-```csharp
-public ServiceAttributeParameterInfo(string name, string value, NamedTextPosition position)
-```
-
-## See Also
-
-* class [NamedTextPosition](../NamedTextPosition.md)
-* class [ServiceAttributeParameterInfo](../ServiceAttributeParameterInfo.md)
-* namespace [Facility.Definition](../../Facility.Definition.md)
-
----
-
-# ServiceAttributeParameterInfo constructor (2 of 2)
+# ServiceAttributeParameterInfo constructor
 
 Creates an attribute parameter.
 

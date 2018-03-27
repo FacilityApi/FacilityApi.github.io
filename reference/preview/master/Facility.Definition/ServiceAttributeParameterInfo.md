@@ -10,7 +10,7 @@ public sealed class ServiceAttributeParameterInfo : IServiceNamedInfo
 
 | name | description |
 | --- | --- |
-| [ServiceAttributeParameterInfo](ServiceAttributeParameterInfo/ServiceAttributeParameterInfo.md)(…) | Creates an attribute parameter. (2 constructors) |
+| [ServiceAttributeParameterInfo](ServiceAttributeParameterInfo/ServiceAttributeParameterInfo.md)(…) | Creates an attribute parameter. |
 | [Name](ServiceAttributeParameterInfo/Name.md) { get; } | The name of the parameter. |
 | [Position](ServiceAttributeParameterInfo/Position.md) { get; } | The position of the parameter. |
 | [Value](ServiceAttributeParameterInfo/Value.md) { get; } | The value of the parameter. |

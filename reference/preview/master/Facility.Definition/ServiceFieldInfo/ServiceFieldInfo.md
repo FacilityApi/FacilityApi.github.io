@@ -1,22 +1,4 @@
-# ServiceFieldInfo constructor (1 of 2)
-
-Creates a field.
-
-```csharp
-public ServiceFieldInfo(string name, string typeName, IEnumerable<ServiceAttributeInfo> attributes, 
-    string summary, NamedTextPosition position)
-```
-
-## See Also
-
-* class [ServiceAttributeInfo](../ServiceAttributeInfo.md)
-* class [NamedTextPosition](../NamedTextPosition.md)
-* class [ServiceFieldInfo](../ServiceFieldInfo.md)
-* namespace [Facility.Definition](../../Facility.Definition.md)
-
----
-
-# ServiceFieldInfo constructor (2 of 2)
+# ServiceFieldInfo constructor
 
 Creates a field.
 

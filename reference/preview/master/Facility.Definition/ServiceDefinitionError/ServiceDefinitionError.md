@@ -3,7 +3,7 @@
 Creates an error.
 
 ```csharp
-public ServiceDefinitionError(string message, NamedTextPosition position, 
+public ServiceDefinitionError(string message, NamedTextPosition position = null, 
     Exception exception = null)
 ```
 
