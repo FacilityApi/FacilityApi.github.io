@@ -34,3 +34,7 @@ By using [Swagger (OpenAPI) 2.0](/define/swagger) for your API definition, or co
 * [Swagger Codegen](https://swagger.io/swagger-codegen/) supports dozens of languages and frameworks, including C++, Go, Java, Node, Objective-C, Python, Ruby, Swift, etc.
 * [Swagger UI](https://swagger.io/swagger-ui/) displays visual documentation for your API.
 * Many other [open source](https://swagger.io/open-source-integrations/) and [commercial](https://swagger.io/commercial-tools/) tools also support Swagger.
+
+## Visual Studio Code Extension
+
+The [Facility API extension](https://marketplace.visualstudio.com/items?itemName=davedunkin.facility-vscode) for Visual Studio Code provides syntax highlighting and error checking for [FSD](/define/fsd) files.
