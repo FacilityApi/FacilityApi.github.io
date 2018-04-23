@@ -3,7 +3,7 @@
 The .csproj files to update.
 
 ```csharp
-public IReadOnlyList<NamedText> CsprojFiles { get; set; }
+public IReadOnlyList<CodeGenFile> CsprojFiles { get; set; }
 ```
 
 ## See Also
