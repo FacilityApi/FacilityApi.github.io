@@ -3,14 +3,14 @@
 Creates an error.
 
 ```csharp
-public ServiceErrorInfo(string name, IEnumerable<ServiceAttributeInfo> attributes = null, 
-    string summary = null, NamedTextPosition position = null)
+public ServiceErrorInfo(string name, IEnumerable<ServiceAttributeInfo> attributes, string summary, 
+    ServicePart[] parts)
 ```
 
 ## See Also
 
 * class [ServiceAttributeInfo](../ServiceAttributeInfo.md)
-* class [NamedTextPosition](../NamedTextPosition.md)
+* class [ServicePart](../ServicePart.md)
 * class [ServiceErrorInfo](../ServiceErrorInfo.md)
 * namespace [Facility.Definition](../../Facility.Definition.md)
 

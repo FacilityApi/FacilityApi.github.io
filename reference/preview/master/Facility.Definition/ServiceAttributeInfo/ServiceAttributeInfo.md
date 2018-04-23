@@ -1,16 +1,16 @@
 # ServiceAttributeInfo constructor
 
-Creates an attribute.
+Creates a service attribute.
 
 ```csharp
 public ServiceAttributeInfo(string name, 
-    IEnumerable<ServiceAttributeParameterInfo> parameters = null, NamedTextPosition position = null)
+    IEnumerable<ServiceAttributeParameterInfo> parameters = null, ServicePart[] parts)
 ```
 
 ## See Also
 
 * class [ServiceAttributeParameterInfo](../ServiceAttributeParameterInfo.md)
-* class [NamedTextPosition](../NamedTextPosition.md)
+* class [ServicePart](../ServicePart.md)
 * class [ServiceAttributeInfo](../ServiceAttributeInfo.md)
 * namespace [Facility.Definition](../../Facility.Definition.md)
 

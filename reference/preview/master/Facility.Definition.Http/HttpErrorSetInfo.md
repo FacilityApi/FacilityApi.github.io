@@ -3,7 +3,7 @@
 The HTTP mapping of an error set.
 
 ```csharp
-public sealed class HttpErrorSetInfo
+public sealed class HttpErrorSetInfo : HttpElementInfo
 ```
 
 ## Public Members
@@ -12,9 +12,11 @@ public sealed class HttpErrorSetInfo
 | --- | --- |
 | [Errors](HttpErrorSetInfo/Errors.md) { get; } | The HTTP mapping of the errors. |
 | [ServiceErrorSet](HttpErrorSetInfo/ServiceErrorSet.md) { get; } | The error set. |
+| override [GetChildren](HttpErrorSetInfo/GetChildren.md)() | The children of the element, if any. |
 
 ## See Also
 
+* class [HttpElementInfo](HttpElementInfo.md)
 * namespace [Facility.Definition.Http](../Facility.Definition.md)
 * [HttpErrorSetInfo.cs](https://github.com/FacilityApi/Facility/tree/master/src/Facility.Definition/Http/HttpErrorSetInfo.cs)
 

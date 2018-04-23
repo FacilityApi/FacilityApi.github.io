@@ -3,24 +3,19 @@
 A service enumerated type.
 
 ```csharp
-public sealed class ServiceEnumInfo : IServiceMemberInfo
+public sealed class ServiceEnumInfo : ServiceMemberInfo
 ```
 
 ## Public Members
 
 | name | description |
 | --- | --- |
-| [ServiceEnumInfo](ServiceEnumInfo/ServiceEnumInfo.md)(…) | Creates an enum. |
-| [Attributes](ServiceEnumInfo/Attributes.md) { get; } | The attributes of the enumerated type. |
-| [Name](ServiceEnumInfo/Name.md) { get; } | The name of the enumerated type. |
-| [Position](ServiceEnumInfo/Position.md) { get; } | The position of the enumerated type in the definition. |
-| [Remarks](ServiceEnumInfo/Remarks.md) { get; } | The remarks of the enumerated type. |
-| [Summary](ServiceEnumInfo/Summary.md) { get; } | The summary of the enumerated type. |
+| [ServiceEnumInfo](ServiceEnumInfo/ServiceEnumInfo.md)(…) | Creates an enumerated type. |
 | [Values](ServiceEnumInfo/Values.md) { get; } | The values of the enumerated type. |
 
 ## See Also
 
-* interface [IServiceMemberInfo](IServiceMemberInfo.md)
+* class [ServiceMemberInfo](ServiceMemberInfo.md)
 * namespace [Facility.Definition](../Facility.Definition.md)
 * [ServiceEnumInfo.cs](https://github.com/FacilityApi/Facility/tree/master/src/Facility.Definition/ServiceEnumInfo.cs)
 

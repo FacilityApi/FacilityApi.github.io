@@ -1,6 +1,6 @@
 # ServiceDefinitionUtility.IsValidName method
 
-Returns true if the name is a valid service member name.
+Returns true if the name is a valid service element name.
 
 ```csharp
 public static bool IsValidName(string name)

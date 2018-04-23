@@ -3,7 +3,8 @@
 A field of a DTO.
 
 ```csharp
-public sealed class ServiceFieldInfo : IServiceElementInfo
+public sealed class ServiceFieldInfo : ServiceElementWithAttributesInfo, IServiceHasName, 
+    IServiceHasSummary
 ```
 
 ## Public Members
@@ -11,16 +12,15 @@ public sealed class ServiceFieldInfo : IServiceElementInfo
 | name | description |
 | --- | --- |
 | [ServiceFieldInfo](ServiceFieldInfo/ServiceFieldInfo.md)(…) | Creates a field. |
-| [Attributes](ServiceFieldInfo/Attributes.md) { get; } | The attributes of the field. |
 | [Name](ServiceFieldInfo/Name.md) { get; } | The name of the field. |
-| [Position](ServiceFieldInfo/Position.md) { get; } | The position of the field in the definition. |
 | [Summary](ServiceFieldInfo/Summary.md) { get; } | The summary of the field. |
 | [TypeName](ServiceFieldInfo/TypeName.md) { get; } | The name of the type of the field. |
-| [TypeNamePosition](ServiceFieldInfo/TypeNamePosition.md) { get; set; } | The position of the field type name in the definition. |
 
 ## See Also
 
-* interface [IServiceElementInfo](IServiceElementInfo.md)
+* class [ServiceElementWithAttributesInfo](ServiceElementWithAttributesInfo.md)
+* interface [IServiceHasName](IServiceHasName.md)
+* interface [IServiceHasSummary](IServiceHasSummary.md)
 * namespace [Facility.Definition](../Facility.Definition.md)
 * [ServiceFieldInfo.cs](https://github.com/FacilityApi/Facility/tree/master/src/Facility.Definition/ServiceFieldInfo.cs)
 

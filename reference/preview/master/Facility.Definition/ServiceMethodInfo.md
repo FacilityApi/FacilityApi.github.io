@@ -3,7 +3,7 @@
 A service method.
 
 ```csharp
-public sealed class ServiceMethodInfo : IServiceMemberInfo
+public sealed class ServiceMethodInfo : ServiceMemberInfo
 ```
 
 ## Public Members
@@ -11,17 +11,12 @@ public sealed class ServiceMethodInfo : IServiceMemberInfo
 | name | description |
 | --- | --- |
 | [ServiceMethodInfo](ServiceMethodInfo/ServiceMethodInfo.md)(…) | Creates a method. |
-| [Attributes](ServiceMethodInfo/Attributes.md) { get; } | The attributes of the method. |
-| [Name](ServiceMethodInfo/Name.md) { get; } | The name of the method. |
-| [Position](ServiceMethodInfo/Position.md) { get; } | The position of the method in the definition. |
-| [Remarks](ServiceMethodInfo/Remarks.md) { get; } | The remarks of the method. |
 | [RequestFields](ServiceMethodInfo/RequestFields.md) { get; } | The request fields of the method. |
 | [ResponseFields](ServiceMethodInfo/ResponseFields.md) { get; } | The response fields of the method. |
-| [Summary](ServiceMethodInfo/Summary.md) { get; } | The summary of the method. |
 
 ## See Also
 
-* interface [IServiceMemberInfo](IServiceMemberInfo.md)
+* class [ServiceMemberInfo](ServiceMemberInfo.md)
 * namespace [Facility.Definition](../Facility.Definition.md)
 * [ServiceMethodInfo.cs](https://github.com/FacilityApi/Facility/tree/master/src/Facility.Definition/ServiceMethodInfo.cs)
 

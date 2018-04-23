@@ -6,6 +6,12 @@ Converts Swagger (OpenAPI) 2.0 into a service definition.
 public ServiceInfo ConvertSwaggerService(SwaggerService swaggerService)
 ```
 
+## Exceptions
+
+| exception | condition |
+| --- | --- |
+| [ServiceDefinitionException](../../Facility.Definition/ServiceDefinitionException.md) | Thrown if the service would be invalid. |
+
 ## See Also
 
 * class [ServiceInfo](../../Facility.Definition/ServiceInfo.md)

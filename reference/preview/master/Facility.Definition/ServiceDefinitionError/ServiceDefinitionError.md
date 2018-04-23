@@ -1,15 +1,14 @@
 # ServiceDefinitionError constructor
 
-Creates an error.
+Creates a service definition error.
 
 ```csharp
-public ServiceDefinitionError(string message, NamedTextPosition position = null, 
-    Exception exception = null)
+public ServiceDefinitionError(string message, ServiceDefinitionPosition position = null)
 ```
 
 ## See Also
 
-* class [NamedTextPosition](../NamedTextPosition.md)
+* class [ServiceDefinitionPosition](../ServiceDefinitionPosition.md)
 * class [ServiceDefinitionError](../ServiceDefinitionError.md)
 * namespace [Facility.Definition](../../Facility.Definition.md)
 

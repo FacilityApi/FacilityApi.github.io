@@ -10,11 +10,10 @@ public sealed class ServiceDefinitionError
 
 | name | description |
 | --- | --- |
-| [ServiceDefinitionError](ServiceDefinitionError/ServiceDefinitionError.md)(…) | Creates an error. |
-| [Exception](ServiceDefinitionError/Exception.md) { get; } | The exception that caused the error, if any. |
+| [ServiceDefinitionError](ServiceDefinitionError/ServiceDefinitionError.md)(…) | Creates a service definition error. |
 | [Message](ServiceDefinitionError/Message.md) { get; } | The error message. |
 | [Position](ServiceDefinitionError/Position.md) { get; } | The position where the error took place, if any. |
-| override [ToString](ServiceDefinitionError/ToString.md)() | Returns a string that represents the current object. |
+| override [ToString](ServiceDefinitionError/ToString.md)() | Returns a string with the position and the error message. |
 
 ## See Also
 

@@ -1,18 +1,18 @@
 # ServiceEnumInfo constructor
 
-Creates an enum.
+Creates an enumerated type.
 
 ```csharp
 public ServiceEnumInfo(string name, IEnumerable<ServiceEnumValueInfo> values = null, 
     IEnumerable<ServiceAttributeInfo> attributes = null, string summary = null, 
-    IEnumerable<string> remarks = null, NamedTextPosition position = null)
+    IEnumerable<string> remarks = null, ServicePart[] parts)
 ```
 
 ## See Also
 
 * class [ServiceEnumValueInfo](../ServiceEnumValueInfo.md)
 * class [ServiceAttributeInfo](../ServiceAttributeInfo.md)
-* class [NamedTextPosition](../NamedTextPosition.md)
+* class [ServicePart](../ServicePart.md)
 * class [ServiceEnumInfo](../ServiceEnumInfo.md)
 * namespace [Facility.Definition](../../Facility.Definition.md)
 

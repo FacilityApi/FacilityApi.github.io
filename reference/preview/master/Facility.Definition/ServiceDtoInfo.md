@@ -3,7 +3,7 @@
 A service DTO.
 
 ```csharp
-public sealed class ServiceDtoInfo : IServiceMemberInfo
+public sealed class ServiceDtoInfo : ServiceMemberInfo
 ```
 
 ## Public Members
@@ -11,16 +11,11 @@ public sealed class ServiceDtoInfo : IServiceMemberInfo
 | name | description |
 | --- | --- |
 | [ServiceDtoInfo](ServiceDtoInfo/ServiceDtoInfo.md)(…) | Creates a DTO. |
-| [Attributes](ServiceDtoInfo/Attributes.md) { get; } | The attributes of the DTO. |
 | [Fields](ServiceDtoInfo/Fields.md) { get; } | The fields of the DTO. |
-| [Name](ServiceDtoInfo/Name.md) { get; } | The name of the DTO. |
-| [Position](ServiceDtoInfo/Position.md) { get; } | The position of the DTO in the definition. |
-| [Remarks](ServiceDtoInfo/Remarks.md) { get; } | The remarks for the DTO. |
-| [Summary](ServiceDtoInfo/Summary.md) { get; } | The summary for the DTO. |
 
 ## See Also
 
-* interface [IServiceMemberInfo](IServiceMemberInfo.md)
+* class [ServiceMemberInfo](ServiceMemberInfo.md)
 * namespace [Facility.Definition](../Facility.Definition.md)
 * [ServiceDtoInfo.cs](https://github.com/FacilityApi/Facility/tree/master/src/Facility.Definition/ServiceDtoInfo.cs)
 

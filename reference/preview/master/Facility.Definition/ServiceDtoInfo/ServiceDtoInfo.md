@@ -5,14 +5,14 @@ Creates a DTO.
 ```csharp
 public ServiceDtoInfo(string name, IEnumerable<ServiceFieldInfo> fields = null, 
     IEnumerable<ServiceAttributeInfo> attributes = null, string summary = null, 
-    IEnumerable<string> remarks = null, NamedTextPosition position = null)
+    IEnumerable<string> remarks = null, ServicePart[] parts)
 ```
 
 ## See Also
 
 * class [ServiceFieldInfo](../ServiceFieldInfo.md)
 * class [ServiceAttributeInfo](../ServiceAttributeInfo.md)
-* class [NamedTextPosition](../NamedTextPosition.md)
+* class [ServicePart](../ServicePart.md)
 * class [ServiceDtoInfo](../ServiceDtoInfo.md)
 * namespace [Facility.Definition](../../Facility.Definition.md)
 

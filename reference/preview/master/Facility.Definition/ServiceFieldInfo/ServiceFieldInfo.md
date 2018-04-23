@@ -4,14 +4,13 @@ Creates a field.
 
 ```csharp
 public ServiceFieldInfo(string name, string typeName, 
-    IEnumerable<ServiceAttributeInfo> attributes = null, string summary = null, 
-    NamedTextPosition position = null, NamedTextPosition typeNamePosition = null)
+    IEnumerable<ServiceAttributeInfo> attributes = null, string summary = null, ServicePart[] parts)
 ```
 
 ## See Also
 
 * class [ServiceAttributeInfo](../ServiceAttributeInfo.md)
-* class [NamedTextPosition](../NamedTextPosition.md)
+* class [ServicePart](../ServicePart.md)
 * class [ServiceFieldInfo](../ServiceFieldInfo.md)
 * namespace [Facility.Definition](../../Facility.Definition.md)
 

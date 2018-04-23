@@ -14,6 +14,8 @@ public sealed class SwaggerParser
 | [ServiceName](SwaggerParser/ServiceName.md) { get; set; } | The service name (defaults to 'info/x-identifier' or 'info/title'). |
 | [ConvertSwaggerService](SwaggerParser/ConvertSwaggerService.md)(…) | Converts Swagger (OpenAPI) 2.0 into a service definition. |
 | [ParseDefinition](SwaggerParser/ParseDefinition.md)(…) | Parses Swagger (OpenAPI) 2.0 into a service definition. |
+| [TryConvertSwaggerService](SwaggerParser/TryConvertSwaggerService.md)(…) |  |
+| [TryParseDefinition](SwaggerParser/TryParseDefinition.md)(…) |  |
 
 ## See Also
 

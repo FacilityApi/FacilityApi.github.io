@@ -3,7 +3,7 @@
 Information about a service from a definition.
 
 ```csharp
-public sealed class ServiceInfo : IServiceMemberInfo
+public sealed class ServiceInfo : ServiceMemberInfo
 ```
 
 ## Public Members
@@ -11,26 +11,19 @@ public sealed class ServiceInfo : IServiceMemberInfo
 | name | description |
 | --- | --- |
 | [ServiceInfo](ServiceInfo/ServiceInfo.md)(…) | Creates a service. |
-| [Attributes](ServiceInfo/Attributes.md) { get; } | The service attributes. |
 | [Dtos](ServiceInfo/Dtos.md) { get; } | The DTOs. |
 | [Enums](ServiceInfo/Enums.md) { get; } | The enumerated types. |
 | [ErrorSets](ServiceInfo/ErrorSets.md) { get; } | The error sets. |
 | [Members](ServiceInfo/Members.md) { get; } | All of the service members.. |
 | [Methods](ServiceInfo/Methods.md) { get; } | The methods. |
-| [Name](ServiceInfo/Name.md) { get; } | The service name. |
-| [Position](ServiceInfo/Position.md) { get; } | The position of the service. |
-| [Remarks](ServiceInfo/Remarks.md) { get; } | The service remarks. |
-| [Summary](ServiceInfo/Summary.md) { get; } | The service summary. |
+| [ExcludeTag](ServiceInfo/ExcludeTag.md)(…) | Excludes a tag from the service. |
 | [FindMember](ServiceInfo/FindMember.md)(…) | Finds the member of the specified name. |
 | [GetFieldType](ServiceInfo/GetFieldType.md)(…) | Gets the field type for a field. |
-| [GetType](ServiceInfo/GetType.md)(…) | Gets the type of the specified name. |
-| [GetValidationErrors](ServiceInfo/GetValidationErrors.md)() | Returns any definition errors. |
-| [TryGetFieldType](ServiceInfo/TryGetFieldType.md)(…) |  |
-| [TryGetType](ServiceInfo/TryGetType.md)(…) |  |
+| [TryExcludeTag](ServiceInfo/TryExcludeTag.md)(…) |  |
 
 ## See Also
 
-* interface [IServiceMemberInfo](IServiceMemberInfo.md)
+* class [ServiceMemberInfo](ServiceMemberInfo.md)
 * namespace [Facility.Definition](../Facility.Definition.md)
 * [ServiceInfo.cs](https://github.com/FacilityApi/Facility/tree/master/src/Facility.Definition/ServiceInfo.cs)
 

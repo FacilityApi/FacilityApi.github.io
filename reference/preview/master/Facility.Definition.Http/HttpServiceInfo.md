@@ -3,22 +3,24 @@
 The HTTP mapping for a service.
 
 ```csharp
-public sealed class HttpServiceInfo
+public sealed class HttpServiceInfo : HttpElementInfo
 ```
 
 ## Public Members
 
 | name | description |
 | --- | --- |
-| [HttpServiceInfo](HttpServiceInfo/HttpServiceInfo.md)(…) | Creates an HTTP mapping for a service. |
+| static [Create](HttpServiceInfo/Create.md)(…) | Creates an HTTP mapping for a service. |
 | [ErrorSets](HttpServiceInfo/ErrorSets.md) { get; } | The HTTP mapping for the error sets. |
 | [Methods](HttpServiceInfo/Methods.md) { get; } | The HTTP mapping for the methods. |
 | [Service](HttpServiceInfo/Service.md) { get; } | The service. |
 | [Url](HttpServiceInfo/Url.md) { get; } | The URL of the HTTP service. |
+| override [GetChildren](HttpServiceInfo/GetChildren.md)() | The children of the element, if any. |
 | static [TryCreate](HttpServiceInfo/TryCreate.md)(…) |  |
 
 ## See Also
 
+* class [HttpElementInfo](HttpElementInfo.md)
 * namespace [Facility.Definition.Http](../Facility.Definition.md)
 * [HttpServiceInfo.cs](https://github.com/FacilityApi/Facility/tree/master/src/Facility.Definition/Http/HttpServiceInfo.cs)
 

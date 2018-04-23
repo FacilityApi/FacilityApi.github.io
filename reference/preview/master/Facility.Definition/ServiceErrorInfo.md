@@ -3,7 +3,8 @@
 An error of an error set.
 
 ```csharp
-public sealed class ServiceErrorInfo : IServiceElementInfo
+public sealed class ServiceErrorInfo : ServiceElementWithAttributesInfo, IServiceHasName, 
+    IServiceHasSummary
 ```
 
 ## Public Members
@@ -11,14 +12,14 @@ public sealed class ServiceErrorInfo : IServiceElementInfo
 | name | description |
 | --- | --- |
 | [ServiceErrorInfo](ServiceErrorInfo/ServiceErrorInfo.md)(…) | Creates an error. |
-| [Attributes](ServiceErrorInfo/Attributes.md) { get; } | The attributes of the error. |
 | [Name](ServiceErrorInfo/Name.md) { get; } | The name of the error. |
-| [Position](ServiceErrorInfo/Position.md) { get; } | The position of the error in the definition. |
 | [Summary](ServiceErrorInfo/Summary.md) { get; } | The summary of the error. |
 
 ## See Also
 
-* interface [IServiceElementInfo](IServiceElementInfo.md)
+* class [ServiceElementWithAttributesInfo](ServiceElementWithAttributesInfo.md)
+* interface [IServiceHasName](IServiceHasName.md)
+* interface [IServiceHasSummary](IServiceHasSummary.md)
 * namespace [Facility.Definition](../Facility.Definition.md)
 * [ServiceErrorInfo.cs](https://github.com/FacilityApi/Facility/tree/master/src/Facility.Definition/ServiceErrorInfo.cs)
 

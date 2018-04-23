@@ -3,12 +3,12 @@
 All of the service members..
 
 ```csharp
-public IReadOnlyList<IServiceMemberInfo> Members { get; }
+public IReadOnlyList<ServiceMemberInfo> Members { get; }
 ```
 
 ## See Also
 
-* interface [IServiceMemberInfo](../IServiceMemberInfo.md)
+* class [ServiceMemberInfo](../ServiceMemberInfo.md)
 * class [ServiceInfo](../ServiceInfo.md)
 * namespace [Facility.Definition](../../Facility.Definition.md)
 

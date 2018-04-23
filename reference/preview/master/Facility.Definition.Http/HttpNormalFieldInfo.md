@@ -3,7 +3,7 @@
 Information about a normal request or response field.
 
 ```csharp
-public sealed class HttpNormalFieldInfo
+public sealed class HttpNormalFieldInfo : HttpElementInfo
 ```
 
 ## Public Members
@@ -11,9 +11,11 @@ public sealed class HttpNormalFieldInfo
 | name | description |
 | --- | --- |
 | [ServiceField](HttpNormalFieldInfo/ServiceField.md) { get; } | The service field. |
+| override [GetChildren](HttpNormalFieldInfo/GetChildren.md)() | The children of the element, if any. |
 
 ## See Also
 
+* class [HttpElementInfo](HttpElementInfo.md)
 * namespace [Facility.Definition.Http](../Facility.Definition.md)
 * [HttpNormalFieldInfo.cs](https://github.com/FacilityApi/Facility/tree/master/src/Facility.Definition/Http/HttpNormalFieldInfo.cs)
 

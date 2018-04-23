@@ -3,13 +3,12 @@
 Creates an attribute parameter.
 
 ```csharp
-public ServiceAttributeParameterInfo(string name, string value, NamedTextPosition position = null, 
-    NamedTextPosition valuePosition = null)
+public ServiceAttributeParameterInfo(string name, string value, ServicePart[] parts)
 ```
 
 ## See Also
 
-* class [NamedTextPosition](../NamedTextPosition.md)
+* class [ServicePart](../ServicePart.md)
 * class [ServiceAttributeParameterInfo](../ServiceAttributeParameterInfo.md)
 * namespace [Facility.Definition](../../Facility.Definition.md)
 

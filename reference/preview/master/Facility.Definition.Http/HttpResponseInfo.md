@@ -3,7 +3,7 @@
 Information about a valid method response.
 
 ```csharp
-public sealed class HttpResponseInfo
+public sealed class HttpResponseInfo : HttpElementInfo
 ```
 
 ## Public Members
@@ -13,9 +13,11 @@ public sealed class HttpResponseInfo
 | [BodyField](HttpResponseInfo/BodyField.md) { get; } | The field that corresponds to the entire response body. |
 | [NormalFields](HttpResponseInfo/NormalFields.md) { get; } | The fields from the response DTO that correspond to the response body. |
 | [StatusCode](HttpResponseInfo/StatusCode.md) { get; } | The status code used by the response. |
+| override [GetChildren](HttpResponseInfo/GetChildren.md)() | The children of the element, if any. |
 
 ## See Also
 
+* class [HttpElementInfo](HttpElementInfo.md)
 * namespace [Facility.Definition.Http](../Facility.Definition.md)
 * [HttpResponseInfo.cs](https://github.com/FacilityApi/Facility/tree/master/src/Facility.Definition/Http/HttpResponseInfo.cs)
 

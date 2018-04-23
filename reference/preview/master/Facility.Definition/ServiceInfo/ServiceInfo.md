@@ -3,16 +3,16 @@
 Creates a service.
 
 ```csharp
-public ServiceInfo(string name, IEnumerable<IServiceMemberInfo> members = null, 
+public ServiceInfo(string name, IEnumerable<ServiceMemberInfo> members, 
     IEnumerable<ServiceAttributeInfo> attributes = null, string summary = null, 
-    IEnumerable<string> remarks = null, NamedTextPosition position = null)
+    IEnumerable<string> remarks = null, ServicePart[] parts)
 ```
 
 ## See Also
 
-* interface [IServiceMemberInfo](../IServiceMemberInfo.md)
+* class [ServiceMemberInfo](../ServiceMemberInfo.md)
 * class [ServiceAttributeInfo](../ServiceAttributeInfo.md)
-* class [NamedTextPosition](../NamedTextPosition.md)
+* class [ServicePart](../ServicePart.md)
 * class [ServiceInfo](../ServiceInfo.md)
 * namespace [Facility.Definition](../../Facility.Definition.md)
 

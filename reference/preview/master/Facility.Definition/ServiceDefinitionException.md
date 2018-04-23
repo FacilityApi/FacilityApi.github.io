@@ -10,7 +10,7 @@ public sealed class ServiceDefinitionException : Exception
 
 | name | description |
 | --- | --- |
-| [ServiceDefinitionException](ServiceDefinitionException/ServiceDefinitionException.md)(…) | Creates an exception. (3 constructors) |
+| [ServiceDefinitionException](ServiceDefinitionException/ServiceDefinitionException.md)(…) | Creates an exception. |
 | [Errors](ServiceDefinitionException/Errors.md) { get; } | The errors. |
 | override [Message](ServiceDefinitionException/Message.md) { get; } | The exception message, which displays the file name, line number, column number, and error message of the first error. |
 

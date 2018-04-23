@@ -3,13 +3,13 @@
 Attempts to determine the format of the service definition.
 
 ```csharp
-public static ServiceDefinitionFormat? DetectFormat(NamedText namedText)
+public static ServiceDefinitionFormat? DetectFormat(ServiceDefinitionText definitionText)
 ```
 
 ## See Also
 
 * enum [ServiceDefinitionFormat](../ServiceDefinitionFormat.md)
-* class [NamedText](../NamedText.md)
+* class [ServiceDefinitionText](../ServiceDefinitionText.md)
 * class [ServiceDefinitionUtility](../ServiceDefinitionUtility.md)
 * namespace [Facility.Definition](../../Facility.Definition.md)
 

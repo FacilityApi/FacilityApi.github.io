@@ -1,4 +1,4 @@
-# ServiceDefinitionException constructor (1 of 3)
+# ServiceDefinitionException constructor
 
 Creates an exception.
 
@@ -10,39 +10,6 @@ public ServiceDefinitionException(IEnumerable<ServiceDefinitionError> errors,
 ## See Also
 
 * class [ServiceDefinitionError](../ServiceDefinitionError.md)
-* class [ServiceDefinitionException](../ServiceDefinitionException.md)
-* namespace [Facility.Definition](../../Facility.Definition.md)
-
----
-
-# ServiceDefinitionException constructor (2 of 3)
-
-Creates an exception.
-
-```csharp
-public ServiceDefinitionException(ServiceDefinitionError error, Exception innerException = null)
-```
-
-## See Also
-
-* class [ServiceDefinitionError](../ServiceDefinitionError.md)
-* class [ServiceDefinitionException](../ServiceDefinitionException.md)
-* namespace [Facility.Definition](../../Facility.Definition.md)
-
----
-
-# ServiceDefinitionException constructor (3 of 3)
-
-Creates an exception.
-
-```csharp
-public ServiceDefinitionException(string error, NamedTextPosition position = null, 
-    Exception innerException = null)
-```
-
-## See Also
-
-* class [NamedTextPosition](../NamedTextPosition.md)
 * class [ServiceDefinitionException](../ServiceDefinitionException.md)
 * namespace [Facility.Definition](../../Facility.Definition.md)
 

@@ -3,12 +3,12 @@
 Creates a single-output instance.
 
 ```csharp
-public CodeGenOutput(NamedText namedText)
+public CodeGenOutput(CodeGenFile file)
 ```
 
 ## See Also
 
-* class [NamedText](../../Facility.Definition/NamedText.md)
+* class [CodeGenFile](../CodeGenFile.md)
 * class [CodeGenOutput](../CodeGenOutput.md)
 * namespace [Facility.Definition.CodeGen](../../Facility.Definition.md)
 
@@ -19,13 +19,13 @@ public CodeGenOutput(NamedText namedText)
 Creates a multi-output instance.
 
 ```csharp
-public CodeGenOutput(IReadOnlyList<NamedText> namedTexts, 
+public CodeGenOutput(IReadOnlyList<CodeGenFile> files, 
     IReadOnlyList<CodeGenPattern> patternsToClean)
 ```
 
 ## See Also
 
-* class [NamedText](../../Facility.Definition/NamedText.md)
+* class [CodeGenFile](../CodeGenFile.md)
 * class [CodeGenPattern](../CodeGenPattern.md)
 * class [CodeGenOutput](../CodeGenOutput.md)
 * namespace [Facility.Definition.CodeGen](../../Facility.Definition.md)

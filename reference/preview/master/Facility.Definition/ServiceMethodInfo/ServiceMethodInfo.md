@@ -6,14 +6,14 @@ Creates a method.
 public ServiceMethodInfo(string name, IEnumerable<ServiceFieldInfo> requestFields = null, 
     IEnumerable<ServiceFieldInfo> responseFields = null, 
     IEnumerable<ServiceAttributeInfo> attributes = null, string summary = null, 
-    IEnumerable<string> remarks = null, NamedTextPosition position = null)
+    IEnumerable<string> remarks = null, ServicePart[] parts)
 ```
 
 ## See Also
 
 * class [ServiceFieldInfo](../ServiceFieldInfo.md)
 * class [ServiceAttributeInfo](../ServiceAttributeInfo.md)
-* class [NamedTextPosition](../NamedTextPosition.md)
+* class [ServicePart](../ServicePart.md)
 * class [ServiceMethodInfo](../ServiceMethodInfo.md)
 * namespace [Facility.Definition](../../Facility.Definition.md)
 

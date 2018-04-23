@@ -1,13 +1,13 @@
 # FsdParser.TryParseDefinition method
 
 ```csharp
-public bool TryParseDefinition(NamedText source, out ServiceInfo service, 
+public bool TryParseDefinition(ServiceDefinitionText source, out ServiceInfo service, 
     out IReadOnlyList<ServiceDefinitionError> errors)
 ```
 
 ## See Also
 
-* class [NamedText](../../Facility.Definition/NamedText.md)
+* class [ServiceDefinitionText](../../Facility.Definition/ServiceDefinitionText.md)
 * class [ServiceInfo](../../Facility.Definition/ServiceInfo.md)
 * class [ServiceDefinitionError](../../Facility.Definition/ServiceDefinitionError.md)
 * class [FsdParser](../FsdParser.md)

@@ -11,7 +11,7 @@ public sealed class CodeGenOutput
 | name | description |
 | --- | --- |
 | [CodeGenOutput](CodeGenOutput/CodeGenOutput.md)(…) | Creates a single-output instance. (2 constructors) |
-| [NamedTexts](CodeGenOutput/NamedTexts.md) { get; } | The named texts. |
+| [Files](CodeGenOutput/Files.md) { get; } | The files. |
 | [PatternsToClean](CodeGenOutput/PatternsToClean.md) { get; } | The patterns to clean. |
 
 ## See Also

@@ -3,7 +3,7 @@
 An attribute parameter.
 
 ```csharp
-public sealed class ServiceAttributeParameterInfo : IServiceNamedInfo
+public sealed class ServiceAttributeParameterInfo : ServiceElementInfo, IServiceHasName
 ```
 
 ## Public Members
@@ -12,13 +12,13 @@ public sealed class ServiceAttributeParameterInfo : IServiceNamedInfo
 | --- | --- |
 | [ServiceAttributeParameterInfo](ServiceAttributeParameterInfo/ServiceAttributeParameterInfo.md)(…) | Creates an attribute parameter. |
 | [Name](ServiceAttributeParameterInfo/Name.md) { get; } | The name of the parameter. |
-| [Position](ServiceAttributeParameterInfo/Position.md) { get; } | The position of the parameter. |
 | [Value](ServiceAttributeParameterInfo/Value.md) { get; } | The value of the parameter. |
-| [ValuePosition](ServiceAttributeParameterInfo/ValuePosition.md) { get; set; } | The position of the parameter value. |
+| override [GetChildren](ServiceAttributeParameterInfo/GetChildren.md)() | The children of the service element, if any. |
 
 ## See Also
 
-* interface [IServiceNamedInfo](IServiceNamedInfo.md)
+* class [ServiceElementInfo](ServiceElementInfo.md)
+* interface [IServiceHasName](IServiceHasName.md)
 * namespace [Facility.Definition](../Facility.Definition.md)
 * [ServiceAttributeParameterInfo.cs](https://github.com/FacilityApi/Facility/tree/master/src/Facility.Definition/ServiceAttributeParameterInfo.cs)
 

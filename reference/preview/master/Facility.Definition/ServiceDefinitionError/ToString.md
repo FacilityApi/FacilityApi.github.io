@@ -1,6 +1,6 @@
 # ServiceDefinitionError.ToString method
 
-Returns a string that represents the current object.
+Returns a string with the position and the error message.
 
 ```csharp
 public override string ToString()

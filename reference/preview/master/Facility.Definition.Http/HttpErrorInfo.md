@@ -3,7 +3,7 @@
 The HTTP mapping of an error.
 
 ```csharp
-public sealed class HttpErrorInfo
+public sealed class HttpErrorInfo : HttpElementInfo
 ```
 
 ## Public Members
@@ -12,9 +12,11 @@ public sealed class HttpErrorInfo
 | --- | --- |
 | [ServiceError](HttpErrorInfo/ServiceError.md) { get; } | The error. |
 | [StatusCode](HttpErrorInfo/StatusCode.md) { get; } | The HTTP status code used by the error. |
+| override [GetChildren](HttpErrorInfo/GetChildren.md)() | The children of the element, if any. |
 
 ## See Also
 
+* class [HttpElementInfo](HttpElementInfo.md)
 * namespace [Facility.Definition.Http](../Facility.Definition.md)
 * [HttpErrorInfo.cs](https://github.com/FacilityApi/Facility/tree/master/src/Facility.Definition/Http/HttpErrorInfo.cs)
 

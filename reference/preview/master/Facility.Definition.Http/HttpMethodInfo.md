@@ -3,7 +3,7 @@
 The HTTP mapping for a service method.
 
 ```csharp
-public sealed class HttpMethodInfo
+public sealed class HttpMethodInfo : HttpElementInfo
 ```
 
 ## Public Members
@@ -20,10 +20,12 @@ public sealed class HttpMethodInfo
 | [ResponseHeaderFields](HttpMethodInfo/ResponseHeaderFields.md) { get; } | The fields of the response DTO that correspond to HTTP headers. |
 | [ServiceMethod](HttpMethodInfo/ServiceMethod.md) { get; } | The service method. |
 | [ValidResponses](HttpMethodInfo/ValidResponses.md) { get; } | The valid responses. |
+| override [GetChildren](HttpMethodInfo/GetChildren.md)() | The children of the element, if any. |
 | static readonly [ByRouteComparer](HttpMethodInfo/ByRouteComparer.md) | Compares service methods by HTTP route. |
 
 ## See Also
 
+* class [HttpElementInfo](HttpElementInfo.md)
 * namespace [Facility.Definition.Http](../Facility.Definition.md)
 * [HttpMethodInfo.cs](https://github.com/FacilityApi/Facility/tree/master/src/Facility.Definition/Http/HttpMethodInfo.cs)
 

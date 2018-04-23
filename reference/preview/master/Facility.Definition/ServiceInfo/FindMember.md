@@ -3,12 +3,12 @@
 Finds the member of the specified name.
 
 ```csharp
-public IServiceMemberInfo FindMember(string name)
+public ServiceMemberInfo FindMember(string name)
 ```
 
 ## See Also
 
-* interface [IServiceMemberInfo](../IServiceMemberInfo.md)
+* class [ServiceMemberInfo](../ServiceMemberInfo.md)
 * class [ServiceInfo](../ServiceInfo.md)
 * namespace [Facility.Definition](../../Facility.Definition.md)
 

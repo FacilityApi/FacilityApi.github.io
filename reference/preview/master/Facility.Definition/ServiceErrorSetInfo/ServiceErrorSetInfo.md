@@ -3,16 +3,16 @@
 Creates an error set.
 
 ```csharp
-public ServiceErrorSetInfo(string name, IEnumerable<ServiceErrorInfo> errors = null, 
-    IEnumerable<ServiceAttributeInfo> attributes = null, string summary = null, 
-    IEnumerable<string> remarks = null, NamedTextPosition position = null)
+public ServiceErrorSetInfo(string name, IEnumerable<ServiceErrorInfo> errors, 
+    IEnumerable<ServiceAttributeInfo> attributes, string summary, IEnumerable<string> remarks, 
+    ServicePart[] parts)
 ```
 
 ## See Also
 
 * class [ServiceErrorInfo](../ServiceErrorInfo.md)
 * class [ServiceAttributeInfo](../ServiceAttributeInfo.md)
-* class [NamedTextPosition](../NamedTextPosition.md)
+* class [ServicePart](../ServicePart.md)
 * class [ServiceErrorSetInfo](../ServiceErrorSetInfo.md)
 * namespace [Facility.Definition](../../Facility.Definition.md)
 

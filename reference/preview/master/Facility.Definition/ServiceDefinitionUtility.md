@@ -10,16 +10,11 @@ public static class ServiceDefinitionUtility
 
 | name | description |
 | --- | --- |
+| static [CreateDuplicateAttributeError](ServiceDefinitionUtility/CreateDuplicateAttributeError.md)(…) | Creates an error for a duplicate attribute. |
+| static [CreateUnexpectedAttributeError](ServiceDefinitionUtility/CreateUnexpectedAttributeError.md)(…) | Creates an error for an unexpected attribute parameter. |
+| static [CreateUnexpectedAttributeParameterError](ServiceDefinitionUtility/CreateUnexpectedAttributeParameterError.md)(…) | Creates an error for an unexpected attribute parameter. |
 | static [DetectFormat](ServiceDefinitionUtility/DetectFormat.md)(…) | Attempts to determine the format of the service definition. |
-| static [ExcludeTag](ServiceDefinitionUtility/ExcludeTag.md)(…) | Excludes a tag from the specified service. |
-| static [GetTagNames](ServiceDefinitionUtility/GetTagNames.md)(…) | Returns any tag names for the element. |
-| static [IsObsolete](ServiceDefinitionUtility/IsObsolete.md)(…) | Returns true if the element has the 'obsolete' attribute. |
-| static [IsValidName](ServiceDefinitionUtility/IsValidName.md)(…) | Returns true if the name is a valid service member name. |
-| static [TryExcludeTag](ServiceDefinitionUtility/TryExcludeTag.md)(…) |  |
-| static [TryGetAttribute](ServiceDefinitionUtility/TryGetAttribute.md)(…) | Returns the attribute with the specified name. |
-| static [TryGetObsoleteMessage](ServiceDefinitionUtility/TryGetObsoleteMessage.md)(…) | Returns the obsolete message for an element with the 'obsolete' attribute. |
-| static [TryGetParameter](ServiceDefinitionUtility/TryGetParameter.md)(…) | Returns the attribute parameter with the specified name. |
-| static [TryGetParameterValue](ServiceDefinitionUtility/TryGetParameterValue.md)(…) | Returns the value of the attribute parameter with the specified name. |
+| static [IsValidName](ServiceDefinitionUtility/IsValidName.md)(…) | Returns true if the name is a valid service element name. |
 
 ## See Also
 

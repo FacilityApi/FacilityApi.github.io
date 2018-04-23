@@ -3,12 +3,12 @@
 The position where the error took place, if any.
 
 ```csharp
-public NamedTextPosition Position { get; }
+public ServiceDefinitionPosition Position { get; }
 ```
 
 ## See Also
 
-* class [NamedTextPosition](../NamedTextPosition.md)
+* class [ServiceDefinitionPosition](../ServiceDefinitionPosition.md)
 * class [ServiceDefinitionError](../ServiceDefinitionError.md)
 * namespace [Facility.Definition](../../Facility.Definition.md)
 

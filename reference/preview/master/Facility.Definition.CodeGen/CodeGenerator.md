@@ -20,7 +20,7 @@ public abstract class CodeGenerator
 | name | description |
 | --- | --- |
 | [CodeGenerator](CodeGenerator/CodeGenerator.md)() | The default constructor. |
-| [CreateNamedText](CodeGenerator/CreateNamedText.md)(…) | Creates a text source from a name and code writer. |
+| [CreateFile](CodeGenerator/CreateFile.md)(…) | Creates a file from a name and code writer. |
 | abstract [GenerateOutputCore](CodeGenerator/GenerateOutputCore.md)(…) | Generates output for the specified service. |
 
 ## See Also
