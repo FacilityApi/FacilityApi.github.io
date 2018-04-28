@@ -1,9 +1,8 @@
-# SwaggerParser.ServiceName property
-
-The service name (defaults to 'info/x-identifier' or 'info/title').
+# SwaggerParser.TryParseDefinitionCore method
 
 ```csharp
-public string ServiceName { get; set; }
+protected override bool TryParseDefinitionCore(ServiceDefinitionText source, 
+    out ServiceInfo service, out IReadOnlyList<ServiceDefinitionError> errors)
 ```
 
 ## See Also
