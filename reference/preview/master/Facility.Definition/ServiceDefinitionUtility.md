@@ -13,7 +13,6 @@ public static class ServiceDefinitionUtility
 | static [CreateDuplicateAttributeError](ServiceDefinitionUtility/CreateDuplicateAttributeError.md)(…) | Creates an error for a duplicate attribute. |
 | static [CreateUnexpectedAttributeError](ServiceDefinitionUtility/CreateUnexpectedAttributeError.md)(…) | Creates an error for an unexpected attribute parameter. |
 | static [CreateUnexpectedAttributeParameterError](ServiceDefinitionUtility/CreateUnexpectedAttributeParameterError.md)(…) | Creates an error for an unexpected attribute parameter. |
-| static [DetectFormat](ServiceDefinitionUtility/DetectFormat.md)(…) | Attempts to determine the format of the service definition. |
 | static [IsValidName](ServiceDefinitionUtility/IsValidName.md)(…) | Returns true if the name is a valid service element name. |
 
 ## See Also
