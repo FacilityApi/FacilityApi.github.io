@@ -46,6 +46,7 @@
 | --- | --- |
 | class [FsdGenerator](Facility.Definition.Fsd/FsdGenerator.md) | Generates an FSD file for a service definition. |
 | class [FsdParser](Facility.Definition.Fsd/FsdParser.md) | Parses FSD files. |
+| abstract class [ServiceParser](Facility.Definition.Fsd/ServiceParser.md) | Base class for service parsers. |
 
 ## Facility.Definition.Http namespace
 

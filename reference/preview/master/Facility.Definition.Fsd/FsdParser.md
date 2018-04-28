@@ -3,7 +3,7 @@
 Parses FSD files.
 
 ```csharp
-public sealed class FsdParser
+public sealed class FsdParser : ServiceParser
 ```
 
 ## Public Members
@@ -11,11 +11,16 @@ public sealed class FsdParser
 | name | description |
 | --- | --- |
 | [FsdParser](FsdParser/FsdParser.md)() | The default constructor. |
-| [ParseDefinition](FsdParser/ParseDefinition.md)(…) | Parses an FSD file into a service definition. |
-| [TryParseDefinition](FsdParser/TryParseDefinition.md)(…) |  |
+
+## Protected Members
+
+| name | description |
+| --- | --- |
+| override [TryParseDefinitionCore](FsdParser/TryParseDefinitionCore.md)(…) |  |
 
 ## See Also
 
+* class [ServiceParser](ServiceParser.md)
 * namespace [Facility.Definition.Fsd](../Facility.Definition.md)
 * [FsdParser.cs](https://github.com/FacilityApi/Facility/tree/master/src/Facility.Definition/Fsd/FsdParser.cs)
 

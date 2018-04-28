@@ -1,9 +1,9 @@
-# CodeGeneratorApp.ParseDefinition method
+# CodeGeneratorApp.CreateParser method
 
-Parses the input into a service definition. (Uses an FSD parser by default.)
+Creates the service parser. (Default FSD.)
 
 ```csharp
-protected virtual ServiceInfo ParseDefinition(ServiceDefinitionText text)
+protected virtual ServiceParser CreateParser(ArgsReader args)
 ```
 
 ## See Also

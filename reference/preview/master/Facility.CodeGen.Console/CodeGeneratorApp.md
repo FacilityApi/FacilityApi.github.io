@@ -24,7 +24,7 @@ public abstract class CodeGeneratorApp
 | virtual [SupportsCustomNewLine](CodeGeneratorApp/SupportsCustomNewLine.md) { get; } | True if the application supports the custom new line option. (Default true.) |
 | virtual [SupportsSingleOutput](CodeGeneratorApp/SupportsSingleOutput.md) { get; } | True if the application supports output to a file and/or standard output. (Default false.) |
 | abstract [CreateGenerator](CodeGeneratorApp/CreateGenerator.md)(…) | Creates the code generator. |
-| virtual [ParseDefinition](CodeGeneratorApp/ParseDefinition.md)(…) | Parses the input into a service definition. (Uses an FSD parser by default.) |
+| virtual [CreateParser](CodeGeneratorApp/CreateParser.md)(…) | Creates the service parser. (Default FSD.) |
 | virtual [PrepareGenerator](CodeGeneratorApp/PrepareGenerator.md)(…) | Prepares the code generator. |
 | virtual [ShouldWriteByteOrderMark](CodeGeneratorApp/ShouldWriteByteOrderMark.md)(…) | True if a BOM should be written for a file with the specified name. |
 
