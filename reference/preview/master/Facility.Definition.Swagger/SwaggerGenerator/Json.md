@@ -1,9 +1,9 @@
-# SwaggerGenerator.Yaml property
+# SwaggerGenerator.Json property
 
-True to generate YAML.
+True to generate JSON (instead of YAML).
 
 ```csharp
-public bool Yaml { get; set; }
+public bool Json { get; set; }
 ```
 
 ## See Also

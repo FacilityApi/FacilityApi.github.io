@@ -11,7 +11,7 @@ public sealed class SwaggerGenerator : CodeGenerator
 | name | description |
 | --- | --- |
 | [SwaggerGenerator](SwaggerGenerator/SwaggerGenerator.md)() | The default constructor. |
-| [Yaml](SwaggerGenerator/Yaml.md) { get; set; } | True to generate YAML. |
+| [Json](SwaggerGenerator/Json.md) { get; set; } | True to generate JSON (instead of YAML). |
 | [GenerateSwaggerService](SwaggerGenerator/GenerateSwaggerService.md)(…) | Generates Swagger (OpenAPI 2.0) for a service definition. |
 
 ## Protected Members
