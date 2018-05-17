@@ -26,6 +26,7 @@ public static class ServiceJsonUtility
 | static [ToJsonStream](ServiceJsonUtility/ToJsonStream.md)(…) | Serializes a value to JSON. |
 | static [ToJsonTextWriter](ServiceJsonUtility/ToJsonTextWriter.md)(…) | Serializes a value to JSON. |
 | static [ToJsonWriter](ServiceJsonUtility/ToJsonWriter.md)(…) | Serializes a value to JSON. |
+| static [ToJToken](ServiceJsonUtility/ToJToken.md)(…) | Converts the object to a JToken. |
 
 ## See Also
 
