@@ -1,6 +1,6 @@
 # HttpClientServiceSettings.ContentSerializer property
 
-The content serializer used by requests and responses.
+The content serializer used by requests and responses (optional).
 
 ```csharp
 public HttpContentSerializer ContentSerializer { get; set; }

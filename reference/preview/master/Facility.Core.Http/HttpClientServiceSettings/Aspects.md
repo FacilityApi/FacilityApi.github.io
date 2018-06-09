@@ -1,6 +1,6 @@
 # HttpClientServiceSettings.Aspects property
 
-The aspects used when sending requests and receiving responses.
+The aspects used when sending requests and receiving responses (optional).
 
 ```csharp
 public IReadOnlyList<HttpClientServiceAspect> Aspects { get; set; }

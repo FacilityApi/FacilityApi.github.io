@@ -11,9 +11,9 @@ public sealed class HttpClientServiceSettings
 | name | description |
 | --- | --- |
 | [HttpClientServiceSettings](HttpClientServiceSettings/HttpClientServiceSettings.md)() | The default constructor. |
-| [Aspects](HttpClientServiceSettings/Aspects.md) { get; set; } | The aspects used when sending requests and receiving responses. |
+| [Aspects](HttpClientServiceSettings/Aspects.md) { get; set; } | The aspects used when sending requests and receiving responses (optional). |
 | [BaseUri](HttpClientServiceSettings/BaseUri.md) { get; set; } | The base URI of the service (optional if the service has a default base URI). |
-| [ContentSerializer](HttpClientServiceSettings/ContentSerializer.md) { get; set; } | The content serializer used by requests and responses. |
+| [ContentSerializer](HttpClientServiceSettings/ContentSerializer.md) { get; set; } | The content serializer used by requests and responses (optional). |
 | [HttpClient](HttpClientServiceSettings/HttpClient.md) { get; set; } | The HttpClient to use (optional). |
 | [Synchronous](HttpClientServiceSettings/Synchronous.md) { get; set; } | True to call services synchronously, allowing tasks to be safely blocked. |
 
