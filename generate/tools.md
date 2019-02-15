@@ -29,7 +29,7 @@ Facility command-line tools support the following standard command-line options:
 * `--serviceName <name>`: Specifies the name of the service (can be used with Swagger definitions).
 * `--clean`: If the tool generates multiple files, use this option to delete previously generated files that are no longer used.
 * `--indent (tab|1|2|3|4|5|6|7|8)`: Indicates the type of indent that should be used, i.e. a tab or the specified number of spaces. Different tools have different defaults.
-* `--newlines (auto|lf|crlf)`: Indicates the newline used in the output. Usually defaults to `auto`, which uses CRLF or LF, depending on the platform.
+* `--newline (auto|lf|crlf)`: Indicates the newline used in the output. Usually defaults to `auto`, which uses CRLF or LF, depending on the platform.
 * `--dryrun`: Executes the tool without making changes to the file system.
 * `--verify`: Executes the tool without making changes to the file system, but exits with error code 1 if changes would be made. Typically used in build scripts to ensure that any changes to the FSD are already reflected in the generated code.
 * `--quiet`: Suppresses normal console output.
