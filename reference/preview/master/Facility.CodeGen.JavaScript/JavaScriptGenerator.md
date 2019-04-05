@@ -11,6 +11,7 @@ public sealed class JavaScriptGenerator : CodeGenerator
 | name | description |
 | --- | --- |
 | [JavaScriptGenerator](JavaScriptGenerator/JavaScriptGenerator.md)() | The default constructor. |
+| [DisableESLint](JavaScriptGenerator/DisableESLint.md) { get; set; } | True to disable ESLint via code comment. |
 | [Express](JavaScriptGenerator/Express.md) { get; set; } | True to generate Express service. |
 | [ModuleName](JavaScriptGenerator/ModuleName.md) { get; set; } | The name of the module (optional). |
 | [TypeScript](JavaScriptGenerator/TypeScript.md) { get; set; } | True to generate TypeScript. |
