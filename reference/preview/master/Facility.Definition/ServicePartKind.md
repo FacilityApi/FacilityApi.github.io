@@ -14,6 +14,7 @@ public enum ServicePartKind
 | Name | `1` | The name of the element. |
 | Value | `2` | The value of the element. |
 | TypeName | `3` | The type name of the element. |
+| End | `4` | The end of the element. |
 
 ## See Also
 
