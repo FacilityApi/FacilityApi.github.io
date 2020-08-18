@@ -21,3 +21,4 @@ Install `fsdgenjs` [as documented](/generate/tools#installation) from its [NuGet
 * `--module <name>`: Sets the name of the generated module.
 * `--typescript`: Generates TypeScript rather than JavaScript.
 * `--express`: Generates an [Express](http://expressjs.com) server.
+* `--disable-eslint`:  Disables ESLint via code comment.
