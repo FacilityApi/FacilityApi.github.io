@@ -188,6 +188,71 @@ When reading JSON, conforming clients and servers may match property names case-
 
 However, when writing JSON, conforming clients and servers must always use [standard JSON](https://www.json.org/) with no comments, correctly-cased property names, correctly-typed property values, etc.
 
+#### Validation
+
+Validation requirements can be specified with `[validate]`. This attribute results in invalid requests if decorated fields are unspecified in request parameters.
+
+Types support appropriate parameters:
+
+* string: at least a 'length' or 'regex' parameter is required.
+* numeric types: a 'value' parameter is required.
+* collection types: a 'count' parameter is required.
+* enumerated types: support no parameters, specifying that values must be defined by the API
+
+Range syntax is supported for numeric ranges with '..'. Both boundaries are inclusive.
+
+```
+data Person
+{
+  [validate(count: 1..)] // at least one
+  emailAddress: string[];
+
+  [validate(value: 0..120) // at least zero, at most 120
+  age: int32;
+
+  address: Address;
+}
+
+data Address
+{
+  [validate(regex: "^[0-9].*$")] // must match the regular expression
+  streetAddress: string;
+
+  [validate(length: 2)] // exactly 2
+  countryCode: string;
+}
+
+date PhoneNumber
+{
+  [validate] // only 'mobile', 'work', and 'home' are valid
+  line: Line,
+}
+
+enum Line
+{
+  mobile,
+  work,
+  home
+}
+```
+
+#### Required
+
+Fields may be required via the `[required]` attribute. Like `[validate]`, this attribute results in invalid requests if decorated fields are unspecified in request parameters.
+
+```
+[http(method: POST, path: "/widgets")]
+method createWidget
+{
+  name: string!; // ! is shorthand for [required]
+}:
+{
+  id: int32;
+}
+```
+
+Omitting a name will result in an invalid request error.
+
 #### HTTP
 
 On a request or response field, the `from` parameter of the `http` attribute indicates where the field comes from. It can be set to `path`, `query`, `body`, `header`, or `normal`. Like all `http` parameters, the `from` parameter is optional; see below for defaults.
@@ -356,6 +421,19 @@ The enumerated values are comma-delimited alphanumeric names surrounded by brace
 #### JSON
 
 Enumerated values are always transmitted as strings, not integers.
+
+
+#### Validation
+
+Validate requires that an enum must be defined. Using the previous example, passing 'third' in a request parameter would result in an invalid request.
+
+```
+   data MyData
+   {
+     [validate]
+     enum: MyEnum;
+   }
+```
 
 ## Service Errors
 
