@@ -190,7 +190,7 @@ However, when writing JSON, conforming clients and servers must always use [stan
 
 #### Validation
 
-Validation requirements can be specified with `[validate]`. This attribute results in invalid requests if decorated fields do not meet the validation requirements specified by the attribute. A validate method is generated on DTOs, which returns `true` if all criteria are met.
+Validation requirements can be specified with `[validate]`. This attribute results in invalid requests if decorated fields do not meet the specified requirements. A validate method is generated on DTOs, which returns `true` if all criteria are met.
 
 Types support appropriate parameters:
 
