@@ -226,6 +226,9 @@ date PhoneNumber
 {
   [validate] // only 'mobile', 'work', and 'home' are valid
   line: Line,
+  
+  [validate(regex: "^\\+[1-9]$", length: 1..16] // only E.164 numbers are allowed, slashes must be escaped
+  number: string;
 }
 
 enum Line
