@@ -190,7 +190,7 @@ However, when writing JSON, conforming clients and servers must always use [stan
 
 #### Validation
 
-Validation requirements can be specified with `[validate]`. This attribute results in invalid requests if decorated fields are unspecified in request parameters.
+Validation requirements can be specified with `[validate]`. This attribute results in invalid requests if decorated fields do not meet the validation requirements specified by the attribute. A validate method is generated on DTOs, which returns `true` if all criteria are met.
 
 Types support appropriate parameters:
 
@@ -238,7 +238,7 @@ enum Line
 
 #### Required
 
-Fields may be required via the `[required]` attribute. Like `[validate]`, this attribute results in invalid requests if decorated fields are unspecified in request parameters.
+Fields may be required via the `[required]` attribute. This attribute results in invalid requests if decorated fields are unspecified in request parameters. A validate method is generated on DTOs, which returns `true` if all criteria are met.
 
 ```
 [http(method: POST, path: "/widgets")]
@@ -421,19 +421,6 @@ The enumerated values are comma-delimited alphanumeric names surrounded by brace
 #### JSON
 
 Enumerated values are always transmitted as strings, not integers.
-
-
-#### Validation
-
-Validate requires that an enum must be defined. Using the previous example, passing 'third' in a request parameter would result in an invalid request.
-
-```
-   data MyData
-   {
-     [validate]
-     enum: MyEnum;
-   }
-```
 
 ## Service Errors
 
