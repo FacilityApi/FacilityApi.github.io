@@ -119,7 +119,7 @@ For example, if a method uses `[http(method: GET, path: "/widgets"]` in a servic
 
 If the `path` parameter is not specified, it defaults to the method name, e.g. `/getWidgets` for a method named `getWidgets`. This default would not be appropriate for a RESTful API, but may be acceptable for an RPC-style API.
 
-The `code` parameter indicates the HTTP status code used if the method is successful (but see also [body fields](#body-fields) below). If omitted, it defaults to `200` (OK).
+The `code` parameter indicates the HTTP status code used if the method is successful (but see also [body fields](#body-fields) below). If omitted, it defaults to `200` (OK). If `code` is set to `204` (No Content) or `304` (Not Modified), no content is returned and [normal fields](#normal-fields) are prohibited.
 
 ```
   [http(method: POST, path: "/jobs/start", code: 202)]
@@ -226,7 +226,7 @@ date PhoneNumber
 {
   [validate] // only 'mobile', 'work', and 'home' are valid
   line: Line,
-  
+
   [validate(regex: "^\\+[1-9]*$", length: 3..16] // only E.164 numbers are allowed, slashes must be escaped
   number: string;
 }
@@ -313,7 +313,7 @@ For response fields, the `code` parameter of the `http` attribute of the body fi
 
 In the response, multiple fields can use `from: body` to indicate multiple possible response bodies. Each field must use a different `code`.
 
-The field type of a body field should generally be a DTO. A response body field can use `boolean` to indicate an empty response; when used, it is set to `true`. The default `code` for a `boolean` body field is `204` (No Content).
+The field type of a body field should generally be a DTO. A response body field can use `boolean` to indicate an empty response; when used, the field is set to `true`. The default `code` for a `boolean` body field is `204` (No Content).
 
 ```
   [http(path: "/widgets")]
