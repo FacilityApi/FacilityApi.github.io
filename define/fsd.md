@@ -319,11 +319,11 @@ The field type of a body field should generally be a DTO. A response body field 
   [http(path: "/widgets")]
   method createWidget
   {
-    [http(from: body, code: 201)]
+    [http(from: body)]
     widget: Widget;
   }:
   {
-    [http(from: body)]
+    [http(from: body, code: 201)]
     widget: Widget;
   }
 ```
