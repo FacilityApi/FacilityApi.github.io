@@ -575,3 +575,11 @@ Here are the remarks for one of the service methods.
 
 Here are the remarks for one of the service DTOs.
 ```
+
+## fsdgenfsd
+
+`fsdgenfsd` is a rarely-used command-line tool that generates "canonical" FSD for a Facility Service Definition.
+
+Install `fsdgenfsd` [as documented](/generate/tools#installation) from its [NuGet package](https://www.nuget.org/packages/fsdgenfsd/).
+
+`fsdgenfsd` generates an FSD file and supports the [standard command-line options](/generate/tools#options).
