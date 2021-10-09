@@ -4,7 +4,7 @@ Facility supports tools and libraries for using [C# (.NET)](https://www.microsof
 
 ## Tools
 
-Generate C# for your [Facility Service Definition](/define) by doing one of the following:
+Generate C# for your [Facility Service Definition](/define/fsd) by doing one of the following:
 
 * Use the [Facility Editor](/editor). Enter an API definition in the left pane, choose the "C#" generator, review the generated files, and click Download.
 * Run the [`fsdgencsharp`](#fsdgencsharp) tool on the command line or in a build script.

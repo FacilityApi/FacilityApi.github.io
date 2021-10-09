@@ -4,7 +4,7 @@ Facility supports tools and libraries for using [JavaScript](https://en.wikipedi
 
 ## Tools
 
-Generate a JavaScript or TypeScript client or server for your [Facility Service Definition](/define) by doing one of the following:
+Generate a JavaScript or TypeScript client or server for your [Facility Service Definition](/define/fsd) by doing one of the following:
 
 * Use the [Facility Editor](/editor). Enter an API definition in the left pane, choose the "JavaScript" or "TypeScript" generator, review the generated files, and click Download.
 * Run the [`fsdgenjs`](#fsdgenjs) tool on the command line or in a build script.

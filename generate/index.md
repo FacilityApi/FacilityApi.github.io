@@ -1,6 +1,6 @@
 # Generate Code
 
-To generate client code, server code, and/or documentation for a [Facility Service Definition](/define), do one of the following:
+To generate client code, server code, and/or documentation for a [Facility Service Definition](/define/fsd), do one of the following:
 
 * Use the [Facility Editor](/editor). Enter an FSD or Swagger API definition, choose the desired generator, and click Download.
 * Run a [command-line tool](/generate/tools) on the command line or in a build script.

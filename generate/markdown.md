@@ -4,7 +4,7 @@ Facility supports tools for generating [GitHub Flavored Markdown](https://guides
 
 ## Tools
 
-Generate Markdown for your [Facility Service Definition](/define) by doing one of the following:
+Generate Markdown for your [Facility Service Definition](/define/fsd) by doing one of the following:
 
 * Use the [Facility Editor](/editor). Enter an API definition in the left pane, choose the "Markdown" generator, review the generated files, and click Download.
 * Run the [`fsdgenmd`](#fsdgenmd) tool on the command line or in a build script.

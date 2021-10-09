@@ -1,6 +1,6 @@
 # Command-Line Tools
 
-Facility supports command-line tools for generating code from [Facility Service Definitions](/define). The supported tools generate client code, server code, and documentation for different programming languages and frameworks. They can also be used to convert a definition from one format to another.
+Facility supports command-line tools for generating code from [Facility Service Definitions](/define/fsd). The supported tools generate client code, server code, and documentation for different programming languages and frameworks. They can also be used to convert a definition from one format to another.
 
 ## Installation
 
@@ -12,7 +12,7 @@ On Mac or Linux, use [Mono](http://www.mono-project.com/) to run `NuGet.exe` as 
 
 Each Facility command-line tool accepts the path to the input file, the path to the output file or directory, and a number of options.
 
-If the input path is `-`, it is read from standard input. Otherwise it must be the path of a file. Either way, the input must be a [supported Facility Service Definition](/define).
+If the input path is `-`, it is read from standard input. Otherwise it must be the path of a file. Either way, the input must be a [supported Facility Service Definition](/define/fsd).
 
 If the command-line tool generates multiple files, the output path must be a path to the output directory, which will be created if necessary.
 
