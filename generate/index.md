@@ -28,7 +28,7 @@ The official Facility code generators conform to the following guidelines:
 
 ## Swagger Tools
 
-By using [Swagger (OpenAPI) 2.0](/define/swagger) for your API definition, or converting your [FSD](/define/fsd) to the Swagger format, you can leverage the many [Swagger tools and code generators](https://swagger.io/tools/). For example:
+By [converting your FSD to/from the Swagger (OpenAPI) 2.0 format](/define/swagger), you can leverage the many [Swagger tools and code generators](https://swagger.io/tools/). For example:
 
 * [Swagger Editor](https://swagger.io/swagger-editor/) makes it easy to generate client and server code from a Swagger definition.
 * [Swagger Codegen](https://swagger.io/swagger-codegen/) supports dozens of languages and frameworks, including C++, Go, Java, Node, Objective-C, Python, Ruby, Swift, etc.
