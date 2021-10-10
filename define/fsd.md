@@ -4,6 +4,8 @@ A Facility Service Definition (FSD) describes the operations supported by a Faci
 
 Unlike other API definition formats, an FSD focuses on the shape of the client library rather than on the HTTP paths. Each service operation has a name, request fields, and response fields. In that way it resembles [RPC](https://en.wikipedia.org/wiki/Remote_procedure_call) more than [REST](https://en.wikipedia.org/wiki/Representational_state_transfer), though it can certainly be used to describe RESTful APIs.
 
+You can also use [OpenAPI 2.0 (aka Swagger)](https://swagger.io/) by using a tool to [convert an API in that format](/define/swagger) to/from an FSD.
+
 ## FSD File
 
 A Facility Service Definition is represented by an FSD file.
