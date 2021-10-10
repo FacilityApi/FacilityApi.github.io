@@ -1,16 +1,18 @@
 # Swagger (OpenAPI) 2.0
 
-A [Swagger (OpenAPI) 2.0 definition](https://swagger.io/specification/) can be used in place of an [FSD file](/define/fsd) in any of the Facility command-line tools. A Swagger definition can also be generated from an FSD file.
+A [Swagger (OpenAPI) 2.0 definition](https://swagger.io/specification/) can be converted to or from an [FSD file](/define/fsd) using the `fsdgenswagger` command-line tool.
 
-## Tools
+## fsdgenswagger
 
-Developers can choose to define their API in Swagger instead of FSD if they prefer the Swagger syntax or want to easily leverage [Swagger-compatible tools and code generators](https://swagger.io/tools/) as well as [Facility code generators](/generate).
+`fsdgenswagger` is a command-line tool that converts Swagger to FSD or FSD to Swagger.
 
-Developers that prefer the FSD syntax can use the [`fsdgenfsd`](/define#fsdgenfsd) tool to generate Swagger, e.g. to leverage Swagger-compatible code generators for languages and platforms not supported by the Facility code generators.
+Install `fsdgenswagger` [as documented](/generate/tools#installation) from its [NuGet package](https://www.nuget.org/packages/fsdgenswagger/).
 
-Developers that already have a Swagger definition but want to switch to using an FSD can generate an FSD from the Swagger definition, also using the [`fsdgenfsd`](/define#fsdgenfsd) tool.
+`fsdgenswagger` accepts an FSD file or a Swagger file as input and generates an FSD file or a Swagger file as output. It supports the [standard command-line options](/generate/tools#options) as well as the following additional command-line options:
 
-Facility supports both JSON and YAML formats for a Swagger definition file.
+* `--fsd`: Generates an FSD file (instead of a Swagger file).
+* `--json`: Generates JSON (instead of YAML) when generating a Swagger file.
+* `--service-name <name>`: Overrides the service name.
 
 ## Swagger Schema
 
@@ -19,6 +21,8 @@ This section describes the Swagger fields supported by Facility and their equiva
 Not every feature in Swagger is supported. Facility API information without a corresponding Swagger field is stored in an extension field (starts with `x-`).
 
 Facility does not currently support `$ref` fields that span files.
+
+Facility supports both JSON and YAML formats for a Swagger definition file.
 
 ### Swagger Object
 
