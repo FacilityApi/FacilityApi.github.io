@@ -192,7 +192,8 @@ However, when writing JSON, conforming clients and servers must always use [stan
 
 #### Validation
 
-Validation requirements can be specified with `[validate]`. This attribute results in invalid requests if decorated fields do not meet the specified requirements.
+Validation requirements can be specified with `[
+]`. This attribute results in invalid requests if decorated fields do not meet the specified requirements.
 
 Types support appropriate parameters:
 
@@ -209,7 +210,7 @@ data Person
   [validate(count: 1..)] // at least one
   emailAddress: string[];
 
-  [validate(value: 0..120) // at least zero, at most 120
+  [validate(value: 0..120)] // at least zero, at most 120
   age: int32;
 
   address: Address;
@@ -229,7 +230,7 @@ date PhoneNumber
   [validate] // only 'mobile', 'work', and 'home' are valid
   line: Line,
 
-  [validate(regex: "^\\+[1-9]*$", length: 3..16] // only E.164 numbers are allowed, slashes must be escaped
+  [validate(regex: "^\\+[1-9]*$", length: 3..16)] // only E.164 numbers are allowed, slashes must be escaped
   number: string;
 }
 
