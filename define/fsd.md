@@ -428,6 +428,28 @@ The enumerated values are comma-delimited alphanumeric names surrounded by brace
 
 Enumerated values are always transmitted as strings, not integers.
 
+## External data transfer objects & enumerations
+
+External members can be used to reference DTOs and enumerations in a service that they not defined in.
+
+This allows for the defintions of these types to exist in seperate fsd files and then be "shared" across multiple services.
+
+Fsd files with shared types typically would not define a service but instead only contain types.
+
+External members technically do not reference a type defined in any facility definition and rather only assert that these types will exist when the code for this service is generated.
+
+Code generation for shared types would need to happen before code generation of the service depending on these types.
+
+The `extern` keyword is used to create an external member.
+
+The attributes on the external type instruct the code generators on where the type is defined.
+
+```
+[csharp(namespace: Some.Project.Api.v1.Client)]
+[js(module: "@example/some-project-api")]
+extern enum ExternalDto;
+```
+
 ## Service Errors
 
 As [mentioned above](#methods), a failed service method call returns a service error instead of a response. A service error can also be stored in an `error` field, or in a failed `result<T>` field.
