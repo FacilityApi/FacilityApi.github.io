@@ -428,7 +428,7 @@ The enumerated values are comma-delimited alphanumeric names surrounded by brace
 
 Enumerated values are always transmitted as strings, not integers.
 
-## External data transfer objects & enumerations
+## External Types
 
 External members can be used to reference DTOs and enumerations in a service that they not defined in.
 
