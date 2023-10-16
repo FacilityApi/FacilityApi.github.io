@@ -447,7 +447,7 @@ The attributes on the external type instruct the code generators on where the ty
 ```
 [csharp(namespace: Some.Project.Api.v1.Client)]
 [js(module: "@example/some-project-api")]
-extern enum ExternalDto;
+extern data ExternalDto;
 ```
 
 ## Service Errors
