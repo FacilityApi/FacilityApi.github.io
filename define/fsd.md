@@ -443,7 +443,7 @@ Attributes on the external type instruct code generators how to reference the da
 ```
 [csharp(namespace: Some.Project.Api.v1.Client)]
 [js(module: "@example/some-project-api")]
-extern data ExternalDto;
+extern data ExternalWidget;
 ```
 
 ## Service Errors
