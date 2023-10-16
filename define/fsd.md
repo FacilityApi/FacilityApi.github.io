@@ -434,8 +434,6 @@ External types enable the use of DTOs and enumerations defined in another servic
 
 External types do not require access to the definition of the target type. Code generators simply assume the data type will exist when the generated code is compiled or executed. It is the responsibility of the host project implementing the service to ensure any required references are resolved (for example, a C# project may add a reference to a NuGet package or another C# project containing the target data types).
 
-Code generation for shared types would need to happen before code generation of the service depending on these types.
-
 #### FSD
 
 The `extern` keyword starts the definition of an external type. It is followed by either `data` or `enum`, depending on the external type being referenced. This is followed by the name of the external type.
