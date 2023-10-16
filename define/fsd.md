@@ -440,7 +440,9 @@ External members technically do not reference a type defined in any facility def
 
 Code generation for shared types would need to happen before code generation of the service depending on these types.
 
-The `extern` keyword is used to create an external member.
+#### FSD
+
+The `extern` keyword starts the definition of an external type. It is followed by either `data` or `enum`, depending on the external type being referenced. This is followed by the name of the external type.
 
 The attributes on the external type instruct the code generators on where the type is defined.
 
