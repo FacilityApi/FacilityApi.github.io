@@ -428,6 +428,24 @@ The enumerated values are comma-delimited alphanumeric names surrounded by brace
 
 Enumerated values are always transmitted as strings, not integers.
 
+## External Types
+
+External types enable the use of DTOs and enumerations defined in another service. This allows a data type to be defined once and then shared across multiple services.
+
+External types do not require access to the definition of the target type. Code generators simply assume the data type will exist when the generated code is compiled or executed. It is the responsibility of the host project implementing the service to ensure any required references are resolved (for example, a C# project may add a reference to a NuGet package or another C# project containing the target data types).
+
+#### FSD
+
+The `extern` keyword starts the definition of an external type. It is followed by either `data` or `enum`, depending on the external type being referenced. This is followed by the name of the external type.
+
+Attributes on the external type instruct code generators how to reference the data type in generated code.
+
+```
+[csharp(namespace: Some.Project.Api.v1.Client)]
+[js(module: "@example/some-project-api")]
+extern data ExternalWidget;
+```
+
 ## Service Errors
 
 As [mentioned above](#methods), a failed service method call returns a service error instead of a response. A service error can also be stored in an `error` field, or in a failed `result<T>` field.
