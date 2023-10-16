@@ -440,7 +440,7 @@ Code generation for shared types would need to happen before code generation of 
 
 The `extern` keyword starts the definition of an external type. It is followed by either `data` or `enum`, depending on the external type being referenced. This is followed by the name of the external type.
 
-The attributes on the external type instruct the code generators on where the type is defined.
+Attributes on the external type instruct code generators how to reference the data type in generated code.
 
 ```
 [csharp(namespace: Some.Project.Api.v1.Client)]
