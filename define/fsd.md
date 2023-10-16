@@ -430,13 +430,9 @@ Enumerated values are always transmitted as strings, not integers.
 
 ## External Types
 
-External members can be used to reference DTOs and enumerations in a service that they not defined in.
+External types enable the use of DTOs and enumerations defined in another service. This allows a data type to be defined once and then shared across multiple services.
 
-This allows for the defintions of these types to exist in seperate fsd files and then be "shared" across multiple services.
-
-Fsd files with shared types typically would not define a service but instead only contain types.
-
-External members technically do not reference a type defined in any facility definition and rather only assert that these types will exist when the code for this service is generated.
+External types do not require access to the definition of the target type. Code generators simply assume the data type will exist when the generated code is compiled or executed. It is the responsibility of the host project implementing the service to ensure any required references are resolved (for example, a C# project may add a reference to a NuGet package or another C# project containing the target data types).
 
 Code generation for shared types would need to happen before code generation of the service depending on these types.
 
