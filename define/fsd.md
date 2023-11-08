@@ -145,6 +145,7 @@ Fields are generally optional, i.e. they may or may not store a value.
 The following primitive field types are supported:
 
 * `string`: A string of zero or more Unicode characters.
+* `datetime`: An ISO 8601 UTC datetime string with an uppercase `T`, `Z`, no fractional seconds, and no time offset.
 * `boolean`: A Boolean value, i.e. true or false.
 * `double`: A double-precision floating-point number.
 * `int32`: A 32-bit signed integer.
@@ -225,7 +226,7 @@ data Address
   countryCode: string;
 }
 
-date PhoneNumber
+data PhoneNumber
 {
   [validate] // only 'mobile', 'work', and 'home' are valid
   line: Line,
