@@ -225,7 +225,7 @@ data Address
   countryCode: string;
 }
 
-date PhoneNumber
+data PhoneNumber
 {
   [validate] // only 'mobile', 'work', and 'home' are valid
   line: Line,
