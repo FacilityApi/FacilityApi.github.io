@@ -40,7 +40,7 @@ service MyApi
 }
 ```
 
-It is also possible to omit the curly braces around the service members and instead use a semicolor after the service name.
+It is also possible to omit the curly braces around the service members and instead use a semicolon after the service name.
 
 ```
 [http(url: "https://api.example.com/v1/")]
