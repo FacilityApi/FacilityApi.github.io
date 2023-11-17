@@ -40,6 +40,20 @@ service MyApi
 }
 ```
 
+It is also possible to omit the curly braces around the service members and instead use a semicolon after the service name.
+
+```
+[http(url: "https://api.example.com/v1/")]
+[info(version: 2.1.3)]
+service MyApi;
+
+method myMethod { … }: { … }
+data MyData { … }
+enum MyEnum { … }
+…
+
+```
+
 #### HTTP
 
 The `url` parameter of the `http` attribute indicates the base URL where the HTTP service lives. The trailing slash is optional. If the attribute or its parameter is omitted, the client will have to provide the base URL.
