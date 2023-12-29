@@ -11,7 +11,7 @@ To generate client code, server code, and/or documentation for a [Facility Servi
 Facility supports the following code generators:
 
 * [C# (.NET)](/generate/csharp): Generates C# code for clients and servers.
-* [ASP.NET](/generate/aspnet): Generates ASP.NET controllers for servers.
+* [ASP.NET](/generate/aspnet): Generates ASP.NET controllers for servers. Alternatively, use ASP.NET Core middleware: no code generation needed.
 * [JavaScript/TypeScript](/generate/javascript): Generates a JavaScript or TypeScript API client.
 * [Markdown](/generate/markdown): Generates Markdown documentation for your API.
 
