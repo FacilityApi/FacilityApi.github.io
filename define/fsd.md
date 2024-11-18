@@ -450,7 +450,7 @@ The enumerated values are comma-delimited alphanumeric names surrounded by brace
 
 Enumerated values are always transmitted as strings, not integers.
 
-## External Types
+### External Types
 
 External types enable the use of DTOs and enumerations defined in another service. This allows a data type to be defined once and then shared across multiple services.
 
