@@ -161,6 +161,7 @@ The following primitive field types are supported:
 * `string`: A string of zero or more Unicode characters.
 * `datetime`: An ISO 8601 UTC datetime string with an uppercase `T`, `Z`, no fractional seconds, and no time offset.
 * `boolean`: A Boolean value, i.e. true or false.
+* `float`: A single-precision floating-point number.
 * `double`: A double-precision floating-point number.
 * `int32`: A 32-bit signed integer.
 * `int64`: A 64-bit signed integer.
