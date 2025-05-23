@@ -166,7 +166,6 @@ The following primitive field types are supported:
 * `int32`: A 32-bit signed integer.
 * `int64`: A 64-bit signed integer.
 * `decimal`: A 128-bit number appropriate for monetary calculations.
-* `datetime`: A date (Gregorian year, month, and day) and time (UTC hour, minute, and second).
 * `bytes`: Zero or more bytes.
 * `object`: An arbitrary JSON object.
 * `error`: A [service error](#service-errors).
