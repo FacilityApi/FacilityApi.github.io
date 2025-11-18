@@ -176,7 +176,6 @@ event chatStream
 {
   messages: ChatMessage[];
   status: ChatStatus;
-  usage: ChatUsage;
 }
 ```
 
@@ -218,9 +217,9 @@ event chatStream
 When an event is invoked:
 
 * The server establishes an HTTP connection with server-sent events (SSE)
-* The server yields multiple response chunks over time
-* Each chunk is a complete response DTO, serialized and sent as an SSE event
-* Clients can process chunks as they arrive, enabling progressive rendering
+* The server yields multiple responses over time
+* Each response is a complete response DTO, serialized and sent as an SSE event
+* Clients can process responses as they arrive
 * The stream completes when the server finishes sending data
 * Errors can be returned at any point in the stream using the `ServiceResult` wrapper
 
@@ -246,16 +245,7 @@ service ChatApi
     
     /// Completion status (sent in final chunk)
     status: CompletionStatus;
-    
-    /// Token usage statistics (sent in final chunk)
-    usage: UsageInfo;
   }
-}
-
-data UsageInfo
-{
-  inputTokens: int32;
-  outputTokens: int32;
 }
 
 enum CompletionStatus
@@ -272,9 +262,9 @@ enum CompletionStatus
 ```
 
 In this example, the server would stream multiple responses:
-* Initial chunks contain `textDelta` with generated text fragments
-* Intermediate chunks may include additional `textDelta` values
-* The final chunk includes `status` and `usage` to indicate completion
+* Initial responses contain `textDelta` with generated text fragments
+* Intermediate responses may include additional `textDelta` values
+* The final response includes `status` to indicate completion
 
 ### Fields
 
