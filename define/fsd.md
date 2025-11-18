@@ -20,13 +20,13 @@ An FSD file is a text file encoded with UTF-8 and no byte order mark (BOM).
 
 Every service has a **name**. Unless otherwise noted, a name in this specification must start with an ASCII letter but may otherwise contain ASCII letters, numbers, and/or underscores.
 
-A service contains one or more service elements: [methods](#methods), [data transfer objects](#data-transfer-objects), [enumerated types](#enumerated-types), and [error sets](#error-sets). A service can also have [attributes](#attributes), a [summary](#summary), and [remarks](#remarks).
+A service contains one or more service elements: [methods](#methods), [events](#events), [data transfer objects](#data-transfer-objects), [enumerated types](#enumerated-types), and [error sets](#error-sets). A service can also have [attributes](#attributes), a [summary](#summary), and [remarks](#remarks).
 
 #### Service FSD
 
 In an FSD file, the `service` keyword starts the definition of a service. It is followed by the service name and optionally preceded by service attributes.
 
-The methods and other service items follow the service name, enclosed in braces.
+The methods, events, and other service items follow the service name, enclosed in braces.
 
 ```fsd
 [http(url: "https://api.example.com/v1/")]
@@ -34,6 +34,7 @@ The methods and other service items follow the service name, enclosed in braces.
 service MyApi
 {
   method myMethod { … }: { … }
+  event myEvent { … }: { … }
   data MyData { … }
   enum MyEnum { … }
   …
@@ -48,6 +49,7 @@ It is also possible to omit the curly braces around the service members and inst
 service MyApi;
 
 method myMethod { … }: { … }
+event myEvent { … }: { … }
 data MyData { … }
 enum MyEnum { … }
 …
@@ -90,7 +92,7 @@ Multiple attributes can be comma-delimited within one set of square brackets (as
 
 #### Attribute HTTP
 
-Every Facility API has a default HTTP mapping. The HTTP mapping can be customized by using the `http` attribute, which can be applied to services, methods, request fields, response fields, and errors.
+Every Facility API has a default HTTP mapping. The HTTP mapping can be customized by using the `http` attribute, which can be applied to services, methods, events, request fields, response fields, and errors.
 
 The `http` attribute is always optional. When the attribute is omitted, the defaults are used, as documented.
 
@@ -276,7 +278,7 @@ In this example, the server would stream multiple responses:
 
 ### Fields
 
-A field stores data for a method request, method response, or data transfer object.
+A field stores data for a method request, method response, event request, event response, or data transfer object.
 
 Each field has a **name** and a **type**. The field type restricts the type of data that can be stored in that field.
 
@@ -687,7 +689,7 @@ Use two slashes to start a comment. The slashes and everything that follows them
 
 ### Summary
 
-Most elements of a service support a **summary** string for documentation purposes: service, methods, DTOs, fields, enumerated types, enumerated type values, error sets, and error set values.
+Most elements of a service support a **summary** string for documentation purposes: service, methods, events, DTOs, fields, enumerated types, enumerated type values, error sets, and error set values.
 
 The summary should be short and consist of a single sentence or short paragraph.
 
@@ -695,7 +697,7 @@ The summary should be short and consist of a single sentence or short paragraph.
 
 To add a summary to a service element, place a comment line before it that uses three slashes instead of two. Multiple summary comments can be used for a single element of a service; newlines are automatically replaced with spaces.
 
-Summaries are supported by services, methods, DTOs, fields, enumerated types, enumerated values, error sets, and error values.
+Summaries are supported by services, methods, events, DTOs, fields, enumerated types, enumerated values, error sets, and error values.
 
 ```fsd
   /// My awesome data.
@@ -707,7 +709,7 @@ Summaries are supported by services, methods, DTOs, fields, enumerated types, en
 
 ### Remarks
 
-Some elements also support **remarks**: service, methods, DTOs, enumerated types, and error sets.
+Some elements also support **remarks**: service, methods, events, DTOs, enumerated types, and error sets.
 
 The remarks can use [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/). They can be arbitrarily long and can include multiple paragraphs.
 
