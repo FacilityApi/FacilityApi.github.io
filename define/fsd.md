@@ -152,19 +152,17 @@ The `code` parameter indicates the HTTP status code used if the method is succes
 
 ### Events
 
-Events are similar to methods but support streaming responses. Instead of returning a single response, an event returns a stream of response chunks over time, enabling server-sent events (SSE) style communication.
+Events are similar to methods but support streaming responses using [server-sent events (SSE)](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events).
 
 Like methods, each event has a **name**, **request fields**, and **response fields**. Events can also have [attributes](#attributes), a [summary](#summary), and [remarks](#remarks).
 
-When a client invokes an event, it provides request field values just like a method. However, unlike a method that returns a single response, an event returns a stream where each item is a complete response DTO. The stream can yield multiple responses over time until it completes.
-
-In C#, events return `Task<ServiceResult<IAsyncEnumerable<ServiceResult<TResponse>>>>`, allowing clients to process responses as they arrive using `await foreach`. Other languages provide similar async iterable constructs.
+When invoked, an event returns a stream of responses over time. Each response is a complete response DTO. SSE provides a simple, HTTP-based approach for server-to-client streaming that works well with standard web infrastructure.
 
 #### Event FSD
 
 In an FSD file, the `event` keyword starts the definition of an event. It is followed by the event name and optionally preceded by event attributes.
 
-The request and response follow the event name, each enclosed in braces and separated by a colon (`:`). The syntax is identical to methods, but the response represents a single chunk of data rather than the entire response.
+The request and response follow the event name, each enclosed in braces and separated by a colon (`:`). The syntax is identical to methods.
 
 ```fsd
 /// Generates the next message in a chat.
@@ -197,35 +195,21 @@ event chatStream
 {
   messages: ChatMessage[];
   status: ChatStatus;
-  usage: ChatUsage;
 }
 ```
 
 #### Events vs Methods
 
-**Methods** return a single response (or error) and then complete. They are ideal for traditional request-response operations.
-
-**Events** return a stream of responses, allowing progressive updates. Each response in the stream is a complete response DTO. Events are ideal for:
+**Methods** return a single response. **Events** return a stream of responses over time. Events are ideal for:
 
 * Long-running operations with progress updates
-* Streaming AI/LLM responses where tokens are generated incrementally
-* Real-time data feeds that push updates to clients
-* Incremental results where partial data is useful before completion
-
-#### Response Streaming Behavior
-
-When an event is invoked:
-
-* The server establishes an HTTP connection with server-sent events (SSE)
-* The server yields multiple responses over time
-* Each response is a complete response DTO, serialized and sent as an SSE event
-* Clients can process responses as they arrive
-* The stream completes when the server finishes sending data
-* Errors can be returned at any point in the stream using the `ServiceResult` wrapper
+* Streaming AI/LLM responses
+* Real-time data feeds
+* Incremental results
 
 #### Event Example
 
-Here's a practical example showing how events are used for streaming AI chat responses:
+Example of streaming AI chat responses:
 
 ```fsd
 service ChatApi
@@ -233,38 +217,22 @@ service ChatApi
   /// Streams chat response tokens as they're generated.
   event streamChat
   {
-    /// The user's prompt
     prompt: string;
-    
-    /// The model to use (optional)
     model: string;
   }:
   {
-    /// Text delta to append to response
     textDelta: string;
-    
-    /// Completion status (sent in final chunk)
     status: CompletionStatus;
   }
 }
 
 enum CompletionStatus
 {
-  /// Response completed successfully
   complete,
-  
-  /// Response was truncated
   truncated,
-  
-  /// An error occurred
   error,
 }
 ```
-
-In this example, the server would stream multiple responses:
-* Initial responses contain `textDelta` with generated text fragments
-* Intermediate responses may include additional `textDelta` values
-* The final response includes `status` to indicate completion
 
 ### Fields
 
