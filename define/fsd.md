@@ -148,6 +148,132 @@ The `code` parameter indicates the HTTP status code used if the method is succes
   }
 ```
 
+### Events
+
+Events are similar to methods but support streaming responses. Instead of returning a single response, an event returns a stream of response chunks over time, enabling server-sent events (SSE) style communication.
+
+Like methods, each event has a **name**, **request fields**, and **response fields**. Events can also have [attributes](#attributes), a [summary](#summary), and [remarks](#remarks).
+
+When a client invokes an event, it provides request field values just like a method. However, unlike a method that returns a single response, an event returns a stream where each item is a complete response DTO. The stream can yield multiple responses over time until it completes.
+
+In C#, events return `Task<ServiceResult<IAsyncEnumerable<ServiceResult<TResponse>>>>`, allowing clients to process responses as they arrive using `await foreach`. Other languages provide similar async iterable constructs.
+
+#### Event FSD
+
+In an FSD file, the `event` keyword starts the definition of an event. It is followed by the event name and optionally preceded by event attributes.
+
+The request and response follow the event name, each enclosed in braces and separated by a colon (`:`). The syntax is identical to methods, but the response represents a single chunk of data rather than the entire response.
+
+```fsd
+/// Generates the next message in a chat.
+event chatStream
+{
+  settings: ChatSettings;
+  messages: ChatMessage[];
+}:
+{
+  messages: ChatMessage[];
+  status: ChatStatus;
+  usage: ChatUsage;
+}
+```
+
+#### Event HTTP
+
+The `http` attribute works the same for events as for methods. Events support the `method` and `path` parameters.
+
+The `method` parameter indicates the HTTP method to use, typically `POST` (the default). The `path` parameter specifies the HTTP path, defaulting to the event name with a leading slash (e.g., `/chatStream`).
+
+Events always use server-sent events (SSE) for the response, with `Content-Type: text/event-stream`. The HTTP response uses status code `200` and keeps the connection open to stream multiple response DTOs as separate SSE events.
+
+```fsd
+[http(method: POST, path: "/chat/stream")]
+event chatStream
+{
+  settings: ChatSettings;
+  messages: ChatMessage[];
+}:
+{
+  messages: ChatMessage[];
+  status: ChatStatus;
+  usage: ChatUsage;
+}
+```
+
+#### Events vs Methods
+
+**Methods** return a single response (or error) and then complete. They are ideal for traditional request-response operations.
+
+**Events** return a stream of responses, allowing progressive updates. Each response in the stream is a complete response DTO. Events are ideal for:
+
+* Long-running operations with progress updates
+* Streaming AI/LLM responses where tokens are generated incrementally
+* Real-time data feeds that push updates to clients
+* Incremental results where partial data is useful before completion
+
+#### Response Streaming Behavior
+
+When an event is invoked:
+
+* The server establishes an HTTP connection with server-sent events (SSE)
+* The server yields multiple response chunks over time
+* Each chunk is a complete response DTO, serialized and sent as an SSE event
+* Clients can process chunks as they arrive, enabling progressive rendering
+* The stream completes when the server finishes sending data
+* Errors can be returned at any point in the stream using the `ServiceResult` wrapper
+
+#### Event Example
+
+Here's a practical example showing how events are used for streaming AI chat responses:
+
+```fsd
+service ChatApi
+{
+  /// Streams chat response tokens as they're generated.
+  event streamChat
+  {
+    /// The user's prompt
+    prompt: string;
+    
+    /// The model to use (optional)
+    model: string;
+  }:
+  {
+    /// Text delta to append to response
+    textDelta: string;
+    
+    /// Completion status (sent in final chunk)
+    status: CompletionStatus;
+    
+    /// Token usage statistics (sent in final chunk)
+    usage: UsageInfo;
+  }
+}
+
+data UsageInfo
+{
+  inputTokens: int32;
+  outputTokens: int32;
+}
+
+enum CompletionStatus
+{
+  /// Response completed successfully
+  complete,
+  
+  /// Response was truncated
+  truncated,
+  
+  /// An error occurred
+  error,
+}
+```
+
+In this example, the server would stream multiple responses:
+* Initial chunks contain `textDelta` with generated text fragments
+* Intermediate chunks may include additional `textDelta` values
+* The final chunk includes `status` and `usage` to indicate completion
+
 ### Fields
 
 A field stores data for a method request, method response, or data transfer object.
