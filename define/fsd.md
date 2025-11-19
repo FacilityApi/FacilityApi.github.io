@@ -181,12 +181,12 @@ event chatStream
 
 The `http` attribute works the same for events as for methods. Events support the `method` and `path` parameters.
 
-The `method` parameter indicates the HTTP method to use, typically `POST` (the default). The `path` parameter specifies the HTTP path, defaulting to the event name with a leading slash (e.g., `/chatStream`).
+The `method` parameter indicates the HTTP method to use. If omitted, the default is `GET` (unlike methods, which default to `POST`). This default is appropriate for events because [EventSource](https://developer.mozilla.org/en-US/docs/Web/API/EventSource) only supports GET requests. The `path` parameter specifies the HTTP path, defaulting to the event name with a leading slash (e.g., `/chatStream`).
 
 Events always use server-sent events (SSE) for the response, with `Content-Type: text/event-stream`. The HTTP response uses status code `200` and keeps the connection open to stream multiple response DTOs as separate SSE events.
 
 ```fsd
-[http(method: POST, path: "/chat/stream")]
+[http(path: "/chat/stream")]
 event chatStream
 {
   settings: ChatSettings;
