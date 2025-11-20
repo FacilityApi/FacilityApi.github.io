@@ -55,14 +55,14 @@ Clients can consume event streams using `for await...of`:
 const request = { prompt: "Hello" };
 const result = await client.streamChat(request);
 
-if (!result.value) {
+if (!result.ok) {
   // Handle error
   console.error(`Error: ${result.error.message}`);
   return;
 }
 
 for await (const chunkResult of result.value) {
-  if (!chunkResult.value) {
+  if (!chunkResult.ok) {
     // Handle error in stream
     console.error(`Stream error: ${chunkResult.error.message}`);
     break;
@@ -73,4 +73,4 @@ for await (const chunkResult of result.value) {
 }
 ```
 
-The HTTP client implementation uses the Fetch API or similar to consume server-sent events, automatically parsing each SSE event into a response object.
+The HTTP client implementation uses the Fetch API to consume server-sent events with all HTTP methods supported, automatically parsing each SSE event into a response object.

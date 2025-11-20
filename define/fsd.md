@@ -183,7 +183,7 @@ The `http` attribute works the same for events as for methods. Events support th
 
 The `method` parameter indicates the HTTP method to use. If omitted, the default is `POST` (the same as methods). The `path` parameter specifies the HTTP path, defaulting to the event name with a leading slash (e.g., `/chatStream`).
 
-Note that the browser [EventSource](https://developer.mozilla.org/en-US/docs/Web/API/EventSource) API only supports GET requests. For other HTTP methods, clients must use custom SSE implementations (e.g., using the fetch API with SSE parsing).
+
 
 Events always use server-sent events (SSE) for the response, with `Content-Type: text/event-stream`. The HTTP response uses status code `200` and keeps the connection open to stream multiple response DTOs as separate SSE events.
 
