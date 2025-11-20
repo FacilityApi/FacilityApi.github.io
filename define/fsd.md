@@ -20,13 +20,13 @@ An FSD file is a text file encoded with UTF-8 and no byte order mark (BOM).
 
 Every service has a **name**. Unless otherwise noted, a name in this specification must start with an ASCII letter but may otherwise contain ASCII letters, numbers, and/or underscores.
 
-A service contains one or more service elements: [methods](#methods), [data transfer objects](#data-transfer-objects), [enumerated types](#enumerated-types), and [error sets](#error-sets). A service can also have [attributes](#attributes), a [summary](#summary), and [remarks](#remarks).
+A service contains one or more service elements: [methods](#methods), [events](#events), [data transfer objects](#data-transfer-objects), [enumerated types](#enumerated-types), and [error sets](#error-sets). A service can also have [attributes](#attributes), a [summary](#summary), and [remarks](#remarks).
 
 #### Service FSD
 
 In an FSD file, the `service` keyword starts the definition of a service. It is followed by the service name and optionally preceded by service attributes.
 
-The methods and other service items follow the service name, enclosed in braces.
+The methods, events, and other service items follow the service name, enclosed in braces.
 
 ```fsd
 [http(url: "https://api.example.com/v1/")]
@@ -34,6 +34,7 @@ The methods and other service items follow the service name, enclosed in braces.
 service MyApi
 {
   method myMethod { … }: { … }
+  event myEvent { … }: { … }
   data MyData { … }
   enum MyEnum { … }
   …
@@ -48,6 +49,7 @@ It is also possible to omit the curly braces around the service members and inst
 service MyApi;
 
 method myMethod { … }: { … }
+event myEvent { … }: { … }
 data MyData { … }
 enum MyEnum { … }
 …
@@ -90,7 +92,7 @@ Multiple attributes can be comma-delimited within one set of square brackets (as
 
 #### Attribute HTTP
 
-Every Facility API has a default HTTP mapping. The HTTP mapping can be customized by using the `http` attribute, which can be applied to services, methods, request fields, response fields, and errors.
+Every Facility API has a default HTTP mapping. The HTTP mapping can be customized by using the `http` attribute, which can be applied to services, methods, events, request fields, response fields, and errors.
 
 The `http` attribute is always optional. When the attribute is omitted, the defaults are used, as documented.
 
@@ -148,9 +150,93 @@ The `code` parameter indicates the HTTP status code used if the method is succes
   }
 ```
 
+### Events
+
+Events are similar to methods but support streaming responses using [server-sent events (SSE)](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events).
+
+Like methods, each event has a **name**, **request fields**, and **response fields**. Events can also have [attributes](#attributes), a [summary](#summary), and [remarks](#remarks).
+
+When invoked, an event returns a stream of responses over time. Each response is a complete response DTO. SSE provides a simple, HTTP-based approach for server-to-client streaming that works well with standard web infrastructure.
+
+#### Event FSD
+
+In an FSD file, the `event` keyword starts the definition of an event. It is followed by the event name and optionally preceded by event attributes.
+
+The request and response follow the event name, each enclosed in braces and separated by a colon (`:`). The syntax is identical to methods.
+
+```fsd
+/// Generates the next message in a chat.
+event chatStream
+{
+  settings: ChatSettings;
+  messages: ChatMessage[];
+}:
+{
+  messages: ChatMessage[];
+  status: ChatStatus;
+}
+```
+
+#### Event HTTP
+
+The `http` attribute works the same for events as for methods. Events support the `method` and `path` parameters.
+
+The `method` parameter indicates the HTTP method to use. If omitted, the default is `POST` (the same as methods). The `path` parameter specifies the HTTP path, defaulting to the event name with a leading slash (e.g., `/chatStream`).
+
+Events always use server-sent events (SSE) for the response, with `Content-Type: text/event-stream`. The HTTP response uses status code `200` and keeps the connection open to stream multiple response DTOs as separate SSE events.
+
+```fsd
+[http(path: "/chat/stream")]
+event chatStream
+{
+  settings: ChatSettings;
+  messages: ChatMessage[];
+}:
+{
+  messages: ChatMessage[];
+  status: ChatStatus;
+}
+```
+
+#### Events vs Methods
+
+**Methods** return a single response. **Events** return a stream of responses over time. Events are ideal for:
+
+* Long-running operations with progress updates
+* Streaming AI/LLM responses
+* Real-time data feeds
+* Incremental results
+
+#### Event Example
+
+Example of streaming AI chat responses:
+
+```fsd
+service ChatApi
+{
+  /// Streams chat response tokens as they're generated.
+  event streamChat
+  {
+    prompt: string;
+    model: string;
+  }:
+  {
+    textDelta: string;
+    status: CompletionStatus;
+  }
+}
+
+enum CompletionStatus
+{
+  complete,
+  truncated,
+  error,
+}
+```
+
 ### Fields
 
-A field stores data for a method request, method response, or data transfer object.
+A field stores data for a method request, method response, event request, event response, or data transfer object.
 
 Each field has a **name** and a **type**. The field type restricts the type of data that can be stored in that field.
 
@@ -561,7 +647,7 @@ Use two slashes to start a comment. The slashes and everything that follows them
 
 ### Summary
 
-Most elements of a service support a **summary** string for documentation purposes: service, methods, DTOs, fields, enumerated types, enumerated type values, error sets, and error set values.
+Most elements of a service support a **summary** string for documentation purposes: service, methods, events, DTOs, fields, enumerated types, enumerated type values, error sets, and error set values.
 
 The summary should be short and consist of a single sentence or short paragraph.
 
@@ -569,7 +655,7 @@ The summary should be short and consist of a single sentence or short paragraph.
 
 To add a summary to a service element, place a comment line before it that uses three slashes instead of two. Multiple summary comments can be used for a single element of a service; newlines are automatically replaced with spaces.
 
-Summaries are supported by services, methods, DTOs, fields, enumerated types, enumerated values, error sets, and error values.
+Summaries are supported by services, methods, events, DTOs, fields, enumerated types, enumerated values, error sets, and error values.
 
 ```fsd
   /// My awesome data.
@@ -581,7 +667,7 @@ Summaries are supported by services, methods, DTOs, fields, enumerated types, en
 
 ### Remarks
 
-Some elements also support **remarks**: service, methods, DTOs, enumerated types, and error sets.
+Some elements also support **remarks**: service, methods, events, DTOs, enumerated types, and error sets.
 
 The remarks can use [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/). They can be arbitrarily long and can include multiple paragraphs.
 
