@@ -183,8 +183,6 @@ The `http` attribute works the same for events as for methods. Events support th
 
 The `method` parameter indicates the HTTP method to use. If omitted, the default is `POST` (the same as methods). The `path` parameter specifies the HTTP path, defaulting to the event name with a leading slash (e.g., `/chatStream`).
 
-
-
 Events always use server-sent events (SSE) for the response, with `Content-Type: text/event-stream`. The HTTP response uses status code `200` and keeps the connection open to stream multiple response DTOs as separate SSE events.
 
 ```fsd
