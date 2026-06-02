@@ -1,0 +1,56 @@
+/**
+ * Any CSS included here will be global. The classic template bundles Infima by default.
+ */
+
+:root {
+  --ifm-color-primary: #0f6f73;
+  --ifm-color-primary-dark: #0e6468;
+  --ifm-color-primary-darker: #0d5f62;
+  --ifm-color-primary-darkest: #0b5558;
+  --ifm-color-primary-light: #168085;
+  --ifm-color-primary-lighter: #1b8c91;
+  --ifm-color-primary-lightest: #21989e;
+  --ifm-code-font-size: 95%;
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+}
+
+[data-theme='dark'] {
+  --ifm-color-primary: #6fd6dc;
+  --ifm-color-primary-dark: #54ccd3;
+  --ifm-color-primary-darker: #42c6ce;
+  --ifm-color-primary-darkest: #31bbc3;
+  --ifm-color-primary-light: #8ae0e5;
+  --ifm-color-primary-lighter: #9ce5e9;
+  --ifm-color-primary-lightest: #ade9ed;
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+}
+
+.markdown h1:first-child {
+  --ifm-h1-font-size: 2rem;
+}
+
+.markdown > h2 {
+  --ifm-h2-font-size: 1.5rem;
+}
+
+.markdown > h3 {
+  --ifm-h3-font-size: 1.25rem;
+}
+
+.markdown table {
+  display: table;
+  width: 100%;
+}
+
+.markdown table tr:nth-child(2n) {
+  background-color: var(--ifm-table-stripe-background);
+}
+
+[data-theme='dark'] pre {
+  color: var(--shiki-dark) !important;
+  background-color: var(--shiki-dark-bg) !important;
+}
+
+[data-theme='dark'] pre span {
+  color: var(--shiki-dark) !important;
+}
